@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fort Lewis College and the Durango community - events, partnerships, continuing education, and public resources.">
+  <title>Community | SKYRIDGE - Fort Lewis College</title>
+  <link rel="stylesheet" href="src/css/design-system.css">
+  <style>
+    /* Persona Navigation */
+    .persona-nav {
+      background: var(--color-primary);
+      padding: var(--space-2) 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .persona-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .persona-nav__logo {
+      font-size: 1.25rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: var(--color-text-inverse);
+      text-decoration: none;
+    }
+
+    .persona-nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .persona-nav__back {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--text-body-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .persona-nav__back:hover {
+      color: var(--color-accent);
+    }
+
+    .persona-nav__cta {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-caption);
+    }
+
+    .persona-nav__cta:hover {
+      background: var(--color-accent-hover);
+      color: var(--color-primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient-hero);
+      color: var(--color-text-inverse);
+      padding: var(--space-12) 0 var(--space-10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.02)" points="0,100 30,70 60,85 100,60 100,100"/></svg>') no-repeat bottom;
+      background-size: 100% 50%;
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 5;
+      max-width: 800px;
+    }
+
+    .hero__badge {
+      display: inline-block;
+      background: rgba(255, 184, 28, 0.2);
+      color: var(--color-accent);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 600;
+      margin-bottom: var(--space-3);
+    }
+
+    .hero__title {
+      font-size: var(--text-hero);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: var(--space-3);
+    }
+
+    .hero__subtitle {
+      font-size: var(--text-h3);
+      font-weight: 300;
+      opacity: 0.9;
+      margin-bottom: var(--space-5);
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      padding: var(--space-8) 0;
+      background: var(--color-surface);
+      margin-top: -var(--space-6);
+      position: relative;
+      z-index: 10;
+    }
+
+    .quick-actions__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .quick-actions__grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .quick-action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--space-4);
+      background: var(--color-bg-light);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      transition: all var(--duration-fast) var(--ease-default);
+      text-decoration: none;
+      color: var(--color-text-primary);
+    }
+
+    .quick-action:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .quick-action__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .quick-action__label {
+      font-weight: 600;
+      font-size: var(--text-body-sm);
+    }
+
+    /* Events Section */
+    .events {
+      padding: var(--space-12) 0;
+    }
+
+    .events__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .events__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .events__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .events__subtitle {
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .events__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .events__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .event-card {
+      text-align: center;
+      padding: var(--space-5);
+    }
+
+    .event-card__icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-3);
+      font-size: 1.75rem;
+    }
+
+    .event-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .event-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+    }
+
+    /* Partnerships Section */
+    .partnerships {
+      padding: var(--space-12) 0;
+      background: var(--color-bg-light);
+    }
+
+    .partnerships__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .partnerships__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .partnerships__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .partnerships__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .partnerships__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .partner-card {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .partner-card__icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      background: rgba(0, 51, 102, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .partner-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .partner-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+      margin: 0;
+    }
+
+    /* Facilities */
+    .facilities {
+      padding: var(--space-12) 0;
+      background: var(--gradient-dark);
+      color: var(--color-text-inverse);
+    }
+
+    .facilities__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .facilities__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .facilities__title {
+      font-size: var(--text-h2);
+      margin-bottom: var(--space-2);
+    }
+
+    .facilities__subtitle {
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .facilities__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .facilities__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .facility-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      text-align: center;
+    }
+
+    .facility-card__icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .facility-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .facility-card__text {
+      opacity: 0.8;
+      font-size: var(--text-body-sm);
+    }
+
+    /* Continuing Education */
+    .education {
+      padding: var(--space-12) 0;
+    }
+
+    .education__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .education__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .education__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .education__subtitle {
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .education__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .education__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .edu-card {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .edu-card__icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      background: rgba(0, 51, 102, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .edu-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .edu-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+      margin: 0;
+    }
+
+    /* Durango Section */
+    .durango {
+      padding: var(--space-12) 0;
+      background: var(--color-bg-light);
+    }
+
+    .durango__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .durango__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .durango__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .durango__subtitle {
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .durango__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .durango__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .durango-card {
+      text-align: center;
+      padding: var(--space-5);
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .durango-card__icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .durango-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .durango-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+    }
+
+    /* CTA Section */
+    .cta {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      padding: var(--space-12) 0;
+      text-align: center;
+    }
+
+    .cta__title {
+      font-size: var(--text-h2);
+      margin-bottom: var(--space-2);
+    }
+
+    .cta__subtitle {
+      opacity: 0.9;
+      margin-bottom: var(--space-5);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      justify-content: center;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-bg-dark);
+      color: var(--color-text-inverse);
+      padding: var(--space-6) 0;
+      text-align: center;
+    }
+
+    .footer__text {
+      opacity: 0.6;
+      font-size: var(--text-caption);
+    }
+
+    .footer__concept {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin-top: var(--space-2);
+      opacity: 0.5;
+      font-size: var(--text-caption);
+    }
+
+    .footer__pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Persona Navigation -->
+  <nav class="persona-nav">
+    <div class="container persona-nav__inner">
+      <a href="index.html" class="persona-nav__logo">SKYRIDGE</a>
+      <div class="persona-nav__links">
+        <a href="index.html" class="persona-nav__back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Home
+        </a>
+        <a href="#" class="persona-nav__cta">Events Calendar</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__content">
+        <span class="hero__badge">Community</span>
+        <h1 class="hero__title">Part of Durango</h1>
+        <p class="hero__subtitle">
+          Fort Lewis College and the Four Corners community are deeply connected.
+          Explore what we have to offer.
+        </p>
+        <div class="hero__actions">
+          <a href="#" class="btn btn--primary">View Events</a>
+          <a href="#" class="btn btn--ghost">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Actions -->
+  <section class="quick-actions">
+    <div class="container">
+      <div class="quick-actions__grid">
+        <a href="#" class="quick-action reveal">
+          <span class="quick-action__icon">📅</span>
+          <span class="quick-action__label">Events</span>
+        </a>
+        <a href="#" class="quick-action reveal reveal--delay-1">
+          <span class="quick-action__icon">🏟️</span>
+          <span class="quick-action__label">Athletics</span>
+        </a>
+        <a href="#" class="quick-action reveal reveal--delay-2">
+          <span class="quick-action__icon">🎭</span>
+          <span class="quick-action__label">Arts</span>
+        </a>
+        <a href="#" class="quick-action reveal reveal--delay-3">
+          <span class="quick-action__icon">📚</span>
+          <span class="quick-action__label">Library</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Public Events -->
+  <section class="events">
+    <div class="container">
+      <header class="events__header reveal">
+        <span class="events__overline">Open to All</span>
+        <h2 class="events__title">Public Events</h2>
+        <p class="events__subtitle">From lectures to performances, Fort Lewis College welcomes the community to campus.</p>
+      </header>
+
+      <div class="events__grid">
+        <article class="card event-card reveal">
+          <div class="event-card__icon">🎤</div>
+          <h3 class="event-card__title">Lectures & Speakers</h3>
+          <p class="event-card__text">Distinguished speakers, public lectures, and thought-provoking discussions open to all.</p>
+        </article>
+
+        <article class="card event-card reveal reveal--delay-1">
+          <div class="event-card__icon">🎭</div>
+          <h3 class="event-card__title">Arts & Performances</h3>
+          <p class="event-card__text">Theater productions, concerts, art exhibitions, and cultural performances.</p>
+        </article>
+
+        <article class="card event-card reveal reveal--delay-2">
+          <div class="event-card__icon">🏈</div>
+          <h3 class="event-card__title">Skyhawk Athletics</h3>
+          <p class="event-card__text">Cheer on our NCAA Division II teams. Football, basketball, volleyball, and more.</p>
+        </article>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-5);">
+        <a href="#" class="btn btn--secondary reveal">View Full Calendar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partnerships -->
+  <section class="partnerships">
+    <div class="container">
+      <header class="partnerships__header reveal">
+        <span class="partnerships__overline">Working Together</span>
+        <h2 class="partnerships__title">Community Partnerships</h2>
+      </header>
+
+      <div class="partnerships__grid">
+        <article class="partner-card reveal">
+          <div class="partner-card__icon">🏢</div>
+          <div>
+            <h3 class="partner-card__title">Business Partnerships</h3>
+            <p class="partner-card__text">Collaborate with FLC on research, workforce development, and student internships.</p>
+          </div>
+        </article>
+
+        <article class="partner-card reveal reveal--delay-1">
+          <div class="partner-card__icon">👩‍🎓</div>
+          <div>
+            <h3 class="partner-card__title">Internship Programs</h3>
+            <p class="partner-card__text">Host FLC students for internships and gain access to emerging talent.</p>
+          </div>
+        </article>
+
+        <article class="partner-card reveal reveal--delay-2">
+          <div class="partner-card__icon">🔬</div>
+          <div>
+            <h3 class="partner-card__title">Research Collaboration</h3>
+            <p class="partner-card__text">Partner on applied research projects that benefit the Four Corners region.</p>
+          </div>
+        </article>
+
+        <article class="partner-card reveal reveal--delay-3">
+          <div class="partner-card__icon">🏫</div>
+          <div>
+            <h3 class="partner-card__title">K-12 Programs</h3>
+            <p class="partner-card__text">Pipeline programs, campus visits, and dual enrollment for local schools.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Facilities Access -->
+  <section class="facilities">
+    <div class="container">
+      <header class="facilities__header reveal">
+        <span class="facilities__overline">Campus Access</span>
+        <h2 class="facilities__title">Community Facilities</h2>
+        <p class="facilities__subtitle">Select campus facilities are available to community members.</p>
+      </header>
+
+      <div class="facilities__grid">
+        <article class="facility-card reveal">
+          <div class="facility-card__icon">🏋️</div>
+          <h3 class="facility-card__title">Recreation Center</h3>
+          <p class="facility-card__text">Community memberships available for gym, pool, climbing wall, and fitness classes.</p>
+        </article>
+
+        <article class="facility-card reveal reveal--delay-1">
+          <div class="facility-card__icon">📚</div>
+          <h3 class="facility-card__title">Reed Library</h3>
+          <p class="facility-card__text">Community borrowing privileges. Access research databases and study spaces.</p>
+        </article>
+
+        <article class="facility-card reveal reveal--delay-2">
+          <div class="facility-card__icon">🎪</div>
+          <h3 class="facility-card__title">Event Venues</h3>
+          <p class="facility-card__text">Rent campus spaces for conferences, weddings, and community events.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Continuing Education -->
+  <section class="education">
+    <div class="container">
+      <header class="education__header reveal">
+        <span class="education__overline">Lifelong Learning</span>
+        <h2 class="education__title">Continuing Education</h2>
+        <p class="education__subtitle">Expand your skills and knowledge through community education programs.</p>
+      </header>
+
+      <div class="education__grid">
+        <article class="edu-card reveal">
+          <div class="edu-card__icon">📖</div>
+          <div>
+            <h3 class="edu-card__title">Non-Credit Courses</h3>
+            <p class="edu-card__text">Professional development, personal enrichment, and skill-building workshops.</p>
+          </div>
+        </article>
+
+        <article class="edu-card reveal reveal--delay-1">
+          <div class="edu-card__icon">💻</div>
+          <div>
+            <h3 class="edu-card__title">Professional Certificates</h3>
+            <p class="edu-card__text">Industry-recognized credentials in business, technology, and healthcare.</p>
+          </div>
+        </article>
+
+        <article class="edu-card reveal reveal--delay-2">
+          <div class="edu-card__icon">🎨</div>
+          <div>
+            <h3 class="edu-card__title">Community Workshops</h3>
+            <p class="edu-card__text">Art classes, language learning, fitness programs, and creative workshops.</p>
+          </div>
+        </article>
+
+        <article class="edu-card reveal reveal--delay-3">
+          <div class="edu-card__icon">👴</div>
+          <div>
+            <h3 class="edu-card__title">Senior Programs</h3>
+            <p class="edu-card__text">Audit courses, senior discounts, and programs designed for lifelong learners.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Durango Connection -->
+  <section class="durango">
+    <div class="container">
+      <header class="durango__header reveal">
+        <span class="durango__overline">Our Home</span>
+        <h2 class="durango__title">The Durango Connection</h2>
+        <p class="durango__subtitle">Fort Lewis College is proud to call Durango home since 1911.</p>
+      </header>
+
+      <div class="durango__grid">
+        <article class="durango-card reveal">
+          <div class="durango-card__icon">🏔️</div>
+          <h3 class="durango-card__title">Outdoor Paradise</h3>
+          <p class="durango-card__text">300+ miles of trails, world-class skiing, and four-season adventure.</p>
+        </article>
+
+        <article class="durango-card reveal reveal--delay-1">
+          <div class="durango-card__icon">🏘️</div>
+          <h3 class="durango-card__title">Historic Downtown</h3>
+          <p class="durango-card__text">Vibrant Main Avenue with local shops, restaurants, and the historic train.</p>
+        </article>
+
+        <article class="durango-card reveal reveal--delay-2">
+          <div class="durango-card__icon">🤝</div>
+          <h3 class="durango-card__title">Community Spirit</h3>
+          <p class="durango-card__text">10,000 residents, 3,500 students, and a shared love of the San Juans.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2 class="cta__title reveal">Get Involved</h2>
+      <p class="cta__subtitle reveal reveal--delay-1">Discover all the ways to connect with Fort Lewis College.</p>
+      <div class="cta__buttons reveal reveal--delay-2">
+        <a href="#" class="btn btn--primary">View Events</a>
+        <a href="#" class="btn btn--ghost">Contact Community Relations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__text">Fort Lewis College | 1000 Rim Drive, Durango, CO 81301</p>
+      <div class="footer__concept">
+        <span class="footer__pulse"></span>
+        <span>SKYRIDGE Concept Prototype</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll reveals
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

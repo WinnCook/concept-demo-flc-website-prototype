@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Supporting your student's journey at Fort Lewis College. Find information on costs, safety, outcomes, and parent resources.">
+  <title>Parents & Families | SKYRIDGE - Fort Lewis College</title>
+  <link rel="stylesheet" href="src/css/design-system.css">
+  <style>
+    /* Persona Navigation */
+    .persona-nav {
+      background: var(--color-primary);
+      padding: var(--space-2) 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .persona-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .persona-nav__logo {
+      font-size: 1.25rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: var(--color-text-inverse);
+      text-decoration: none;
+    }
+
+    .persona-nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .persona-nav__back {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--text-body-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .persona-nav__back:hover {
+      color: var(--color-accent);
+    }
+
+    .persona-nav__cta {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-caption);
+    }
+
+    .persona-nav__cta:hover {
+      background: var(--color-accent-hover);
+      color: var(--color-primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient-hero);
+      color: var(--color-text-inverse);
+      padding: var(--space-12) 0 var(--space-10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.02)" points="0,100 30,70 60,85 100,60 100,100"/></svg>') no-repeat bottom;
+      background-size: 100% 50%;
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 5;
+      max-width: 800px;
+    }
+
+    .hero__badge {
+      display: inline-block;
+      background: rgba(255, 184, 28, 0.2);
+      color: var(--color-accent);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 600;
+      margin-bottom: var(--space-3);
+      animation: fadeInUp 0.6s var(--ease-out) forwards;
+    }
+
+    .hero__title {
+      font-size: var(--text-hero);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: var(--space-3);
+      animation: fadeInUp 0.6s var(--ease-out) 0.1s forwards;
+      opacity: 0;
+    }
+
+    .hero__subtitle {
+      font-size: var(--text-h3);
+      font-weight: 300;
+      opacity: 0.9;
+      margin-bottom: var(--space-5);
+      animation: fadeInUp 0.6s var(--ease-out) 0.2s forwards;
+      opacity: 0;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      animation: fadeInUp 0.6s var(--ease-out) 0.3s forwards;
+      opacity: 0;
+    }
+
+    /* Quick Answers Section */
+    .quick-answers {
+      padding: var(--space-8) 0;
+      background: var(--color-surface);
+      margin-top: -var(--space-6);
+      position: relative;
+      z-index: 10;
+    }
+
+    .quick-answers__title {
+      text-align: center;
+      font-size: var(--text-h3);
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+    }
+
+    .quick-answers__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .quick-answers__grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .quick-answer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--space-4);
+      background: var(--color-bg-light);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      transition: all var(--duration-fast) var(--ease-default);
+      text-decoration: none;
+      color: var(--color-text-primary);
+    }
+
+    .quick-answer:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .quick-answer__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .quick-answer__label {
+      font-weight: 600;
+      font-size: var(--text-body-sm);
+    }
+
+    /* Value & Outcomes */
+    .outcomes {
+      padding: var(--space-12) 0;
+    }
+
+    .outcomes__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .outcomes__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .outcomes__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .outcomes__subtitle {
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .outcomes__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .outcomes__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .outcome-card {
+      text-align: center;
+      padding: var(--space-5);
+      background: var(--color-bg-light);
+      border-radius: var(--radius-lg);
+    }
+
+    .outcome-card__stat {
+      font-size: var(--text-h1);
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1;
+      margin-bottom: var(--space-2);
+    }
+
+    .outcome-card__label {
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .outcome-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+    }
+
+    /* Safety Section */
+    .safety {
+      padding: var(--space-12) 0;
+      background: var(--color-bg-light);
+    }
+
+    .safety__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .safety__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .safety__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .safety__subtitle {
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .safety__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .safety__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .safety-card {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .safety-card__icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      background: rgba(0, 51, 102, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .safety-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .safety-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+      margin: 0;
+    }
+
+    /* Financial Section */
+    .financial {
+      padding: var(--space-12) 0;
+      background: var(--gradient-dark);
+      color: var(--color-text-inverse);
+    }
+
+    .financial__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .financial__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .financial__title {
+      font-size: var(--text-h2);
+      margin-bottom: var(--space-2);
+    }
+
+    .financial__subtitle {
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .financial__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .financial__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .cost-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+    }
+
+    .cost-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-accent);
+      margin-bottom: var(--space-3);
+    }
+
+    .cost-card__item {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: var(--text-body-sm);
+    }
+
+    .cost-card__item:last-child {
+      border-bottom: none;
+    }
+
+    .cost-card__label {
+      opacity: 0.8;
+    }
+
+    .cost-card__value {
+      font-weight: 600;
+    }
+
+    .aid-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+    }
+
+    .aid-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-accent);
+      margin-bottom: var(--space-3);
+    }
+
+    .aid-card__item {
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .aid-card__item:last-child {
+      border-bottom: none;
+    }
+
+    .aid-card__name {
+      font-weight: 600;
+      margin-bottom: var(--space-1);
+    }
+
+    .aid-card__desc {
+      opacity: 0.7;
+      font-size: var(--text-body-sm);
+    }
+
+    /* Parent Resources */
+    .resources {
+      padding: var(--space-12) 0;
+    }
+
+    .resources__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .resources__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .resources__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .resources__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .resources__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .resource-card {
+      text-align: center;
+      padding: var(--space-5);
+    }
+
+    .resource-card__icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-3);
+      font-size: 1.75rem;
+    }
+
+    .resource-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .resource-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+    }
+
+    /* CTA Section */
+    .cta {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      padding: var(--space-12) 0;
+      text-align: center;
+    }
+
+    .cta__title {
+      font-size: var(--text-h2);
+      margin-bottom: var(--space-2);
+    }
+
+    .cta__subtitle {
+      opacity: 0.9;
+      margin-bottom: var(--space-5);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      justify-content: center;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-bg-dark);
+      color: var(--color-text-inverse);
+      padding: var(--space-6) 0;
+      text-align: center;
+    }
+
+    .footer__text {
+      opacity: 0.6;
+      font-size: var(--text-caption);
+    }
+
+    .footer__concept {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin-top: var(--space-2);
+      opacity: 0.5;
+      font-size: var(--text-caption);
+    }
+
+    .footer__pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Persona Navigation -->
+  <nav class="persona-nav">
+    <div class="container persona-nav__inner">
+      <a href="index.html" class="persona-nav__logo">SKYRIDGE</a>
+      <div class="persona-nav__links">
+        <a href="index.html" class="persona-nav__back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Home
+        </a>
+        <a href="#" class="persona-nav__cta">Schedule Visit</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__content">
+        <span class="hero__badge">Parents & Families</span>
+        <h1 class="hero__title">Supporting Your Student's Journey</h1>
+        <p class="hero__subtitle">
+          You want the best for your student. Fort Lewis College delivers outstanding education,
+          meaningful outcomes, and a safe, supportive environment.
+        </p>
+        <div class="hero__actions">
+          <a href="#" class="btn btn--primary">Schedule a Family Visit</a>
+          <a href="#" class="btn btn--ghost">Contact Admissions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Answers -->
+  <section class="quick-answers">
+    <div class="container">
+      <h2 class="quick-answers__title reveal">Quick Answers</h2>
+      <div class="quick-answers__grid">
+        <a href="#financial" class="quick-answer reveal">
+          <span class="quick-answer__icon">💵</span>
+          <span class="quick-answer__label">Cost & Aid</span>
+        </a>
+        <a href="#safety" class="quick-answer reveal reveal--delay-1">
+          <span class="quick-answer__icon">🛡️</span>
+          <span class="quick-answer__label">Safety & Support</span>
+        </a>
+        <a href="#outcomes" class="quick-answer reveal reveal--delay-2">
+          <span class="quick-answer__icon">📈</span>
+          <span class="quick-answer__label">Outcomes</span>
+        </a>
+        <a href="#resources" class="quick-answer reveal reveal--delay-3">
+          <span class="quick-answer__icon">👨‍👩‍👧</span>
+          <span class="quick-answer__label">Parent Resources</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value & Outcomes -->
+  <section class="outcomes" id="outcomes">
+    <div class="container">
+      <header class="outcomes__header reveal">
+        <span class="outcomes__overline">Return on Investment</span>
+        <h2 class="outcomes__title">Outcomes That Matter</h2>
+        <p class="outcomes__subtitle">A Fort Lewis education prepares students for successful careers and meaningful lives.</p>
+      </header>
+
+      <div class="outcomes__grid">
+        <article class="outcome-card reveal">
+          <div class="outcome-card__stat">95%</div>
+          <div class="outcome-card__label">Research Participation</div>
+          <p class="outcome-card__text">Students work alongside faculty on real research projects</p>
+        </article>
+
+        <article class="outcome-card reveal reveal--delay-1">
+          <div class="outcome-card__stat">19:1</div>
+          <div class="outcome-card__label">Student-Faculty Ratio</div>
+          <p class="outcome-card__text">Small classes mean personalized attention and mentorship</p>
+        </article>
+
+        <article class="outcome-card reveal reveal--delay-2">
+          <div class="outcome-card__stat">60+</div>
+          <div class="outcome-card__label">Programs</div>
+          <p class="outcome-card__text">Majors and minors to help your student find their path</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Safety & Support -->
+  <section class="safety" id="safety">
+    <div class="container">
+      <header class="safety__header reveal">
+        <span class="safety__overline">Peace of Mind</span>
+        <h2 class="safety__title">Safe & Supportive Campus</h2>
+        <p class="safety__subtitle">Your student's wellbeing is our priority. Fort Lewis provides comprehensive support services.</p>
+      </header>
+
+      <div class="safety__grid">
+        <article class="safety-card reveal">
+          <div class="safety-card__icon">🚔</div>
+          <div>
+            <h3 class="safety-card__title">Campus Police</h3>
+            <p class="safety-card__text">24/7 campus police department with emergency response, escort services, and community policing.</p>
+          </div>
+        </article>
+
+        <article class="safety-card reveal reveal--delay-1">
+          <div class="safety-card__icon">🏥</div>
+          <div>
+            <h3 class="safety-card__title">Health Services</h3>
+            <p class="safety-card__text">On-campus health center providing medical care, immunizations, and wellness resources.</p>
+          </div>
+        </article>
+
+        <article class="safety-card reveal reveal--delay-2">
+          <div class="safety-card__icon">🧠</div>
+          <div>
+            <h3 class="safety-card__title">Counseling Center</h3>
+            <p class="safety-card__text">Free mental health services including individual counseling, group therapy, and crisis support.</p>
+          </div>
+        </article>
+
+        <article class="safety-card reveal reveal--delay-3">
+          <div class="safety-card__icon">📚</div>
+          <div>
+            <h3 class="safety-card__title">Academic Support</h3>
+            <p class="safety-card__text">Tutoring, writing center, disability services, and academic advising to ensure success.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Financial Information -->
+  <section class="financial" id="financial">
+    <div class="container">
+      <header class="financial__header reveal">
+        <span class="financial__overline">Affordability</span>
+        <h2 class="financial__title">Understanding the Investment</h2>
+        <p class="financial__subtitle">A quality education at an affordable price. Multiple pathways to make Fort Lewis accessible.</p>
+      </header>
+
+      <div class="financial__grid">
+        <div class="cost-card reveal">
+          <h3 class="cost-card__title">2024-25 Estimated Costs</h3>
+          <div class="cost-card__item">
+            <span class="cost-card__label">Tuition (In-State)</span>
+            <span class="cost-card__value">$9,504</span>
+          </div>
+          <div class="cost-card__item">
+            <span class="cost-card__label">Tuition (Out-of-State)</span>
+            <span class="cost-card__value">$21,096</span>
+          </div>
+          <div class="cost-card__item">
+            <span class="cost-card__label">Room & Board</span>
+            <span class="cost-card__value">$11,500</span>
+          </div>
+          <div class="cost-card__item">
+            <span class="cost-card__label">Books & Supplies</span>
+            <span class="cost-card__value">$1,200</span>
+          </div>
+        </div>
+
+        <div class="aid-card reveal reveal--delay-1">
+          <h3 class="aid-card__title">Financial Aid Options</h3>
+          <div class="aid-card__item">
+            <div class="aid-card__name">Tuition Promise</div>
+            <div class="aid-card__desc">Colorado families earning $70K or less: tuition fully covered</div>
+          </div>
+          <div class="aid-card__item">
+            <div class="aid-card__name">Native American Tuition Waiver</div>
+            <div class="aid-card__desc">Full tuition for federally recognized tribal members</div>
+          </div>
+          <div class="aid-card__item">
+            <div class="aid-card__name">Merit Scholarships</div>
+            <div class="aid-card__desc">Based on academic achievement and test scores</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-5);">
+        <a href="#" class="btn btn--primary reveal">Net Price Calculator</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Parent Resources -->
+  <section class="resources" id="resources">
+    <div class="container">
+      <header class="resources__header reveal">
+        <span class="resources__overline">Stay Connected</span>
+        <h2 class="resources__title">Parent & Family Resources</h2>
+      </header>
+
+      <div class="resources__grid">
+        <article class="card resource-card reveal">
+          <div class="resource-card__icon">📅</div>
+          <h3 class="resource-card__title">Family Weekend</h3>
+          <p class="resource-card__text">Join us each fall for a weekend of activities, events, and time with your student.</p>
+        </article>
+
+        <article class="card resource-card reveal reveal--delay-1">
+          <div class="resource-card__icon">📧</div>
+          <h3 class="resource-card__title">Parent Newsletter</h3>
+          <p class="resource-card__text">Monthly updates on campus news, important dates, and ways to support your student.</p>
+        </article>
+
+        <article class="card resource-card reveal reveal--delay-2">
+          <div class="resource-card__icon">📞</div>
+          <h3 class="resource-card__title">Parent Hotline</h3>
+          <p class="resource-card__text">Questions? Our admissions team is here to help. Call or email anytime.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2 class="cta__title reveal">See It For Yourself</h2>
+      <p class="cta__subtitle reveal reveal--delay-1">Schedule a campus visit to experience the Fort Lewis difference.</p>
+      <div class="cta__buttons reveal reveal--delay-2">
+        <a href="#" class="btn btn--primary">Schedule a Family Visit</a>
+        <a href="#" class="btn btn--ghost">Contact Admissions</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__text">Fort Lewis College | 1000 Rim Drive, Durango, CO 81301</p>
+      <div class="footer__concept">
+        <span class="footer__pulse"></span>
+        <span>SKYRIDGE Concept Prototype</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll reveals
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

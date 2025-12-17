@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your future starts at Fort Lewis College. Explore 60+ majors, affordable tuition, and adventure in the Colorado mountains.">
+  <title>Future Students | SKYRIDGE - Fort Lewis College</title>
+  <link rel="stylesheet" href="src/css/design-system.css">
+  <style>
+    /* Persona Navigation */
+    .persona-nav {
+      background: var(--color-primary);
+      padding: var(--space-2) 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .persona-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .persona-nav__logo {
+      font-size: 1.25rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: var(--color-text-inverse);
+      text-decoration: none;
+    }
+
+    .persona-nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .persona-nav__back {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--text-body-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .persona-nav__back:hover {
+      color: var(--color-accent);
+    }
+
+    .persona-nav__cta {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-caption);
+    }
+
+    .persona-nav__cta:hover {
+      background: var(--color-accent-hover);
+      color: var(--color-primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient-hero);
+      color: var(--color-text-inverse);
+      padding: var(--space-12) 0 var(--space-10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.02)" points="0,100 30,70 60,85 100,60 100,100"/></svg>') no-repeat bottom;
+      background-size: 100% 50%;
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 5;
+      max-width: 800px;
+    }
+
+    .hero__badge {
+      display: inline-block;
+      background: rgba(255, 184, 28, 0.2);
+      color: var(--color-accent);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 600;
+      margin-bottom: var(--space-3);
+      animation: fadeInUp 0.6s var(--ease-out) forwards;
+    }
+
+    .hero__title {
+      font-size: var(--text-hero);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: var(--space-3);
+      animation: fadeInUp 0.6s var(--ease-out) 0.1s forwards;
+      opacity: 0;
+    }
+
+    .hero__subtitle {
+      font-size: var(--text-h3);
+      font-weight: 300;
+      opacity: 0.9;
+      margin-bottom: var(--space-5);
+      animation: fadeInUp 0.6s var(--ease-out) 0.2s forwards;
+      opacity: 0;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      animation: fadeInUp 0.6s var(--ease-out) 0.3s forwards;
+      opacity: 0;
+    }
+
+    /* Quick Actions Section */
+    .quick-actions {
+      padding: var(--space-8) 0;
+      background: var(--color-surface);
+      margin-top: -var(--space-6);
+      position: relative;
+      z-index: 10;
+    }
+
+    .quick-actions__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .quick-actions__grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .quick-action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--space-4);
+      background: var(--color-bg-light);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      transition: all var(--duration-fast) var(--ease-default);
+      text-decoration: none;
+      color: var(--color-text-primary);
+    }
+
+    .quick-action:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .quick-action__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .quick-action__label {
+      font-weight: 600;
+      font-size: var(--text-body-sm);
+    }
+
+    /* Value Props Section */
+    .value-props {
+      padding: var(--space-12) 0;
+    }
+
+    .value-props__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .value-props__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .value-props__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .value-props__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .value-props__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .value-card {
+      text-align: center;
+      padding: var(--space-5);
+    }
+
+    .value-card__icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-3);
+      font-size: 1.75rem;
+    }
+
+    .value-card__title {
+      font-size: var(--text-h3);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .value-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+    }
+
+    /* Programs Section */
+    .programs {
+      padding: var(--space-12) 0;
+      background: var(--color-bg-light);
+    }
+
+    .programs__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .programs__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .programs__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .programs__subtitle {
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .programs__grid {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    @media (min-width: 768px) {
+      .programs__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .program-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      border: 1px solid var(--color-border);
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .program-card:hover {
+      border-color: var(--color-primary);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .program-card__school {
+      font-size: var(--text-overline);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-1);
+    }
+
+    .program-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .program-card__programs {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+    }
+
+    /* Affordability Section */
+    .affordability {
+      padding: var(--space-12) 0;
+      background: var(--gradient-dark);
+      color: var(--color-text-inverse);
+    }
+
+    .affordability__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .affordability__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .affordability__title {
+      font-size: var(--text-h2);
+      margin-bottom: var(--space-2);
+    }
+
+    .affordability__subtitle {
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .affordability__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .affordability__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .afford-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      text-align: center;
+    }
+
+    .afford-card__icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .afford-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .afford-card__text {
+      opacity: 0.8;
+      font-size: var(--text-body-sm);
+    }
+
+    /* Campus Life Section */
+    .campus-life {
+      padding: var(--space-12) 0;
+    }
+
+    .campus-life__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .campus-life__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .campus-life__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .campus-life__subtitle {
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .campus-life__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .campus-life__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .life-card {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+    }
+
+    .life-card__icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      background: rgba(0, 51, 102, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .life-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .life-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+      margin: 0;
+    }
+
+    /* Stats Section */
+    .stats {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      padding: var(--space-10) 0;
+    }
+
+    .stats__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .stats__grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .stat__number {
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      font-weight: 700;
+      color: var(--color-accent);
+      line-height: 1;
+      margin-bottom: var(--space-1);
+    }
+
+    .stat__label {
+      font-size: var(--text-body-sm);
+      opacity: 0.8;
+    }
+
+    /* CTA Section */
+    .cta {
+      background: var(--color-bg-light);
+      padding: var(--space-12) 0;
+      text-align: center;
+    }
+
+    .cta__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .cta__subtitle {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-5);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      justify-content: center;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-bg-dark);
+      color: var(--color-text-inverse);
+      padding: var(--space-6) 0;
+      text-align: center;
+    }
+
+    .footer__text {
+      opacity: 0.6;
+      font-size: var(--text-caption);
+    }
+
+    .footer__concept {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin-top: var(--space-2);
+      opacity: 0.5;
+      font-size: var(--text-caption);
+    }
+
+    .footer__pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Persona Navigation -->
+  <nav class="persona-nav">
+    <div class="container persona-nav__inner">
+      <a href="index.html" class="persona-nav__logo">SKYRIDGE</a>
+      <div class="persona-nav__links">
+        <a href="index.html" class="persona-nav__back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Home
+        </a>
+        <a href="#" class="persona-nav__cta">Apply Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__content">
+        <span class="hero__badge">Future Student</span>
+        <h1 class="hero__title">Your Future Starts Here</h1>
+        <p class="hero__subtitle">
+          Discover 60+ programs at Colorado's only public liberal arts college.
+          Small classes. Big adventures. Affordable excellence.
+        </p>
+        <div class="hero__actions">
+          <a href="#" class="btn btn--primary">Start Your Application</a>
+          <a href="#" class="btn btn--ghost">Schedule a Visit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Actions -->
+  <section class="quick-actions">
+    <div class="container">
+      <div class="quick-actions__grid">
+        <a href="#" class="quick-action reveal">
+          <span class="quick-action__icon">📝</span>
+          <span class="quick-action__label">Apply Now</span>
+        </a>
+        <a href="#" class="quick-action reveal reveal--delay-1">
+          <span class="quick-action__icon">📅</span>
+          <span class="quick-action__label">Schedule Visit</span>
+        </a>
+        <a href="#" class="quick-action reveal reveal--delay-2">
+          <span class="quick-action__icon">📬</span>
+          <span class="quick-action__label">Request Info</span>
+        </a>
+        <a href="#" class="quick-action reveal reveal--delay-3">
+          <span class="quick-action__icon">✅</span>
+          <span class="quick-action__label">Check Requirements</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why FLC -->
+  <section class="value-props">
+    <div class="container">
+      <header class="value-props__header reveal">
+        <span class="value-props__overline">Why Fort Lewis</span>
+        <h2 class="value-props__title">An Education That Elevates</h2>
+      </header>
+
+      <div class="value-props__grid">
+        <article class="card value-card reveal reveal--delay-1">
+          <div class="value-card__icon">🔬</div>
+          <h3 class="value-card__title">Research From Day One</h3>
+          <p class="value-card__text">95% of students engage in hands-on research. Work alongside faculty on real projects that matter.</p>
+        </article>
+
+        <article class="card value-card reveal reveal--delay-2">
+          <div class="value-card__icon">👥</div>
+          <h3 class="value-card__title">Small By Design</h3>
+          <p class="value-card__text">19-student average class size. Know your professors by name. Get the attention you deserve.</p>
+        </article>
+
+        <article class="card value-card reveal reveal--delay-3">
+          <div class="value-card__icon">🏔️</div>
+          <h3 class="value-card__title">Adventure Awaits</h3>
+          <p class="value-card__text">300+ miles of trails. Five ski resorts nearby. The San Juan Mountains are your classroom.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs Explorer -->
+  <section class="programs">
+    <div class="container">
+      <header class="programs__header reveal">
+        <span class="programs__overline">Academics</span>
+        <h2 class="programs__title">Find Your Path</h2>
+        <p class="programs__subtitle">60+ majors and minors across three schools. From business to biology, art to adventure education.</p>
+      </header>
+
+      <div class="programs__grid">
+        <article class="program-card reveal">
+          <span class="program-card__school">School of Arts & Sciences</span>
+          <h3 class="program-card__title">Explore Ideas</h3>
+          <p class="program-card__programs">Biology, Chemistry, Physics, Psychology, English, History, Philosophy, and more</p>
+        </article>
+
+        <article class="program-card reveal reveal--delay-1">
+          <span class="program-card__school">School of Business Administration</span>
+          <h3 class="program-card__title">Build Your Future</h3>
+          <p class="program-card__programs">Accounting, Economics, Management, Marketing, and Entrepreneurship</p>
+        </article>
+
+        <article class="program-card reveal reveal--delay-2">
+          <span class="program-card__school">Teacher Education</span>
+          <h3 class="program-card__title">Inspire Others</h3>
+          <p class="program-card__programs">Elementary, Secondary, and Special Education programs</p>
+        </article>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-5);">
+        <a href="#" class="btn btn--secondary reveal">View All Programs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Affordability -->
+  <section class="affordability">
+    <div class="container">
+      <header class="affordability__header reveal">
+        <span class="affordability__overline">Affordability</span>
+        <h2 class="affordability__title">Excellence Within Reach</h2>
+        <p class="affordability__subtitle">A Fort Lewis education is more affordable than you think. Multiple pathways to make your dream a reality.</p>
+      </header>
+
+      <div class="affordability__grid">
+        <article class="afford-card reveal">
+          <div class="afford-card__icon">💰</div>
+          <h3 class="afford-card__title">Tuition Promise</h3>
+          <p class="afford-card__text">Colorado families earning $70K or less: your tuition is fully covered. Period.</p>
+        </article>
+
+        <article class="afford-card reveal reveal--delay-1">
+          <div class="afford-card__icon">🪶</div>
+          <h3 class="afford-card__title">Native American Waiver</h3>
+          <p class="afford-card__text">Full tuition waiver for all federally recognized tribal members, nationwide.</p>
+        </article>
+
+        <article class="afford-card reveal reveal--delay-2">
+          <div class="afford-card__icon">🎓</div>
+          <h3 class="afford-card__title">Scholarships & Aid</h3>
+          <p class="afford-card__text">Merit scholarships, need-based aid, and work-study opportunities available.</p>
+        </article>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-5);">
+        <a href="#" class="btn btn--primary reveal">Calculate Your Cost</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Campus Life -->
+  <section class="campus-life">
+    <div class="container">
+      <header class="campus-life__header reveal">
+        <span class="campus-life__overline">Campus Life</span>
+        <h2 class="campus-life__title">More Than Classes</h2>
+        <p class="campus-life__subtitle">From residence halls to recreation, find your community at 7,600 feet.</p>
+      </header>
+
+      <div class="campus-life__grid">
+        <article class="card life-card reveal">
+          <div class="life-card__icon">🏠</div>
+          <div>
+            <h3 class="life-card__title">Living on Campus</h3>
+            <p class="life-card__text">Modern residence halls with mountain views. Living-learning communities. Dining options for every taste.</p>
+          </div>
+        </article>
+
+        <article class="card life-card reveal reveal--delay-1">
+          <div class="life-card__icon">🎭</div>
+          <div>
+            <h3 class="life-card__title">Clubs & Organizations</h3>
+            <p class="life-card__text">60+ student organizations from outdoor clubs to cultural groups. Find your people.</p>
+          </div>
+        </article>
+
+        <article class="card life-card reveal reveal--delay-2">
+          <div class="life-card__icon">🎿</div>
+          <div>
+            <h3 class="life-card__title">Outdoor Recreation</h3>
+            <p class="life-card__text">Skiing, hiking, climbing, kayaking. The Adventure Education program is nationally recognized.</p>
+          </div>
+        </article>
+
+        <article class="card life-card reveal reveal--delay-3">
+          <div class="life-card__icon">🏈</div>
+          <div>
+            <h3 class="life-card__title">Skyhawk Athletics</h3>
+            <p class="life-card__text">NCAA Division II. 14 varsity sports. Intramurals for everyone. Go Skyhawks!</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats__grid">
+        <div class="stat reveal">
+          <div class="stat__number">60+</div>
+          <div class="stat__label">Majors & Programs</div>
+        </div>
+        <div class="stat reveal reveal--delay-1">
+          <div class="stat__number">19:1</div>
+          <div class="stat__label">Student-Faculty Ratio</div>
+        </div>
+        <div class="stat reveal reveal--delay-2">
+          <div class="stat__number">95%</div>
+          <div class="stat__label">Research Participation</div>
+        </div>
+        <div class="stat reveal reveal--delay-3">
+          <div class="stat__number">7,600</div>
+          <div class="stat__label">Feet Elevation</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2 class="cta__title reveal">Ready to Rise?</h2>
+      <p class="cta__subtitle reveal reveal--delay-1">Take the first step toward your Fort Lewis adventure.</p>
+      <div class="cta__buttons reveal reveal--delay-2">
+        <a href="#" class="btn btn--primary">Apply Now</a>
+        <a href="#" class="btn btn--secondary">Schedule a Visit</a>
+        <a href="#" class="btn btn--secondary">Request Info</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__text">Fort Lewis College | 1000 Rim Drive, Durango, CO 81301</p>
+      <div class="footer__concept">
+        <span class="footer__pulse"></span>
+        <span>SKYRIDGE Concept Prototype</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll reveals
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

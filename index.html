@@ -161,6 +161,32 @@
       }
     }
 
+    .router__grid--secondary {
+      margin-top: var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .router__grid--secondary {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    .router__btn--compact {
+      padding: var(--space-2);
+    }
+
+    .router__btn--compact .router__icon {
+      font-size: 1.5rem;
+      margin-bottom: var(--space-1);
+    }
+
+    .router__btn--compact .router__text {
+      font-size: var(--text-caption);
+    }
+
     .router__btn {
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(10px);
@@ -522,22 +548,36 @@
 
       <div class="router">
         <p class="router__label">I am a...</p>
-        <div class="router__grid">
-          <button class="router__btn" type="button">
+        <div class="router__grid router__grid--primary">
+          <button class="router__btn" type="button" data-route="future-student.html">
             <span class="router__icon">🎓</span>
             <span class="router__text">Future Student</span>
           </button>
-          <button class="router__btn" type="button">
+          <button class="router__btn" type="button" data-route="parent.html">
             <span class="router__icon">👨‍👩‍👧</span>
             <span class="router__text">Parent/Family</span>
           </button>
-          <button class="router__btn" type="button">
+          <button class="router__btn" type="button" data-route="current-student.html">
             <span class="router__icon">📚</span>
             <span class="router__text">Current Student</span>
           </button>
-          <button class="router__btn" type="button">
+          <button class="router__btn" type="button" data-route="alumni.html">
             <span class="router__icon">🎯</span>
             <span class="router__text">Alumni</span>
+          </button>
+        </div>
+        <div class="router__grid router__grid--secondary">
+          <button class="router__btn router__btn--compact" type="button" data-route="faculty.html">
+            <span class="router__icon">👨‍🏫</span>
+            <span class="router__text">Faculty</span>
+          </button>
+          <button class="router__btn router__btn--compact" type="button" data-route="staff.html">
+            <span class="router__icon">💼</span>
+            <span class="router__text">Staff</span>
+          </button>
+          <button class="router__btn router__btn--compact" type="button" data-route="community.html">
+            <span class="router__icon">🏘️</span>
+            <span class="router__text">Community</span>
           </button>
         </div>
       </div>
@@ -729,11 +769,13 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Audience router buttons (demo behavior)
+    // Audience router buttons - navigate to persona pages
     document.querySelectorAll('.router__btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        const text = btn.querySelector('.router__text').textContent;
-        alert(`In the full concept, this would route to a personalized ${text} experience.`);
+        const route = btn.getAttribute('data-route');
+        if (route) {
+          window.location.href = route;
+        }
       });
     });
   </script>

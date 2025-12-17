@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fort Lewis College Faculty Resources - Academic tools, governance, research support, and professional development.">
+  <title>Faculty | SKYRIDGE - Fort Lewis College</title>
+  <link rel="stylesheet" href="src/css/design-system.css">
+  <style>
+    /* Persona Navigation */
+    .persona-nav {
+      background: var(--color-primary);
+      padding: var(--space-2) 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .persona-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .persona-nav__logo {
+      font-size: 1.25rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: var(--color-text-inverse);
+      text-decoration: none;
+    }
+
+    .persona-nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .persona-nav__back {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--text-body-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .persona-nav__back:hover {
+      color: var(--color-accent);
+    }
+
+    .persona-nav__cta {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-caption);
+    }
+
+    .persona-nav__cta:hover {
+      background: var(--color-accent-hover);
+      color: var(--color-primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient-hero);
+      color: var(--color-text-inverse);
+      padding: var(--space-10) 0 var(--space-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.02)" points="0,100 30,70 60,85 100,60 100,100"/></svg>') no-repeat bottom;
+      background-size: 100% 50%;
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 5;
+    }
+
+    .hero__badge {
+      display: inline-block;
+      background: rgba(255, 184, 28, 0.2);
+      color: var(--color-accent);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 600;
+      margin-bottom: var(--space-2);
+    }
+
+    .hero__title {
+      font-size: var(--text-h1);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: var(--space-2);
+    }
+
+    .hero__subtitle {
+      font-size: var(--text-body);
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    /* Quick Access Grid */
+    .quick-access {
+      padding: var(--space-8) 0;
+      background: var(--color-surface);
+    }
+
+    .quick-access__title {
+      font-size: var(--text-h3);
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+    }
+
+    .quick-access__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .quick-access__grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .quick-access__grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    .quick-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--space-4);
+      background: var(--color-bg-light);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      transition: all var(--duration-fast) var(--ease-default);
+      text-decoration: none;
+      color: var(--color-text-primary);
+    }
+
+    .quick-link:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .quick-link__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .quick-link__label {
+      font-weight: 600;
+      font-size: var(--text-body-sm);
+    }
+
+    /* Academic Resources */
+    .academic {
+      padding: var(--space-10) 0;
+      background: var(--color-bg-light);
+    }
+
+    .academic__header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .academic__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .academic__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .academic__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .academic__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .academic-card {
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .academic-card__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .academic-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .academic-card__list {
+      list-style: none;
+    }
+
+    .academic-card__item {
+      padding: var(--space-1) 0;
+    }
+
+    .academic-card__link {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+    }
+
+    .academic-card__link:hover {
+      color: var(--color-primary);
+    }
+
+    /* Governance */
+    .governance {
+      padding: var(--space-10) 0;
+    }
+
+    .governance__header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .governance__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .governance__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .governance__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .governance__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .gov-card {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .gov-card__icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      background: rgba(0, 51, 102, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .gov-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .gov-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+      margin: 0;
+    }
+
+    /* Professional Development */
+    .development {
+      padding: var(--space-10) 0;
+      background: var(--gradient-dark);
+      color: var(--color-text-inverse);
+    }
+
+    .development__header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .development__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .development__title {
+      font-size: var(--text-h2);
+    }
+
+    .development__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .development__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .dev-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      text-align: center;
+    }
+
+    .dev-card__icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .dev-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .dev-card__text {
+      opacity: 0.8;
+      font-size: var(--text-body-sm);
+    }
+
+    /* Research Support */
+    .research {
+      padding: var(--space-10) 0;
+      background: var(--color-bg-light);
+    }
+
+    .research__header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .research__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .research__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .research__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .research__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .research-card {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .research-card__icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      background: rgba(0, 51, 102, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .research-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .research-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+      margin: 0;
+    }
+
+    /* CTA Section */
+    .cta {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      padding: var(--space-10) 0;
+      text-align: center;
+    }
+
+    .cta__title {
+      font-size: var(--text-h2);
+      margin-bottom: var(--space-2);
+    }
+
+    .cta__subtitle {
+      opacity: 0.9;
+      margin-bottom: var(--space-5);
+    }
+
+    .cta__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      justify-content: center;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-bg-dark);
+      color: var(--color-text-inverse);
+      padding: var(--space-6) 0;
+      text-align: center;
+    }
+
+    .footer__text {
+      opacity: 0.6;
+      font-size: var(--text-caption);
+    }
+
+    .footer__concept {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin-top: var(--space-2);
+      opacity: 0.5;
+      font-size: var(--text-caption);
+    }
+
+    .footer__pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Persona Navigation -->
+  <nav class="persona-nav">
+    <div class="container persona-nav__inner">
+      <a href="index.html" class="persona-nav__logo">SKYRIDGE</a>
+      <div class="persona-nav__links">
+        <a href="index.html" class="persona-nav__back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Home
+        </a>
+        <a href="#" class="persona-nav__cta">Faculty Portal</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__content">
+        <span class="hero__badge">Faculty</span>
+        <h1 class="hero__title">Empowering Educators</h1>
+        <p class="hero__subtitle">Resources, support, and tools to help you inspire the next generation of Skyhawks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Access -->
+  <section class="quick-access">
+    <div class="container">
+      <h2 class="quick-access__title reveal">Quick Access</h2>
+      <div class="quick-access__grid">
+        <a href="#" class="quick-link reveal">
+          <span class="quick-link__icon">📚</span>
+          <span class="quick-link__label">Canvas</span>
+        </a>
+        <a href="#" class="quick-link reveal reveal--delay-1">
+          <span class="quick-link__icon">💼</span>
+          <span class="quick-link__label">Workday</span>
+        </a>
+        <a href="#" class="quick-link reveal reveal--delay-2">
+          <span class="quick-link__icon">📧</span>
+          <span class="quick-link__label">Email</span>
+        </a>
+        <a href="#" class="quick-link reveal reveal--delay-3">
+          <span class="quick-link__icon">📖</span>
+          <span class="quick-link__label">Library</span>
+        </a>
+        <a href="#" class="quick-link reveal">
+          <span class="quick-link__icon">📅</span>
+          <span class="quick-link__label">Calendar</span>
+        </a>
+        <a href="#" class="quick-link reveal reveal--delay-1">
+          <span class="quick-link__icon">📋</span>
+          <span class="quick-link__label">Course Catalog</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academic Resources -->
+  <section class="academic">
+    <div class="container">
+      <header class="academic__header reveal">
+        <span class="academic__overline">Teaching Tools</span>
+        <h2 class="academic__title">Academic Resources</h2>
+      </header>
+
+      <div class="academic__grid">
+        <article class="academic-card reveal">
+          <div class="academic-card__icon">📝</div>
+          <h3 class="academic-card__title">Teaching Support</h3>
+          <ul class="academic-card__list">
+            <li class="academic-card__item"><a href="#" class="academic-card__link">Canvas Resources</a></li>
+            <li class="academic-card__item"><a href="#" class="academic-card__link">Syllabus Templates</a></li>
+            <li class="academic-card__item"><a href="#" class="academic-card__link">Assessment Tools</a></li>
+            <li class="academic-card__item"><a href="#" class="academic-card__link">Classroom Technology</a></li>
+          </ul>
+        </article>
+
+        <article class="academic-card reveal reveal--delay-1">
+          <div class="academic-card__icon">📊</div>
+          <h3 class="academic-card__title">Curriculum</h3>
+          <ul class="academic-card__list">
+            <li class="academic-card__item"><a href="#" class="academic-card__link">Course Catalog</a></li>
+            <li class="academic-card__item"><a href="#" class="academic-card__link">Program Reviews</a></li>
+            <li class="academic-card__item"><a href="#" class="academic-card__link">Learning Outcomes</a></li>
+            <li class="academic-card__item"><a href="#" class="academic-card__link">Accreditation</a></li>
+          </ul>
+        </article>
+
+        <article class="academic-card reveal reveal--delay-2">
+          <div class="academic-card__icon">👥</div>
+          <h3 class="academic-card__title">Student Success</h3>
+          <ul class="academic-card__list">
+            <li class="academic-card__item"><a href="#" class="academic-card__link">Advising Resources</a></li>
+            <li class="academic-card__item"><a href="#" class="academic-card__link">Early Alert System</a></li>
+            <li class="academic-card__item"><a href="#" class="academic-card__link">Tutoring Referrals</a></li>
+            <li class="academic-card__item"><a href="#" class="academic-card__link">Accessibility Services</a></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Governance -->
+  <section class="governance">
+    <div class="container">
+      <header class="governance__header reveal">
+        <span class="governance__overline">Shared Governance</span>
+        <h2 class="governance__title">Faculty Governance</h2>
+      </header>
+
+      <div class="governance__grid">
+        <article class="gov-card reveal">
+          <div class="gov-card__icon">🏛️</div>
+          <div>
+            <h3 class="gov-card__title">Faculty Senate</h3>
+            <p class="gov-card__text">Meeting schedules, agendas, minutes, and current initiatives from Faculty Senate.</p>
+          </div>
+        </article>
+
+        <article class="gov-card reveal reveal--delay-1">
+          <div class="gov-card__icon">📋</div>
+          <div>
+            <h3 class="gov-card__title">Committees</h3>
+            <p class="gov-card__text">Standing committees, ad hoc groups, and opportunities for faculty participation.</p>
+          </div>
+        </article>
+
+        <article class="gov-card reveal reveal--delay-2">
+          <div class="gov-card__icon">📜</div>
+          <div>
+            <h3 class="gov-card__title">Policies & Procedures</h3>
+            <p class="gov-card__text">Faculty handbook, academic policies, and institutional procedures.</p>
+          </div>
+        </article>
+
+        <article class="gov-card reveal reveal--delay-3">
+          <div class="gov-card__icon">📢</div>
+          <div>
+            <h3 class="gov-card__title">Faculty Union</h3>
+            <p class="gov-card__text">Union resources, contract information, and representation details.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Development -->
+  <section class="development">
+    <div class="container">
+      <header class="development__header reveal">
+        <span class="development__overline">Growth & Learning</span>
+        <h2 class="development__title">Professional Development</h2>
+      </header>
+
+      <div class="development__grid">
+        <article class="dev-card reveal">
+          <div class="dev-card__icon">🎓</div>
+          <h3 class="dev-card__title">Workshops</h3>
+          <p class="dev-card__text">Teaching workshops, technology training, and pedagogy seminars throughout the year.</p>
+        </article>
+
+        <article class="dev-card reveal reveal--delay-1">
+          <div class="dev-card__icon">💰</div>
+          <h3 class="dev-card__title">Grants & Funding</h3>
+          <p class="dev-card__text">Professional development grants, conference travel funds, and research support.</p>
+        </article>
+
+        <article class="dev-card reveal reveal--delay-2">
+          <div class="dev-card__icon">🏖️</div>
+          <h3 class="dev-card__title">Sabbatical</h3>
+          <p class="dev-card__text">Sabbatical leave policies, application process, and past sabbatical reports.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research Support -->
+  <section class="research">
+    <div class="container">
+      <header class="research__header reveal">
+        <span class="research__overline">Scholarship</span>
+        <h2 class="research__title">Research Support</h2>
+      </header>
+
+      <div class="research__grid">
+        <article class="research-card reveal">
+          <div class="research-card__icon">💵</div>
+          <div>
+            <h3 class="research-card__title">Grant Resources</h3>
+            <p class="research-card__text">Internal grants, external funding opportunities, and proposal support services.</p>
+          </div>
+        </article>
+
+        <article class="research-card reveal reveal--delay-1">
+          <div class="research-card__icon">📋</div>
+          <div>
+            <h3 class="research-card__title">IRB</h3>
+            <p class="research-card__text">Institutional Review Board for human subjects research. Forms, training, and protocols.</p>
+          </div>
+        </article>
+
+        <article class="research-card reveal reveal--delay-2">
+          <div class="research-card__icon">🔬</div>
+          <div>
+            <h3 class="research-card__title">Facilities</h3>
+            <p class="research-card__text">Lab spaces, equipment, and research facilities available to faculty.</p>
+          </div>
+        </article>
+
+        <article class="research-card reveal reveal--delay-3">
+          <div class="research-card__icon">👨‍🎓</div>
+          <div>
+            <h3 class="research-card__title">Student Research</h3>
+            <p class="research-card__text">Resources for mentoring undergraduate research and SURF program participation.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2 class="cta__title reveal">Need Help?</h2>
+      <p class="cta__subtitle reveal reveal--delay-1">Contact the Provost's Office or your department for assistance.</p>
+      <div class="cta__buttons reveal reveal--delay-2">
+        <a href="#" class="btn btn--primary">Faculty Portal</a>
+        <a href="#" class="btn btn--ghost">Contact Provost Office</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__text">Fort Lewis College | 1000 Rim Drive, Durango, CO 81301</p>
+      <div class="footer__concept">
+        <span class="footer__pulse"></span>
+        <span>SKYRIDGE Concept Prototype</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll reveals
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

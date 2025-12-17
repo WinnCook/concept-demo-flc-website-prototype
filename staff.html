@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fort Lewis College Staff Resources - HR, benefits, procedures, and campus services.">
+  <title>Staff | SKYRIDGE - Fort Lewis College</title>
+  <link rel="stylesheet" href="src/css/design-system.css">
+  <style>
+    /* Persona Navigation */
+    .persona-nav {
+      background: var(--color-primary);
+      padding: var(--space-2) 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .persona-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .persona-nav__logo {
+      font-size: 1.25rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: var(--color-text-inverse);
+      text-decoration: none;
+    }
+
+    .persona-nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .persona-nav__back {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--text-body-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .persona-nav__back:hover {
+      color: var(--color-accent);
+    }
+
+    .persona-nav__cta {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-caption);
+    }
+
+    .persona-nav__cta:hover {
+      background: var(--color-accent-hover);
+      color: var(--color-primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient-hero);
+      color: var(--color-text-inverse);
+      padding: var(--space-10) 0 var(--space-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.02)" points="0,100 30,70 60,85 100,60 100,100"/></svg>') no-repeat bottom;
+      background-size: 100% 50%;
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 5;
+    }
+
+    .hero__badge {
+      display: inline-block;
+      background: rgba(255, 184, 28, 0.2);
+      color: var(--color-accent);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 600;
+      margin-bottom: var(--space-2);
+    }
+
+    .hero__title {
+      font-size: var(--text-h1);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: var(--space-2);
+    }
+
+    .hero__subtitle {
+      font-size: var(--text-body);
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    /* Quick Access Grid */
+    .quick-access {
+      padding: var(--space-8) 0;
+      background: var(--color-surface);
+    }
+
+    .quick-access__title {
+      font-size: var(--text-h3);
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+    }
+
+    .quick-access__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .quick-access__grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .quick-access__grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    .quick-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--space-4);
+      background: var(--color-bg-light);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      transition: all var(--duration-fast) var(--ease-default);
+      text-decoration: none;
+      color: var(--color-text-primary);
+    }
+
+    .quick-link:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .quick-link__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .quick-link__label {
+      font-weight: 600;
+      font-size: var(--text-body-sm);
+    }
+
+    /* HR Resources */
+    .hr {
+      padding: var(--space-10) 0;
+      background: var(--color-bg-light);
+    }
+
+    .hr__header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .hr__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .hr__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .hr__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .hr__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .hr-card {
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .hr-card__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .hr-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .hr-card__list {
+      list-style: none;
+    }
+
+    .hr-card__item {
+      padding: var(--space-1) 0;
+    }
+
+    .hr-card__link {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+    }
+
+    .hr-card__link:hover {
+      color: var(--color-primary);
+    }
+
+    /* Procedures */
+    .procedures {
+      padding: var(--space-10) 0;
+    }
+
+    .procedures__header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .procedures__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .procedures__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .procedures__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .procedures__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .proc-card {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .proc-card__icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      background: rgba(0, 51, 102, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .proc-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .proc-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+      margin: 0;
+    }
+
+    /* Campus Services */
+    .services {
+      padding: var(--space-10) 0;
+      background: var(--gradient-dark);
+      color: var(--color-text-inverse);
+    }
+
+    .services__header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .services__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .services__title {
+      font-size: var(--text-h2);
+    }
+
+    .services__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .services__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .service-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      text-align: center;
+    }
+
+    .service-card__icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .service-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .service-card__text {
+      opacity: 0.8;
+      font-size: var(--text-body-sm);
+    }
+
+    /* Professional Growth */
+    .growth {
+      padding: var(--space-10) 0;
+      background: var(--color-bg-light);
+    }
+
+    .growth__header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .growth__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .growth__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .growth__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .growth__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .growth-card {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .growth-card__icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      background: rgba(0, 51, 102, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .growth-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .growth-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+      margin: 0;
+    }
+
+    /* CTA Section */
+    .cta {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      padding: var(--space-10) 0;
+      text-align: center;
+    }
+
+    .cta__title {
+      font-size: var(--text-h2);
+      margin-bottom: var(--space-2);
+    }
+
+    .cta__subtitle {
+      opacity: 0.9;
+      margin-bottom: var(--space-5);
+    }
+
+    .cta__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      justify-content: center;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-bg-dark);
+      color: var(--color-text-inverse);
+      padding: var(--space-6) 0;
+      text-align: center;
+    }
+
+    .footer__text {
+      opacity: 0.6;
+      font-size: var(--text-caption);
+    }
+
+    .footer__concept {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin-top: var(--space-2);
+      opacity: 0.5;
+      font-size: var(--text-caption);
+    }
+
+    .footer__pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Persona Navigation -->
+  <nav class="persona-nav">
+    <div class="container persona-nav__inner">
+      <a href="index.html" class="persona-nav__logo">SKYRIDGE</a>
+      <div class="persona-nav__links">
+        <a href="index.html" class="persona-nav__back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Home
+        </a>
+        <a href="#" class="persona-nav__cta">Staff Portal</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__content">
+        <span class="hero__badge">Staff</span>
+        <h1 class="hero__title">The People Who Make It Happen</h1>
+        <p class="hero__subtitle">Everything you need to do your best work at Fort Lewis College.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Access -->
+  <section class="quick-access">
+    <div class="container">
+      <h2 class="quick-access__title reveal">Quick Access</h2>
+      <div class="quick-access__grid">
+        <a href="#" class="quick-link reveal">
+          <span class="quick-link__icon">💼</span>
+          <span class="quick-link__label">Workday</span>
+        </a>
+        <a href="#" class="quick-link reveal reveal--delay-1">
+          <span class="quick-link__icon">📧</span>
+          <span class="quick-link__label">Email</span>
+        </a>
+        <a href="#" class="quick-link reveal reveal--delay-2">
+          <span class="quick-link__icon">🎫</span>
+          <span class="quick-link__label">IT Help</span>
+        </a>
+        <a href="#" class="quick-link reveal reveal--delay-3">
+          <span class="quick-link__icon">🗺️</span>
+          <span class="quick-link__label">Campus Map</span>
+        </a>
+        <a href="#" class="quick-link reveal">
+          <span class="quick-link__icon">📅</span>
+          <span class="quick-link__label">Calendar</span>
+        </a>
+        <a href="#" class="quick-link reveal reveal--delay-1">
+          <span class="quick-link__icon">📋</span>
+          <span class="quick-link__label">Forms</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HR Resources -->
+  <section class="hr">
+    <div class="container">
+      <header class="hr__header reveal">
+        <span class="hr__overline">Human Resources</span>
+        <h2 class="hr__title">HR Resources</h2>
+      </header>
+
+      <div class="hr__grid">
+        <article class="hr-card reveal">
+          <div class="hr-card__icon">💰</div>
+          <h3 class="hr-card__title">Pay & Benefits</h3>
+          <ul class="hr-card__list">
+            <li class="hr-card__item"><a href="#" class="hr-card__link">Payroll Information</a></li>
+            <li class="hr-card__item"><a href="#" class="hr-card__link">Health Insurance</a></li>
+            <li class="hr-card__item"><a href="#" class="hr-card__link">Retirement (PERA)</a></li>
+            <li class="hr-card__item"><a href="#" class="hr-card__link">Tuition Benefit</a></li>
+          </ul>
+        </article>
+
+        <article class="hr-card reveal reveal--delay-1">
+          <div class="hr-card__icon">🏖️</div>
+          <h3 class="hr-card__title">Time & Leave</h3>
+          <ul class="hr-card__list">
+            <li class="hr-card__item"><a href="#" class="hr-card__link">Time Off Requests</a></li>
+            <li class="hr-card__item"><a href="#" class="hr-card__link">Leave Balances</a></li>
+            <li class="hr-card__item"><a href="#" class="hr-card__link">FMLA Information</a></li>
+            <li class="hr-card__item"><a href="#" class="hr-card__link">Holiday Schedule</a></li>
+          </ul>
+        </article>
+
+        <article class="hr-card reveal reveal--delay-2">
+          <div class="hr-card__icon">❤️</div>
+          <h3 class="hr-card__title">Wellness</h3>
+          <ul class="hr-card__list">
+            <li class="hr-card__item"><a href="#" class="hr-card__link">Wellness Program</a></li>
+            <li class="hr-card__item"><a href="#" class="hr-card__link">EAP Services</a></li>
+            <li class="hr-card__item"><a href="#" class="hr-card__link">Rec Center Access</a></li>
+            <li class="hr-card__item"><a href="#" class="hr-card__link">Health Screenings</a></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Procedures -->
+  <section class="procedures">
+    <div class="container">
+      <header class="procedures__header reveal">
+        <span class="procedures__overline">Getting Things Done</span>
+        <h2 class="procedures__title">Procedures & Forms</h2>
+      </header>
+
+      <div class="procedures__grid">
+        <article class="proc-card reveal">
+          <div class="proc-card__icon">📝</div>
+          <div>
+            <h3 class="proc-card__title">Common Forms</h3>
+            <p class="proc-card__text">Purchase requests, travel forms, expense reports, and other commonly used forms.</p>
+          </div>
+        </article>
+
+        <article class="proc-card reveal reveal--delay-1">
+          <div class="proc-card__icon">📜</div>
+          <div>
+            <h3 class="proc-card__title">Policies</h3>
+            <p class="proc-card__text">Employee handbook, institutional policies, and compliance requirements.</p>
+          </div>
+        </article>
+
+        <article class="proc-card reveal reveal--delay-2">
+          <div class="proc-card__icon">🎓</div>
+          <div>
+            <h3 class="proc-card__title">Required Training</h3>
+            <p class="proc-card__text">Compliance training, safety certifications, and professional development requirements.</p>
+          </div>
+        </article>
+
+        <article class="proc-card reveal reveal--delay-3">
+          <div class="proc-card__icon">🆘</div>
+          <div>
+            <h3 class="proc-card__title">Emergency Procedures</h3>
+            <p class="proc-card__text">Emergency response plans, evacuation routes, and safety protocols.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Campus Services -->
+  <section class="services">
+    <div class="container">
+      <header class="services__header reveal">
+        <span class="services__overline">On Campus</span>
+        <h2 class="services__title">Campus Services</h2>
+      </header>
+
+      <div class="services__grid">
+        <article class="service-card reveal">
+          <div class="service-card__icon">🏢</div>
+          <h3 class="service-card__title">Facilities</h3>
+          <p class="service-card__text">Maintenance requests, room reservations, and building services.</p>
+        </article>
+
+        <article class="service-card reveal reveal--delay-1">
+          <div class="service-card__icon">🚗</div>
+          <h3 class="service-card__title">Parking</h3>
+          <p class="service-card__text">Parking permits, lot assignments, and transportation options.</p>
+        </article>
+
+        <article class="service-card reveal reveal--delay-2">
+          <div class="service-card__icon">🍽️</div>
+          <h3 class="service-card__title">Dining</h3>
+          <p class="service-card__text">Campus dining options, meal plans, and catering services.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Growth -->
+  <section class="growth">
+    <div class="container">
+      <header class="growth__header reveal">
+        <span class="growth__overline">Development</span>
+        <h2 class="growth__title">Professional Growth</h2>
+      </header>
+
+      <div class="growth__grid">
+        <article class="growth-card reveal">
+          <div class="growth-card__icon">📈</div>
+          <div>
+            <h3 class="growth-card__title">Training & Development</h3>
+            <p class="growth-card__text">Professional development workshops, skills training, and certification programs.</p>
+          </div>
+        </article>
+
+        <article class="growth-card reveal reveal--delay-1">
+          <div class="growth-card__icon">🎯</div>
+          <div>
+            <h3 class="growth-card__title">Career Advancement</h3>
+            <p class="growth-card__text">Internal job postings, promotion pathways, and career counseling.</p>
+          </div>
+        </article>
+
+        <article class="growth-card reveal reveal--delay-2">
+          <div class="growth-card__icon">🏆</div>
+          <div>
+            <h3 class="growth-card__title">Recognition Programs</h3>
+            <p class="growth-card__text">Employee awards, service milestones, and appreciation events.</p>
+          </div>
+        </article>
+
+        <article class="growth-card reveal reveal--delay-3">
+          <div class="growth-card__icon">🎓</div>
+          <div>
+            <h3 class="growth-card__title">Tuition Benefit</h3>
+            <p class="growth-card__text">Free tuition for employees and dependents. Advance your education at FLC.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2 class="cta__title reveal">Need Assistance?</h2>
+      <p class="cta__subtitle reveal reveal--delay-1">HR is here to help with any questions or concerns.</p>
+      <div class="cta__buttons reveal reveal--delay-2">
+        <a href="#" class="btn btn--primary">Staff Portal</a>
+        <a href="#" class="btn btn--ghost">Contact HR</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__text">Fort Lewis College | 1000 Rim Drive, Durango, CO 81301</p>
+      <div class="footer__concept">
+        <span class="footer__pulse"></span>
+        <span>SKYRIDGE Concept Prototype</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll reveals
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

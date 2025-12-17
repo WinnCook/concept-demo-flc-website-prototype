@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fort Lewis College Alumni - Stay connected, give back, and celebrate your Skyhawk legacy.">
+  <title>Alumni | SKYRIDGE - Fort Lewis College</title>
+  <link rel="stylesheet" href="src/css/design-system.css">
+  <style>
+    /* Persona Navigation */
+    .persona-nav {
+      background: var(--color-primary);
+      padding: var(--space-2) 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .persona-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .persona-nav__logo {
+      font-size: 1.25rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: var(--color-text-inverse);
+      text-decoration: none;
+    }
+
+    .persona-nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .persona-nav__back {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--text-body-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .persona-nav__back:hover {
+      color: var(--color-accent);
+    }
+
+    .persona-nav__cta {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-caption);
+    }
+
+    .persona-nav__cta:hover {
+      background: var(--color-accent-hover);
+      color: var(--color-primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient-hero);
+      color: var(--color-text-inverse);
+      padding: var(--space-12) 0 var(--space-10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.02)" points="0,100 30,70 60,85 100,60 100,100"/></svg>') no-repeat bottom;
+      background-size: 100% 50%;
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 5;
+      max-width: 800px;
+    }
+
+    .hero__badge {
+      display: inline-block;
+      background: rgba(255, 184, 28, 0.2);
+      color: var(--color-accent);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 600;
+      margin-bottom: var(--space-3);
+    }
+
+    .hero__title {
+      font-size: var(--text-hero);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: var(--space-3);
+    }
+
+    .hero__subtitle {
+      font-size: var(--text-h3);
+      font-weight: 300;
+      opacity: 0.9;
+      margin-bottom: var(--space-5);
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      padding: var(--space-8) 0;
+      background: var(--color-surface);
+      margin-top: -var(--space-6);
+      position: relative;
+      z-index: 10;
+    }
+
+    .quick-actions__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .quick-actions__grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .quick-action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--space-4);
+      background: var(--color-bg-light);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      transition: all var(--duration-fast) var(--ease-default);
+      text-decoration: none;
+      color: var(--color-text-primary);
+    }
+
+    .quick-action:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .quick-action__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .quick-action__label {
+      font-weight: 600;
+      font-size: var(--text-body-sm);
+    }
+
+    /* Stay Connected */
+    .connected {
+      padding: var(--space-12) 0;
+    }
+
+    .connected__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .connected__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .connected__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .connected__subtitle {
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .connected__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .connected__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .connect-card {
+      text-align: center;
+      padding: var(--space-5);
+    }
+
+    .connect-card__icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-3);
+      font-size: 1.75rem;
+    }
+
+    .connect-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .connect-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+    }
+
+    /* Give Back */
+    .giving {
+      padding: var(--space-12) 0;
+      background: var(--gradient-dark);
+      color: var(--color-text-inverse);
+    }
+
+    .giving__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .giving__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .giving__title {
+      font-size: var(--text-h2);
+      margin-bottom: var(--space-2);
+    }
+
+    .giving__subtitle {
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .giving__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .giving__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .give-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      text-align: center;
+    }
+
+    .give-card__icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .give-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .give-card__text {
+      opacity: 0.8;
+      font-size: var(--text-body-sm);
+    }
+
+    /* Career Network */
+    .network {
+      padding: var(--space-12) 0;
+      background: var(--color-bg-light);
+    }
+
+    .network__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .network__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .network__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .network__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .network__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .network-card {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .network-card__icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      background: rgba(0, 51, 102, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .network-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .network-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+      margin: 0;
+    }
+
+    /* Campus News */
+    .news {
+      padding: var(--space-12) 0;
+    }
+
+    .news__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .news__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .news__link {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .news__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .news__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .news-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+    }
+
+    .news-card__date {
+      font-size: var(--text-overline);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .news-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .news-card__excerpt {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+    }
+
+    /* CTA Section */
+    .cta {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      padding: var(--space-12) 0;
+      text-align: center;
+    }
+
+    .cta__title {
+      font-size: var(--text-h2);
+      margin-bottom: var(--space-2);
+    }
+
+    .cta__subtitle {
+      opacity: 0.9;
+      margin-bottom: var(--space-5);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      justify-content: center;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-bg-dark);
+      color: var(--color-text-inverse);
+      padding: var(--space-6) 0;
+      text-align: center;
+    }
+
+    .footer__text {
+      opacity: 0.6;
+      font-size: var(--text-caption);
+    }
+
+    .footer__concept {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin-top: var(--space-2);
+      opacity: 0.5;
+      font-size: var(--text-caption);
+    }
+
+    .footer__pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Persona Navigation -->
+  <nav class="persona-nav">
+    <div class="container persona-nav__inner">
+      <a href="index.html" class="persona-nav__logo">SKYRIDGE</a>
+      <div class="persona-nav__links">
+        <a href="index.html" class="persona-nav__back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Home
+        </a>
+        <a href="#" class="persona-nav__cta">Make a Gift</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__content">
+        <span class="hero__badge">Alumni</span>
+        <h1 class="hero__title">Forever a Skyhawk</h1>
+        <p class="hero__subtitle">
+          Your FLC journey continues. Stay connected, give back, and help shape the future of Fort Lewis College.
+        </p>
+        <div class="hero__actions">
+          <a href="#" class="btn btn--primary">Update Your Info</a>
+          <a href="#" class="btn btn--ghost">Make a Gift</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Actions -->
+  <section class="quick-actions">
+    <div class="container">
+      <div class="quick-actions__grid">
+        <a href="#" class="quick-action reveal">
+          <span class="quick-action__icon">📧</span>
+          <span class="quick-action__label">Update Info</span>
+        </a>
+        <a href="#" class="quick-action reveal reveal--delay-1">
+          <span class="quick-action__icon">💝</span>
+          <span class="quick-action__label">Give</span>
+        </a>
+        <a href="#" class="quick-action reveal reveal--delay-2">
+          <span class="quick-action__icon">📅</span>
+          <span class="quick-action__label">Events</span>
+        </a>
+        <a href="#" class="quick-action reveal reveal--delay-3">
+          <span class="quick-action__icon">🤝</span>
+          <span class="quick-action__label">Mentor</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stay Connected -->
+  <section class="connected">
+    <div class="container">
+      <header class="connected__header reveal">
+        <span class="connected__overline">Your Community</span>
+        <h2 class="connected__title">Stay Connected</h2>
+        <p class="connected__subtitle">The Skyhawk family extends far beyond graduation. Join thousands of alumni staying engaged.</p>
+      </header>
+
+      <div class="connected__grid">
+        <article class="card connect-card reveal">
+          <div class="connect-card__icon">🎉</div>
+          <h3 class="connect-card__title">Alumni Events</h3>
+          <p class="connect-card__text">Reunions, regional meetups, homecoming, and networking events throughout the year.</p>
+        </article>
+
+        <article class="card connect-card reveal reveal--delay-1">
+          <div class="connect-card__icon">📰</div>
+          <h3 class="connect-card__title">Alumni Magazine</h3>
+          <p class="connect-card__text">Quarterly publication featuring alumni stories, campus news, and Skyhawk achievements.</p>
+        </article>
+
+        <article class="card connect-card reveal reveal--delay-2">
+          <div class="connect-card__icon">💬</div>
+          <h3 class="connect-card__title">Online Community</h3>
+          <p class="connect-card__text">Join our LinkedIn group and connect with fellow Skyhawks around the world.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Give Back -->
+  <section class="giving">
+    <div class="container">
+      <header class="giving__header reveal">
+        <span class="giving__overline">Make an Impact</span>
+        <h2 class="giving__title">Give Back</h2>
+        <p class="giving__subtitle">Your support creates opportunities for the next generation of Skyhawks.</p>
+      </header>
+
+      <div class="giving__grid">
+        <article class="give-card reveal">
+          <div class="give-card__icon">🎓</div>
+          <h3 class="give-card__title">Scholarships</h3>
+          <p class="give-card__text">Fund student scholarships and make an FLC education accessible to all.</p>
+        </article>
+
+        <article class="give-card reveal reveal--delay-1">
+          <div class="give-card__icon">🔬</div>
+          <h3 class="give-card__title">Research</h3>
+          <p class="give-card__text">Support student-faculty research and hands-on learning experiences.</p>
+        </article>
+
+        <article class="give-card reveal reveal--delay-2">
+          <div class="give-card__icon">🏫</div>
+          <h3 class="give-card__title">Campus Projects</h3>
+          <p class="give-card__text">Help fund facilities, equipment, and programs that shape student success.</p>
+        </article>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-5);">
+        <a href="#" class="btn btn--primary reveal">Make a Gift</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Career Network -->
+  <section class="network">
+    <div class="container">
+      <header class="network__header reveal">
+        <span class="network__overline">Professional Growth</span>
+        <h2 class="network__title">Career Network</h2>
+      </header>
+
+      <div class="network__grid">
+        <article class="network-card reveal">
+          <div class="network-card__icon">💼</div>
+          <div>
+            <h3 class="network-card__title">Job Board</h3>
+            <p class="network-card__text">Exclusive job postings from Skyhawk employers and alumni-owned businesses.</p>
+          </div>
+        </article>
+
+        <article class="network-card reveal reveal--delay-1">
+          <div class="network-card__icon">🤝</div>
+          <div>
+            <h3 class="network-card__title">Mentorship</h3>
+            <p class="network-card__text">Mentor current students and recent grads. Share your experience and expertise.</p>
+          </div>
+        </article>
+
+        <article class="network-card reveal reveal--delay-2">
+          <div class="network-card__icon">🔗</div>
+          <div>
+            <h3 class="network-card__title">LinkedIn Network</h3>
+            <p class="network-card__text">Join 10,000+ Skyhawks on LinkedIn. Network, recruit, and stay connected.</p>
+          </div>
+        </article>
+
+        <article class="network-card reveal reveal--delay-3">
+          <div class="network-card__icon">🎤</div>
+          <div>
+            <h3 class="network-card__title">Speaker Series</h3>
+            <p class="network-card__text">Share your career journey with current students. Inspire the next generation.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Campus News -->
+  <section class="news">
+    <div class="container">
+      <header class="news__header reveal">
+        <h2 class="news__title">Campus News</h2>
+        <a href="#" class="news__link">View All News</a>
+      </header>
+
+      <div class="news__grid">
+        <article class="news-card reveal">
+          <div class="news-card__date">December 2024</div>
+          <h3 class="news-card__title">New Research Center Opens</h3>
+          <p class="news-card__excerpt">State-of-the-art facility expands student research opportunities in environmental science.</p>
+        </article>
+
+        <article class="news-card reveal reveal--delay-1">
+          <div class="news-card__date">November 2024</div>
+          <h3 class="news-card__title">Skyhawks Win Conference Title</h3>
+          <p class="news-card__excerpt">Women's basketball captures RMAC championship in thrilling overtime victory.</p>
+        </article>
+
+        <article class="news-card reveal reveal--delay-2">
+          <div class="news-card__date">October 2024</div>
+          <h3 class="news-card__title">Homecoming 2024 Recap</h3>
+          <p class="news-card__excerpt">Record attendance as alumni return to campus for the annual celebration.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2 class="cta__title reveal">Stay in Touch</h2>
+      <p class="cta__subtitle reveal reveal--delay-1">Update your contact info to receive alumni news, event invitations, and networking opportunities.</p>
+      <div class="cta__buttons reveal reveal--delay-2">
+        <a href="#" class="btn btn--primary">Update Your Info</a>
+        <a href="#" class="btn btn--ghost">Contact Alumni Office</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__text">Fort Lewis College Alumni Association | 1000 Rim Drive, Durango, CO 81301</p>
+      <div class="footer__concept">
+        <span class="footer__pulse"></span>
+        <span>SKYRIDGE Concept Prototype</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll reveals
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

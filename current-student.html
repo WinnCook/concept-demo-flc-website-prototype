@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Current student resources at Fort Lewis College. Quick access to Canvas, email, registration, and campus services.">
+  <title>Current Students | SKYRIDGE - Fort Lewis College</title>
+  <link rel="stylesheet" href="src/css/design-system.css">
+  <style>
+    /* Persona Navigation */
+    .persona-nav {
+      background: var(--color-primary);
+      padding: var(--space-2) 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .persona-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .persona-nav__logo {
+      font-size: 1.25rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: var(--color-text-inverse);
+      text-decoration: none;
+    }
+
+    .persona-nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .persona-nav__back {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--text-body-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .persona-nav__back:hover {
+      color: var(--color-accent);
+    }
+
+    .persona-nav__cta {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-caption);
+    }
+
+    .persona-nav__cta:hover {
+      background: var(--color-accent-hover);
+      color: var(--color-primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient-hero);
+      color: var(--color-text-inverse);
+      padding: var(--space-10) 0 var(--space-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.02)" points="0,100 30,70 60,85 100,60 100,100"/></svg>') no-repeat bottom;
+      background-size: 100% 50%;
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 5;
+    }
+
+    .hero__badge {
+      display: inline-block;
+      background: rgba(255, 184, 28, 0.2);
+      color: var(--color-accent);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 600;
+      margin-bottom: var(--space-2);
+    }
+
+    .hero__title {
+      font-size: var(--text-h1);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: var(--space-2);
+    }
+
+    .hero__subtitle {
+      font-size: var(--text-body);
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    /* Alert Banner */
+    .alert-banner {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: var(--space-2) 0;
+      text-align: center;
+    }
+
+    .alert-banner__text {
+      font-size: var(--text-body-sm);
+      font-weight: 600;
+    }
+
+    .alert-banner__link {
+      color: var(--color-primary);
+      text-decoration: underline;
+      margin-left: var(--space-2);
+    }
+
+    /* Quick Access Grid */
+    .quick-access {
+      padding: var(--space-8) 0;
+      background: var(--color-surface);
+    }
+
+    .quick-access__title {
+      font-size: var(--text-h3);
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+    }
+
+    .quick-access__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .quick-access__grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .quick-access__grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    .quick-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--space-4);
+      background: var(--color-bg-light);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      transition: all var(--duration-fast) var(--ease-default);
+      text-decoration: none;
+      color: var(--color-text-primary);
+    }
+
+    .quick-link:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .quick-link__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .quick-link__label {
+      font-weight: 600;
+      font-size: var(--text-body-sm);
+    }
+
+    /* Important Dates */
+    .dates {
+      padding: var(--space-8) 0;
+      background: var(--color-bg-light);
+    }
+
+    .dates__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-4);
+    }
+
+    .dates__title {
+      font-size: var(--text-h3);
+      color: var(--color-primary);
+    }
+
+    .dates__link {
+      color: var(--color-primary);
+      font-size: var(--text-body-sm);
+      font-weight: 600;
+    }
+
+    .dates__grid {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    @media (min-width: 768px) {
+      .dates__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .dates__grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .date-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-3);
+      border-left: 4px solid var(--color-accent);
+    }
+
+    .date-card__date {
+      font-size: var(--text-overline);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-1);
+    }
+
+    .date-card__title {
+      font-size: var(--text-body);
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    /* Resources Section */
+    .resources {
+      padding: var(--space-10) 0;
+    }
+
+    .resources__header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .resources__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .resources__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .resources__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .resource-card {
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .resource-card__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .resource-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .resource-card__list {
+      list-style: none;
+    }
+
+    .resource-card__item {
+      padding: var(--space-1) 0;
+    }
+
+    .resource-card__link {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+    }
+
+    .resource-card__link:hover {
+      color: var(--color-primary);
+    }
+
+    /* Campus Life */
+    .campus-life {
+      padding: var(--space-10) 0;
+      background: var(--color-bg-light);
+    }
+
+    .campus-life__header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .campus-life__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .campus-life__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .campus-life__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .life-card {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .life-card__icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      background: rgba(0, 51, 102, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .life-card__title {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .life-card__text {
+      color: var(--color-text-secondary);
+      font-size: var(--text-body-sm);
+      margin: 0;
+    }
+
+    /* Support Services */
+    .support {
+      padding: var(--space-10) 0;
+      background: var(--gradient-dark);
+      color: var(--color-text-inverse);
+    }
+
+    .support__header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .support__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .support__title {
+      font-size: var(--text-h2);
+    }
+
+    .support__grid {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    @media (min-width: 768px) {
+      .support__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .support__grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .support-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      text-align: center;
+    }
+
+    .support-card__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .support-card__title {
+      font-size: var(--text-body);
+      font-weight: 600;
+      color: var(--color-accent);
+      margin-bottom: var(--space-1);
+    }
+
+    .support-card__text {
+      opacity: 0.7;
+      font-size: var(--text-caption);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-bg-dark);
+      color: var(--color-text-inverse);
+      padding: var(--space-6) 0;
+    }
+
+    .footer__grid {
+      display: grid;
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .footer__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .footer__section-title {
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .footer__contact {
+      font-size: var(--text-body-sm);
+      opacity: 0.8;
+    }
+
+    .footer__contact-item {
+      margin-bottom: var(--space-1);
+    }
+
+    .footer__bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--space-4);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer__text {
+      opacity: 0.6;
+      font-size: var(--text-caption);
+    }
+
+    .footer__concept {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      opacity: 0.5;
+      font-size: var(--text-caption);
+    }
+
+    .footer__pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Persona Navigation -->
+  <nav class="persona-nav">
+    <div class="container persona-nav__inner">
+      <a href="index.html" class="persona-nav__logo">SKYRIDGE</a>
+      <div class="persona-nav__links">
+        <a href="index.html" class="persona-nav__back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Home
+        </a>
+        <a href="#" class="persona-nav__cta">My Portal</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Alert Banner -->
+  <div class="alert-banner">
+    <div class="container">
+      <span class="alert-banner__text">Spring 2025 Registration Now Open</span>
+      <a href="#" class="alert-banner__link">Register Now</a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__content">
+        <span class="hero__badge">Current Student</span>
+        <h1 class="hero__title">Welcome Back, Skyhawk</h1>
+        <p class="hero__subtitle">Your one-stop shop for campus resources, academic tools, and student services.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Access -->
+  <section class="quick-access">
+    <div class="container">
+      <h2 class="quick-access__title reveal">Quick Access</h2>
+      <div class="quick-access__grid">
+        <a href="#" class="quick-link reveal">
+          <span class="quick-link__icon">📚</span>
+          <span class="quick-link__label">Canvas</span>
+        </a>
+        <a href="#" class="quick-link reveal reveal--delay-1">
+          <span class="quick-link__icon">📧</span>
+          <span class="quick-link__label">Email</span>
+        </a>
+        <a href="#" class="quick-link reveal reveal--delay-2">
+          <span class="quick-link__icon">📖</span>
+          <span class="quick-link__label">Library</span>
+        </a>
+        <a href="#" class="quick-link reveal reveal--delay-3">
+          <span class="quick-link__icon">📅</span>
+          <span class="quick-link__label">Registration</span>
+        </a>
+        <a href="#" class="quick-link reveal">
+          <span class="quick-link__icon">👤</span>
+          <span class="quick-link__label">Advising</span>
+        </a>
+        <a href="#" class="quick-link reveal reveal--delay-1">
+          <span class="quick-link__icon">🗺️</span>
+          <span class="quick-link__label">Campus Map</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Important Dates -->
+  <section class="dates">
+    <div class="container">
+      <header class="dates__header">
+        <h2 class="dates__title reveal">Important Dates</h2>
+        <a href="#" class="dates__link">View Academic Calendar</a>
+      </header>
+
+      <div class="dates__grid">
+        <article class="date-card reveal">
+          <div class="date-card__date">Dec 13-19</div>
+          <div class="date-card__title">Finals Week</div>
+        </article>
+
+        <article class="date-card reveal reveal--delay-1">
+          <div class="date-card__date">Dec 20</div>
+          <div class="date-card__title">Winter Break Begins</div>
+        </article>
+
+        <article class="date-card reveal reveal--delay-2">
+          <div class="date-card__date">Jan 13</div>
+          <div class="date-card__title">Spring Classes Begin</div>
+        </article>
+
+        <article class="date-card reveal reveal--delay-3">
+          <div class="date-card__date">Jan 17</div>
+          <div class="date-card__title">Add/Drop Deadline</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academic Resources -->
+  <section class="resources">
+    <div class="container">
+      <header class="resources__header reveal">
+        <h2 class="resources__title">Academic Resources</h2>
+      </header>
+
+      <div class="resources__grid">
+        <article class="resource-card reveal">
+          <div class="resource-card__icon">📝</div>
+          <h3 class="resource-card__title">Academic Support</h3>
+          <ul class="resource-card__list">
+            <li class="resource-card__item"><a href="#" class="resource-card__link">Tutoring Center</a></li>
+            <li class="resource-card__item"><a href="#" class="resource-card__link">Writing Center</a></li>
+            <li class="resource-card__item"><a href="#" class="resource-card__link">Math Lab</a></li>
+            <li class="resource-card__item"><a href="#" class="resource-card__link">Study Groups</a></li>
+          </ul>
+        </article>
+
+        <article class="resource-card reveal reveal--delay-1">
+          <div class="resource-card__icon">💼</div>
+          <h3 class="resource-card__title">Career Services</h3>
+          <ul class="resource-card__list">
+            <li class="resource-card__item"><a href="#" class="resource-card__link">Job & Internship Board</a></li>
+            <li class="resource-card__item"><a href="#" class="resource-card__link">Resume Help</a></li>
+            <li class="resource-card__item"><a href="#" class="resource-card__link">Career Counseling</a></li>
+            <li class="resource-card__item"><a href="#" class="resource-card__link">Career Fairs</a></li>
+          </ul>
+        </article>
+
+        <article class="resource-card reveal reveal--delay-2">
+          <div class="resource-card__icon">🏦</div>
+          <h3 class="resource-card__title">Financial Services</h3>
+          <ul class="resource-card__list">
+            <li class="resource-card__item"><a href="#" class="resource-card__link">Financial Aid Office</a></li>
+            <li class="resource-card__item"><a href="#" class="resource-card__link">Student Accounts</a></li>
+            <li class="resource-card__item"><a href="#" class="resource-card__link">Scholarships</a></li>
+            <li class="resource-card__item"><a href="#" class="resource-card__link">Emergency Funds</a></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Campus Life -->
+  <section class="campus-life">
+    <div class="container">
+      <header class="campus-life__header reveal">
+        <h2 class="campus-life__title">Campus Life</h2>
+      </header>
+
+      <div class="campus-life__grid">
+        <article class="life-card reveal">
+          <div class="life-card__icon">🎭</div>
+          <div>
+            <h3 class="life-card__title">Events & Activities</h3>
+            <p class="life-card__text">Concerts, speakers, cultural events, and more. Check the campus events calendar.</p>
+          </div>
+        </article>
+
+        <article class="life-card reveal reveal--delay-1">
+          <div class="life-card__icon">🤝</div>
+          <div>
+            <h3 class="life-card__title">Clubs & Organizations</h3>
+            <p class="life-card__text">60+ student organizations. Find your community or start something new.</p>
+          </div>
+        </article>
+
+        <article class="life-card reveal reveal--delay-2">
+          <div class="life-card__icon">🏋️</div>
+          <div>
+            <h3 class="life-card__title">Recreation Center</h3>
+            <p class="life-card__text">Gym, climbing wall, group fitness classes, and outdoor equipment rentals.</p>
+          </div>
+        </article>
+
+        <article class="life-card reveal reveal--delay-3">
+          <div class="life-card__icon">🍽️</div>
+          <div>
+            <h3 class="life-card__title">Dining</h3>
+            <p class="life-card__text">Dining hall, coffee shops, meal plans, and nutrition information.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Support Services -->
+  <section class="support">
+    <div class="container">
+      <header class="support__header reveal">
+        <span class="support__overline">We're Here For You</span>
+        <h2 class="support__title">Support Services</h2>
+      </header>
+
+      <div class="support__grid">
+        <article class="support-card reveal">
+          <div class="support-card__icon">🧠</div>
+          <h3 class="support-card__title">Counseling Center</h3>
+          <p class="support-card__text">Free mental health services</p>
+        </article>
+
+        <article class="support-card reveal reveal--delay-1">
+          <div class="support-card__icon">🏥</div>
+          <h3 class="support-card__title">Health Center</h3>
+          <p class="support-card__text">Medical care on campus</p>
+        </article>
+
+        <article class="support-card reveal reveal--delay-2">
+          <div class="support-card__icon">♿</div>
+          <h3 class="support-card__title">Disability Services</h3>
+          <p class="support-card__text">Accommodations & support</p>
+        </article>
+
+        <article class="support-card reveal reveal--delay-3">
+          <div class="support-card__icon">🚨</div>
+          <h3 class="support-card__title">Campus Safety</h3>
+          <p class="support-card__text">24/7 emergency services</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <h4 class="footer__section-title">Emergency Contacts</h4>
+          <div class="footer__contact">
+            <div class="footer__contact-item">Campus Police: (970) 247-7626</div>
+            <div class="footer__contact-item">Health Center: (970) 247-7129</div>
+            <div class="footer__contact-item">Counseling: (970) 247-7212</div>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__section-title">Tech Support</h4>
+          <div class="footer__contact">
+            <div class="footer__contact-item">IT Help Desk: (970) 247-7227</div>
+            <div class="footer__contact-item">Email: help@fortlewis.edu</div>
+            <div class="footer__contact-item">Location: Reed Library, 1st Floor</div>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__section-title">Hours</h4>
+          <div class="footer__contact">
+            <div class="footer__contact-item">Dining Hall: 7am - 8pm</div>
+            <div class="footer__contact-item">Library: 7am - 12am</div>
+            <div class="footer__contact-item">Rec Center: 6am - 10pm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__text">Fort Lewis College | 1000 Rim Drive, Durango, CO 81301</p>
+        <div class="footer__concept">
+          <span class="footer__pulse"></span>
+          <span>SKYRIDGE Concept Prototype</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll reveals
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
