@@ -1086,6 +1086,101 @@
       border-radius: 50%;
       animation: pulse 2s ease-in-out infinite;
     }
+
+    /* Welcome Modal */
+    .welcome-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-4);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .welcome-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .welcome-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+    }
+
+    .welcome-modal__content {
+      position: relative;
+      background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-bg-light) 100%);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      max-width: 600px;
+      width: 100%;
+      box-shadow: var(--shadow-xl), 0 0 60px rgba(255, 184, 28, 0.2);
+      border: 1px solid var(--color-border);
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .welcome-modal.active .welcome-modal__content {
+      transform: scale(1) translateY(0);
+    }
+
+    .welcome-modal__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: var(--gradient-gold);
+      color: #000;
+      font-size: var(--text-caption);
+      font-weight: 600;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      margin-bottom: var(--space-4);
+    }
+
+    .welcome-modal__title {
+      font-size: var(--text-h2);
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-4);
+    }
+
+    .welcome-modal__text {
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-6);
+    }
+
+    .welcome-modal__close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      background: var(--gradient-gold);
+      color: #000;
+      font-weight: 600;
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-lg);
+      border: none;
+      cursor: pointer;
+      font-size: var(--text-body);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .welcome-modal__close:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 184, 28, 0.4);
+    }
+
+    [data-theme="dark"] .welcome-modal__content {
+      background: linear-gradient(135deg, #161B22 0%, #0D1117 100%);
+      border-color: #30363D;
+    }
   </style>
 </head>
 <body>
@@ -1131,7 +1226,7 @@
     </div>
     <nav class="nav">
       <div class="container nav__inner">
-        <a href="/" class="nav__logo">HORIZON</a>
+        <a href="index.html" class="nav__logo">HORIZON</a>
         <ul class="nav__links">
           <li><a href="programs.html" class="nav__link">Programs</a></li>
           <li><a href="admission.html" class="nav__link">Admission</a></li>
@@ -1149,8 +1244,28 @@
             <span class="theme-toggle__icon">🌙</span>
           </button>
           <a href="admission.html" class="nav__cta">Apply Now</a>
+          <button class="nav__hamburger" aria-label="Menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
         </div>
       </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav__backdrop"></div>
+    <nav class="mobile-nav">
+      <ul class="mobile-nav__links">
+        <li><a href="index.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">🏠</span>Home</a></li>
+        <li><a href="programs.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">📚</span>Programs</a></li>
+        <li><a href="admission.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">🎓</span>Admission</a></li>
+        <li><a href="campus.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">🏔️</span>Campus</a></li>
+        <li><a href="about.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">ℹ️</span>About</a></li>
+        <li><a href="data.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">📊</span>Data</a></li>
+      </ul>
+      <div class="mobile-nav__divider"></div>
+      <a href="admission.html" class="mobile-nav__cta">Apply Now</a>
     </nav>
 
     <div class="hero__content">
@@ -1168,7 +1283,7 @@
         <div class="concept-badge__content">
           <span class="concept-badge__label">Prototype · Not the Real Website</span>
           <p class="concept-badge__text">
-            A concept demonstration of AI-driven design workflows. Built from scratch in hours, not months.
+            This concept is a demonstration of AI-driven design workflows and is intended for structural visualization only. To expedite this 2-3 hour build, the application utilizes unvalidated data scraped from public sources. As a result, content may be legacy or non-current, serving only to populate the prototype for this demonstration.
           </p>
         </div>
       </div>
@@ -1389,6 +1504,25 @@
   <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
 
+  <!-- Welcome Modal (First-time Visitor) -->
+  <div class="welcome-modal" id="welcomeModal" role="dialog" aria-modal="true" aria-label="Welcome">
+    <div class="welcome-modal__backdrop" onclick="closeWelcomeModal()"></div>
+    <div class="welcome-modal__content">
+      <span class="welcome-modal__badge">
+        <span>✨</span>
+        <span>AI-Powered Prototype</span>
+      </span>
+      <h2 class="welcome-modal__title">Welcome to HORIZON</h2>
+      <p class="welcome-modal__text">
+        To demonstrate the efficiency of this new workflow, I've developed a rapid prototype of the Fort Lewis website. Completed in just 2–3 hours, this concept is not intended to replace our current site, but to serve as a concrete example of how AI can significantly accelerate our development cycles. This approach allows us to fast-track the redesign of any digital asset and deploy dynamic, custom applications to support our physical operations and services.
+      </p>
+      <button class="welcome-modal__close" onclick="closeWelcomeModal()">
+        <span>Explore the Prototype</span>
+        <span>→</span>
+      </button>
+    </div>
+  </div>
+
   <!-- Omnisearch Modal -->
   <div class="omnisearch" id="omnisearch" role="dialog" aria-modal="true" aria-label="Search">
     <div class="omnisearch__container">
@@ -1450,6 +1584,29 @@
   <div class="activity-feed" id="activityFeed" aria-label="Live activity feed"></div>
 
   <script>
+    // Welcome Modal for first-time visitors
+    function showWelcomeModal() {
+      const modal = document.getElementById('welcomeModal');
+      if (modal) {
+        setTimeout(() => modal.classList.add('active'), 500);
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeWelcomeModal() {
+      const modal = document.getElementById('welcomeModal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        localStorage.setItem('horizon-welcomed', 'true');
+      }
+    }
+
+    // Check if first-time visitor
+    if (!localStorage.getItem('horizon-welcomed')) {
+      showWelcomeModal();
+    }
+
     // Intersection Observer for scroll reveals
     const observerOptions = {
       threshold: 0.1,
