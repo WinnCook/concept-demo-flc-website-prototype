@@ -803,13 +803,26 @@
       border: 2px dashed var(--color-border);
       border-radius: var(--radius-lg);
       padding: var(--space-4);
-      min-height: 80px;
+      min-height: 100px;
       transition: all var(--duration-fast);
+    }
+
+    .drop-zone--measures {
+      border-color: #10B981;
+      background: rgba(16, 185, 129, 0.03);
     }
 
     .drop-zone.drag-over {
       border-color: var(--color-primary);
-      background: rgba(0, 51, 102, 0.05);
+      background: rgba(0, 51, 102, 0.08);
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(0, 51, 102, 0.15);
+    }
+
+    .drop-zone--measures.drag-over {
+      border-color: #10B981;
+      background: rgba(16, 185, 129, 0.1);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
     }
 
     .drop-zone__label {
@@ -1295,15 +1308,15 @@
             <!-- Drop Zones -->
             <div class="drop-zones">
               <div class="drop-zone" id="dropX" data-zone="x-axis">
-                <div class="drop-zone__label">X-Axis (Columns)</div>
+                <div class="drop-zone__label">📅 Dimension (X-Axis)</div>
                 <div class="drop-zone__content" id="dropXContent">
-                  <span class="drop-zone__placeholder">Drag a dimension here</span>
+                  <span class="drop-zone__placeholder">Drop "Year" here</span>
                 </div>
               </div>
-              <div class="drop-zone" id="dropY" data-zone="y-axis">
-                <div class="drop-zone__label">Y-Axis (Rows)</div>
+              <div class="drop-zone drop-zone--measures" id="dropY" data-zone="y-axis">
+                <div class="drop-zone__label">📊 Measures (Values)</div>
                 <div class="drop-zone__content" id="dropYContent">
-                  <span class="drop-zone__placeholder">Drag measures here</span>
+                  <span class="drop-zone__placeholder">Drop measures here (e.g., Total, Men, Women)</span>
                 </div>
               </div>
             </div>
@@ -1327,8 +1340,8 @@
               <div class="chart-preview__content" id="explorerChartContent">
                 <div class="chart-preview__empty">
                   <div class="chart-preview__empty-icon">📊</div>
-                  <div class="chart-preview__empty-text">Drag fields to build your visualization</div>
-                  <div class="chart-preview__empty-hint">Drop dimensions on X-axis and measures on Y-axis</div>
+                  <div class="chart-preview__empty-text">Build your visualization</div>
+                  <div class="chart-preview__empty-hint">1. Drop "Year" on Dimension zone<br>2. Drop one or more measures on Values zone</div>
                 </div>
               </div>
             </div>
@@ -1424,11 +1437,11 @@
       padding: { top: 40, right: 20, bottom: 40, left: 60 }
     };
 
-    // Dynamic Y-axis scales based on view
+    // Dynamic Y-axis scales based on view (using round numbers for clean tick marks)
     function getYScaleForView(view) {
-      if (view === 'total') return { minY: 2800, maxY: 4000 };
-      if (view === 'gender') return { minY: 1400, maxY: 2100 };
-      if (view === 'status') return { minY: 0, maxY: 3600 };
+      if (view === 'total') return { minY: 2800, maxY: 4000 };  // Range 1200, step 400: 4000, 3600, 3200, 2800
+      if (view === 'gender') return { minY: 1400, maxY: 2000 }; // Range 600, step 200: 2000, 1800, 1600, 1400
+      if (view === 'status') return { minY: 0, maxY: 3600 };    // Range 3600, step 1200: 3600, 2400, 1200, 0
       return { minY: 0, maxY: 4000 };
     }
 
@@ -1850,7 +1863,7 @@
       // Update drop zone display
       function updateDropZone(container, items) {
         if (items.length === 0) {
-          container.innerHTML = `<span class="drop-zone__placeholder">${container === dropXContent ? 'Drag a dimension here' : 'Drag measures here'}</span>`;
+          container.innerHTML = `<span class="drop-zone__placeholder">${container === dropXContent ? 'Drop "Year" here' : 'Drop measures here (e.g., Total, Men, Women)'}</span>`;
         } else {
           container.innerHTML = items.map(item => `
             <div class="dropped-field" data-field="${item.field}">
@@ -1901,11 +1914,21 @@
       // Update chart based on state
       function updateExplorerChart() {
         if (!explorerState.xAxis || explorerState.yAxis.length === 0) {
+          const missingX = !explorerState.xAxis;
+          const missingY = explorerState.yAxis.length === 0;
+          let hint = '';
+          if (missingX && missingY) {
+            hint = '1. Drop "Year" on Dimension zone<br>2. Drop one or more measures on Values zone';
+          } else if (missingX) {
+            hint = 'Drop "Year" on the Dimension zone to complete';
+          } else {
+            hint = 'Drop a measure (Total, Men, Women, etc.) on the Values zone';
+          }
           chartContent.innerHTML = `
             <div class="chart-preview__empty">
               <div class="chart-preview__empty-icon">📊</div>
-              <div class="chart-preview__empty-text">Drag fields to build your visualization</div>
-              <div class="chart-preview__empty-hint">Drop dimensions on X-axis and measures on Y-axis</div>
+              <div class="chart-preview__empty-text">Build your visualization</div>
+              <div class="chart-preview__empty-hint">${hint}</div>
             </div>
           `;
           chartTitle.textContent = 'Chart Preview';
