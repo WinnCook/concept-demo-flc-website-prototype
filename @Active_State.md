@@ -1,6 +1,6 @@
 # HORIZON - Active State
 **Mission Card | Session Continuity Document**
-**Last Updated:** 2025-12-17 | Session 7
+**Last Updated:** 2025-12-17 | Session 8
 
 ---
 
@@ -8,7 +8,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Phase** | 8 - Executive Polish |
+| **Phase** | 9 - Enhanced IR Dashboard & Universal Dark Mode |
 | **Status** | COMPLETE |
 | **Active Task** | None - All enhancements complete |
 | **Blockers** | None |
@@ -16,100 +16,124 @@
 
 ---
 
-## SESSION 7 COMPLETION
+## SESSION 8 COMPLETION
 
-**Major Rebrand: SKYRIDGE → HORIZON**
+**Major Enhancements: IR Dashboard Overhaul & Site-Wide Dark Mode**
 
 All enhancements complete:
-- [x] Renamed project from SKYRIDGE to HORIZON across all 19 pages
-- [x] Fixed white wave readability issue with gradient fade
-- [x] Implemented dramatic night sky dark mode with animated stars
-- [x] Added prototype disclaimer badge with personality
-- [x] Created elite IR Data Dashboard with real FLC data
-- [x] Built interactive charts (enrollment trends, demographics)
-- [x] Added AI Chat placeholder bubble with modal
-- [x] Added Live Activity Feed with simulated engagement
-- [x] Updated localStorage theme key to horizon-theme
-- [x] Updated all project documentation
+- [x] Fixed critical dark mode CSS variable bug (`--color-text-inverse`)
+- [x] Created shared theme.js for centralized theme management
+- [x] Added dark mode toggle to ALL 19 pages (was only on 2)
+- [x] Fixed homepage hero fade-to-white UX issue
+- [x] Fixed IR dashboard charts (Gender/Status multi-line display)
+- [x] Added IR disclaimer banner (demonstration data warning)
+- [x] Created IR tabbed interface (Dashboard / Data Tables / Data Explorer)
+- [x] Built full Tableau-style drag-and-drop Data Explorer
+- [x] Added comprehensive FLC data (admissions, retention, graduation trends)
+- [x] Improved router button visibility in hero section
 
 ---
 
 ## KEY DELIVERABLES
 
-### Homepage Enhancements
+### Dark Mode System (Site-Wide)
 
-#### Night Sky Dark Mode
-- Deep navy/black sky gradient when dark mode enabled
-- 20+ animated twinkling stars with varying sizes
-- 2 shooting star animations with staggered delays
-- Smooth transition between day/night themes
-- Snow particles reduced opacity in dark mode
+#### Critical Bug Fix
+- **Issue**: `--color-text-inverse: #0D1117` in dark mode made text invisible
+- **Fix**: Changed to `#F0F6FC` (light color for dark backgrounds)
+- **Impact**: Text now visible across all pages in dark mode
 
-#### Prototype Disclaimer Badge
-- Semi-transparent glass effect card
-- Gold accent border
-- Clear "PROTOTYPE · NOT THE REAL WEBSITE" label
-- Humorous copy: "Any resemblance to an actual functioning university website is purely aspirational"
+#### Shared Theme Script (src/js/theme.js)
+- Centralized theme toggle logic
+- localStorage persistence with `horizon-theme` key
+- System preference detection (`prefers-color-scheme`)
+- Works on all 19 pages automatically
 
-#### AI Chat Bubble
-- Fixed position chat bubble (bottom-right)
-- "Ask Anything" with pulsing indicator
-- Modal opens on click with "Coming Soon" message
-- Professional preview of AI assistant capability
+#### Universal Toggle Implementation
+- Theme toggle button added to ALL 19 pages
+- Consistent styling across all navigation bars
+- Moon/Sun icon states
 
-#### Live Activity Feed
-- Fixed position (bottom-left)
-- Simulated real-time engagement notifications
-- "14 people viewing Computer Science"
-- "Application submitted 2 min ago"
-- Auto-rotating with 7-second intervals
-- Max 2 items visible, auto-dismiss after 5s
+### Homepage Hero Improvements
 
-#### IR Data Button
-- Prominent gold-bordered button in hero
-- "Institutional Research & Data" with LIVE badge
-- Links to new data.html dashboard
+#### Fade Gradient Fix
+- Reduced height from 200px to 150px
+- Delayed gradient start (0% transparent until 20%)
+- No longer overlaps router buttons
 
-### Institutional Research Dashboard (data.html)
+#### Router Button Enhancement
+- Increased background opacity: `rgba(0, 0, 0, 0.35)`
+- Added text shadow for readability
+- Dark mode specific styles with `rgba(0, 0, 0, 0.5)`
+- Hover state with gold accent
 
-#### Stats Cards
-- Total Enrollment: 3,413 (+0.4% YoY)
-- Retention Rate: 63%
-- Graduation Rate: 43%
-- Student-Faculty Ratio: 15:1
+### IR Dashboard Overhaul (data.html)
 
-#### Interactive Line Chart
-- 9 years of enrollment data (2015-2024)
-- Toggle views: Total / By Gender / By Status
-- SVG-based with animated line drawing
-- Hover tooltips with exact values
-- Responsive design
+#### Disclaimer Banner
+- Prominent warning at top of page
+- Gold accent styling with icon
+- Text: "Demonstration Only - Data scraped from public sources (IPEDS, NCES, DataUSA) with best attempt at accuracy but not validated"
 
-#### Demographics Donut Charts
-- Race/Ethnicity breakdown with 5 categories
-- Gender distribution (53.6% Women, 46.4% Men)
-- Interactive legends
-- Center text showing totals
+#### Tabbed Interface
+```
+[Dashboard] [Data Tables] [Data Explorer]
+```
+- Dashboard: Charts, stats cards, demographics
+- Data Tables: Full enrollment & demographics tables
+- Data Explorer: Tableau-style drag-and-drop
 
-#### Data Table
-- Full historical enrollment data
-- Year, Total, Men, Women, Full-Time, Part-Time
-- Year-over-year change indicators
-- Sortable columns
+#### Fixed Chart Display
+- Gender view: Blue (Men) + Pink (Women) separate lines
+- Status view: Navy (Full-Time) + Green (Part-Time) separate lines
+- Added proper CSS classes: `.chart-line--fulltime`, `.chart-line--parttime`
 
-#### Key Metrics Cards
-- 27% Native American Students
-- 62% Out-of-State Students
-- 42% Pell Grant Recipients
-- 60+ Degree Programs
+#### Tableau-Style Data Explorer
+**Field Panel (Left Sidebar):**
+- Dimensions: Year
+- Measures: Total Enrollment, Men, Women, Full-Time, Part-Time
+- Demographics: Race/Ethnicity, Gender Distribution
 
-### Visual Fixes
+**Drop Zones:**
+- X-Axis (Columns): Accepts dimensions
+- Y-Axis (Rows): Accepts multiple measures
 
-#### White Wave Issue (RESOLVED)
-- Replaced SVG wave with gradient fade
-- `background: linear-gradient(180deg, transparent 0%, var(--color-bg-light) 100%)`
-- Adapts to dark mode automatically
-- No more text/button overlap
+**Chart Types:**
+- Line Chart (default)
+- Bar Chart
+- Area Chart
+- Donut Chart
+
+**Features:**
+- Drag-and-drop field placement
+- Real-time chart preview
+- Remove fields with × button
+- Reset All button
+- Multi-measure support
+- Dynamic Y-axis scaling
+
+#### Extended Data Added
+```javascript
+extendedData = {
+  admissions: {
+    years: ['2019-20' to '2023-24'],
+    applicants, admitted, enrolled,
+    acceptanceRate, yieldRate
+  },
+  retention: {
+    years: ['2018-19' to '2023-24'],
+    rates: [65, 62, 67, 64, 63, 63]
+  },
+  graduation: {
+    sixYear: [40-43%],
+    fourYear: [24-30%]
+  },
+  financial: {
+    avgNetPrice: $16,074,
+    inStateTuition: $9,958,
+    outStateTuition: $21,526
+  }
+}
+```
 
 ---
 
@@ -118,7 +142,7 @@ All enhancements complete:
 ```
 HORIZON Site Structure (19 pages)
 ├── index.html (Landing with night sky, search, activity feed, AI chat)
-├── data.html (IR Dashboard with interactive charts) [NEW]
+├── data.html (IR Dashboard with tabs, charts, Data Explorer)
 ├── programs.html (Program explorer with filtering)
 ├── events.html (Events discovery + calendar view)
 ├── careers.html (Career marketplace)
@@ -151,7 +175,8 @@ HORIZON Site Structure (19 pages)
 | 5 | Information Architecture | COMPLETE | Navigation, search, program explorer |
 | 6 | Extended Value | COMPLETE | Events, careers, Durango, alumni |
 | 7 | Enhanced Functionality | COMPLETE | Full navigation, search, calendar, dark mode |
-| 8 | Executive Polish | COMPLETE | HORIZON rebrand, IR Dashboard, AI chat, activity feed |
+| 8 | Executive Polish | COMPLETE | HORIZON rebrand, IR Dashboard v1, AI chat, activity feed |
+| 9 | IR Dashboard & Dark Mode | COMPLETE | Tabbed interface, Data Explorer, site-wide dark mode |
 
 ---
 
@@ -160,11 +185,11 @@ HORIZON Site Structure (19 pages)
 ### Production-Ready Features
 - **Navigation**: All links functional, no dead ends
 - **Search**: Intelligent omnisearch across all content
-- **Theming**: Dark/light mode with night sky transformation
+- **Theming**: Dark/light mode on ALL 19 pages with shared script
 - **Events**: Grid and calendar views with filtering
 - **Programs**: 60 programs with interest-based filtering
 - **Jobs**: 10 job listings with industry filtering
-- **IR Dashboard**: Real FLC data with interactive visualizations
+- **IR Dashboard**: Tabbed interface with Data Explorer
 - **Responsiveness**: Mobile-first design across all pages
 - **Performance**: Lazy-loaded images, optimized animations
 
@@ -180,7 +205,8 @@ HORIZON Site Structure (19 pages)
 - Toast notifications
 - AI Chat placeholder
 - Live Activity Feed
-- IR Dashboard charts (line, donut, table)
+- **NEW: Tableau-style drag-and-drop Data Explorer**
+- **NEW: Multi-chart type selection (line, bar, area, donut)**
 
 ---
 
@@ -192,9 +218,11 @@ HORIZON Site Structure (19 pages)
 | Enrollment by Year | IPEDS, CollegeTuitionCompare | 2015-2024 |
 | Gender Distribution | IPEDS | 2015-2024 |
 | Race/Ethnicity | IPEDS, DataUSA | 2023-24 |
-| Retention Rate | IPEDS DFR | 2022 cohort |
-| Graduation Rate | IPEDS DFR | 2017 cohort |
+| Retention Rate | IPEDS DFR | 2018-2024 |
+| Graduation Rate (6yr) | IPEDS DFR | 2017-2022 cohorts |
 | Full-Time/Part-Time | CollegeTuitionCompare | 2015-2024 |
+| Acceptance Rate | IPEDS | 2019-2024 |
+| Yield Rate | IPEDS | 2019-2024 |
 
 ---
 
@@ -234,15 +262,13 @@ https://winncook.github.io/future-flc-website/
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
-| 2025-12-17 | Renamed to HORIZON | Future-forward concept, vision metaphor |
-| 2025-12-17 | Gradient fade vs SVG wave | Solves readability, adapts to themes |
-| 2025-12-17 | Night sky dark mode | Maximum wow factor for executives |
-| 2025-12-17 | Full IR Dashboard | User is from IR office, needs to impress VP |
-| 2025-12-17 | AI Chat placeholder | Demonstrates vision without full implementation |
-| 2025-12-17 | Live Activity Feed | Creates sense of real-time engagement |
-| 2025-12-17 | horizon-theme localStorage | Consistent with new branding |
-| 2025-12-17 | Vanilla JS for charts | No dependencies, full control |
-| 2025-12-17 | Real FLC data only | Accuracy critical for IR dashboard |
+| 2025-12-17 | Fixed --color-text-inverse bug | Dark mode text was invisible |
+| 2025-12-17 | Created shared theme.js | DRY principle, centralized logic |
+| 2025-12-17 | Added theme toggle to all pages | Consistent UX across site |
+| 2025-12-17 | Tabbed IR Dashboard | Separate concerns: Dashboard, Tables, Explorer |
+| 2025-12-17 | Tableau-style Data Explorer | User requested drag-and-drop functionality |
+| 2025-12-17 | Multi-line charts (not stacked) | User preference for separate trend lines |
+| 2025-12-17 | IR Disclaimer banner | Data is scraped/unvalidated - transparency |
 
 ---
 
@@ -257,25 +283,27 @@ https://winncook.github.io/future-flc-website/
 | 5 | 2025-12-17 | Phase 6 | Complete - events, careers, Durango, alumni |
 | 6 | 2025-12-17 | Phase 7 | Complete - enhanced functionality, full navigation |
 | 7 | 2025-12-17 | Phase 8 | Complete - HORIZON rebrand, IR Dashboard, executive features |
+| 8 | 2025-12-17 | Phase 9 | Complete - IR Dashboard overhaul, site-wide dark mode |
 
 ---
 
 ## HANDOFF NOTES
 
-**Session 7 Summary:**
-- Rebranded from SKYRIDGE to HORIZON across all 19 pages
-- Fixed white wave readability with gradient solution
-- Added dramatic night sky dark mode with animated stars
-- Created comprehensive IR Dashboard with real FLC data
-- Added AI Chat placeholder demonstrating future capability
-- Added Live Activity Feed for engagement simulation
-- All localStorage keys updated to horizon-theme
-- Project documentation fully updated
+**Session 8 Summary:**
+- Fixed critical dark mode bug affecting text visibility
+- Created centralized theme.js script
+- Added dark mode toggle to ALL 19 pages (was only on 2)
+- Fixed homepage hero fade gradient and button visibility
+- Overhauled IR Dashboard with tabbed interface
+- Built full Tableau-style Data Explorer with drag-and-drop
+- Added comprehensive FLC data (admissions, retention, graduation trends)
+- Fixed chart display issues (Gender/Status views)
 
-**Site is now executive-ready:**
-- 19 pages total (added data.html)
+**Site is now fully executive-ready:**
+- 19 pages total with consistent dark mode support
 - All navigation links working
-- Interactive features: search, calendar, dark mode, cost calculator, IR charts
+- Interactive features: search, calendar, dark mode, cost calculator
+- Advanced IR Dashboard with Data Explorer
 - Visual polish: night sky, animations, activity feed
 - Mobile responsive across all pages
 - Clear prototype disclaimers throughout
@@ -283,13 +311,14 @@ https://winncook.github.io/future-flc-website/
 **For Next Session (if needed):**
 - Test on multiple devices/browsers
 - Gather user feedback from executive demo
-- Consider any final refinements based on feedback
+- Consider adding more fields to Data Explorer
+- Potential: Add export functionality to Data Explorer
 
 ---
 
 ## OPEN DECISIONS
 
-**None** - All decisions from Session 7 are FINAL.
+**None** - All decisions from Session 8 are FINAL.
 
 ---
 
@@ -297,8 +326,15 @@ https://winncook.github.io/future-flc-website/
 
 **Branch:** main
 **Remote:** origin (https://github.com/WinnCook/future-flc-website)
-**Last Commit:** 34c2df8 - Rebrand to HORIZON with executive-ready enhancements
-**Status:** Clean - all changes committed and pushed
+**Last Commit:** Pending - Session 8 changes ready for commit
+**Status:** Modified files ready for commit
+
+**Files Modified:**
+- src/css/design-system.css (dark mode fixes)
+- src/js/theme.js (NEW - shared theme script)
+- index.html (hero improvements)
+- data.html (major overhaul - tabs, explorer, charts)
+- 16 other HTML pages (dark mode toggle added)
 
 **Live URL:** https://winncook.github.io/future-flc-website/
 **IR Dashboard:** https://winncook.github.io/future-flc-website/data.html

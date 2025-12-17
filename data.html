@@ -47,6 +47,41 @@
       color: var(--color-accent);
     }
 
+    /* Disclaimer Banner */
+    .disclaimer-banner {
+      background: rgba(255, 184, 28, 0.15);
+      border: 1px solid rgba(255, 184, 28, 0.4);
+      border-radius: var(--radius-lg);
+      padding: var(--space-3) var(--space-4);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+      backdrop-filter: blur(10px);
+    }
+
+    .disclaimer-banner__icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .disclaimer-banner__content {
+      flex: 1;
+    }
+
+    .disclaimer-banner__title {
+      font-weight: 700;
+      font-size: var(--text-body-sm);
+      color: var(--color-accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .disclaimer-banner__text {
+      font-size: var(--text-caption);
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.5;
+    }
+
     /* Hero Section */
     .ir-hero {
       background: linear-gradient(135deg, #003366 0%, #001a33 50%, #002244 100%);
@@ -293,6 +328,31 @@
 
     .chart-point--female {
       stroke: #EC4899;
+    }
+
+    /* Full-Time / Part-Time chart styles */
+    .chart-line--fulltime {
+      stroke: #003366;
+    }
+
+    .chart-line--parttime {
+      stroke: #10B981;
+    }
+
+    .chart-area--fulltime {
+      fill: #003366;
+    }
+
+    .chart-area--parttime {
+      fill: #10B981;
+    }
+
+    .chart-point--fulltime {
+      stroke: #003366;
+    }
+
+    .chart-point--parttime {
+      stroke: #10B981;
     }
 
     .chart-grid-line {
@@ -585,6 +645,333 @@
         stroke-dashoffset: 0;
       }
     }
+
+    /* ===== TABBED INTERFACE ===== */
+    .ir-tabs {
+      display: flex;
+      gap: var(--space-1);
+      border-bottom: 2px solid var(--color-border);
+      margin-bottom: var(--space-6);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .ir-tab {
+      padding: var(--space-3) var(--space-4);
+      background: none;
+      border: none;
+      font-size: var(--text-body-sm);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      transition: color var(--duration-fast);
+    }
+
+    .ir-tab:hover {
+      color: var(--color-primary);
+    }
+
+    .ir-tab.active {
+      color: var(--color-primary);
+    }
+
+    .ir-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--color-primary);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .ir-tab-content {
+      display: none;
+    }
+
+    .ir-tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* ===== DATA EXPLORER ===== */
+    .explorer {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--space-4);
+      min-height: 600px;
+    }
+
+    @media (max-width: 1024px) {
+      .explorer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Field Panel */
+    .field-panel {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      height: fit-content;
+    }
+
+    .field-panel__section {
+      margin-bottom: var(--space-4);
+    }
+
+    .field-panel__title {
+      font-size: var(--text-overline);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    .field {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2);
+      background: var(--color-bg-light);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-1);
+      cursor: grab;
+      transition: all var(--duration-fast);
+      font-size: var(--text-caption);
+      font-weight: 500;
+      color: var(--color-text-primary);
+    }
+
+    .field:hover {
+      border-color: var(--color-primary);
+      background: rgba(0, 51, 102, 0.05);
+    }
+
+    .field:active {
+      cursor: grabbing;
+    }
+
+    .field.dragging {
+      opacity: 0.5;
+      transform: scale(0.95);
+    }
+
+    .field__icon {
+      font-size: 1rem;
+    }
+
+    .field--dimension {
+      border-left: 3px solid #3B82F6;
+    }
+
+    .field--measure {
+      border-left: 3px solid #10B981;
+    }
+
+    .field--demographic {
+      border-left: 3px solid #8B5CF6;
+    }
+
+    /* Drop Zones */
+    .explorer__workspace {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .drop-zones {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3);
+    }
+
+    @media (max-width: 768px) {
+      .drop-zones {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .drop-zone {
+      background: var(--color-surface);
+      border: 2px dashed var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      min-height: 80px;
+      transition: all var(--duration-fast);
+    }
+
+    .drop-zone.drag-over {
+      border-color: var(--color-primary);
+      background: rgba(0, 51, 102, 0.05);
+    }
+
+    .drop-zone__label {
+      font-size: var(--text-caption);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    .drop-zone__content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1);
+      min-height: 32px;
+    }
+
+    .drop-zone__placeholder {
+      color: var(--color-text-secondary);
+      font-size: var(--text-caption);
+      font-style: italic;
+    }
+
+    .dropped-field {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: 0.25rem 0.5rem;
+      background: var(--color-primary);
+      color: white;
+      border-radius: var(--radius-sm);
+      font-size: var(--text-caption);
+      font-weight: 500;
+    }
+
+    .dropped-field__remove {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0;
+      font-size: 1rem;
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity var(--duration-fast);
+    }
+
+    .dropped-field__remove:hover {
+      opacity: 1;
+    }
+
+    /* Chart Type Selector */
+    .chart-type-selector {
+      display: flex;
+      gap: var(--space-1);
+      padding: var(--space-2);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      width: fit-content;
+    }
+
+    .chart-type-btn {
+      padding: var(--space-2);
+      background: none;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 1.25rem;
+      transition: all var(--duration-fast);
+      color: var(--color-text-secondary);
+    }
+
+    .chart-type-btn:hover {
+      background: var(--color-bg-light);
+      color: var(--color-primary);
+    }
+
+    .chart-type-btn.active {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    /* Chart Preview */
+    .chart-preview {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chart-preview__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-4);
+    }
+
+    .chart-preview__title {
+      font-size: var(--text-h3);
+      color: var(--color-primary);
+    }
+
+    .chart-preview__actions {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .chart-preview__content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chart-preview__empty {
+      text-align: center;
+      color: var(--color-text-secondary);
+    }
+
+    .chart-preview__empty-icon {
+      font-size: 4rem;
+      opacity: 0.3;
+      margin-bottom: var(--space-2);
+    }
+
+    .chart-preview__empty-text {
+      font-size: var(--text-body);
+    }
+
+    .chart-preview__empty-hint {
+      font-size: var(--text-caption);
+      margin-top: var(--space-1);
+    }
+
+    /* Reset Button */
+    .explorer__reset {
+      background: var(--color-bg-light);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 0.5rem 1rem;
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--duration-fast);
+    }
+
+    .explorer__reset:hover {
+      border-color: var(--color-error);
+      color: var(--color-error);
+    }
+
+    /* Explorer SVG Chart */
+    .explorer-chart-svg {
+      width: 100%;
+      height: 350px;
+    }
   </style>
 </head>
 <body>
@@ -606,6 +993,16 @@
   <!-- Hero Section -->
   <section class="ir-hero">
     <div class="container ir-hero__content">
+      <!-- Disclaimer Banner -->
+      <div class="disclaimer-banner">
+        <span class="disclaimer-banner__icon">⚠️</span>
+        <div class="disclaimer-banner__content">
+          <div class="disclaimer-banner__title">Demonstration Only</div>
+          <p class="disclaimer-banner__text">
+            Data has been scraped from public sources (IPEDS, NCES, DataUSA) with best attempt at accuracy but has not been validated. This is a prototype visualization, not an official institutional resource.
+          </p>
+        </div>
+      </div>
       <div class="ir-hero__badge">
         <span>📊</span>
         <span>Institutional Research</span>
@@ -656,17 +1053,26 @@
     </div>
   </section>
 
-  <!-- Enrollment Dashboard -->
+  <!-- Dashboard Section with Tabs -->
   <section class="dashboard">
     <div class="container">
-      <div class="dashboard__header">
-        <h2 class="dashboard__title">Enrollment Trends</h2>
-        <div class="dashboard__controls">
-          <button class="control-btn active" data-view="total">Total</button>
-          <button class="control-btn" data-view="gender">By Gender</button>
-          <button class="control-btn" data-view="status">By Status</button>
-        </div>
+      <!-- Tab Navigation -->
+      <div class="ir-tabs" role="tablist">
+        <button class="ir-tab active" data-tab="dashboard" role="tab" aria-selected="true">Dashboard</button>
+        <button class="ir-tab" data-tab="tables" role="tab" aria-selected="false">Data Tables</button>
+        <button class="ir-tab" data-tab="explorer" role="tab" aria-selected="false">Data Explorer</button>
       </div>
+
+      <!-- TAB 1: Dashboard -->
+      <div class="ir-tab-content active" id="tab-dashboard" role="tabpanel">
+        <div class="dashboard__header">
+          <h2 class="dashboard__title">Enrollment Trends</h2>
+          <div class="dashboard__controls">
+            <button class="control-btn active" data-view="total">Total</button>
+            <button class="control-btn" data-view="gender">By Gender</button>
+            <button class="control-btn" data-view="status">By Status</button>
+          </div>
+        </div>
 
       <div class="chart-container">
         <div class="chart-header">
@@ -740,57 +1146,179 @@
         </div>
       </div>
 
-      <!-- Data Table -->
-      <div class="chart-container" style="margin-top: var(--space-6);">
-        <h3 class="chart-title">Historical Enrollment Data</h3>
-        <div class="data-table-container">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Year</th>
-                <th>Total</th>
-                <th>Men</th>
-                <th>Women</th>
-                <th>Full-Time</th>
-                <th>Part-Time</th>
-                <th>Change</th>
-              </tr>
-            </thead>
-            <tbody id="dataTableBody">
-              <!-- Generated by JS -->
-            </tbody>
-          </table>
+        <!-- Key Metrics -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-card__icon">🎓</div>
+            <div class="metric-card__value">27%</div>
+            <div class="metric-card__label">Native American Students</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-card__icon">🌍</div>
+            <div class="metric-card__value">62%</div>
+            <div class="metric-card__label">Out-of-State Students</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-card__icon">💰</div>
+            <div class="metric-card__value">42%</div>
+            <div class="metric-card__label">Pell Grant Recipients</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-card__icon">📚</div>
+            <div class="metric-card__value">60+</div>
+            <div class="metric-card__label">Degree Programs</div>
+          </div>
         </div>
-      </div>
 
-      <!-- Key Metrics -->
-      <div class="metrics-grid">
-        <div class="metric-card">
-          <div class="metric-card__icon">🎓</div>
-          <div class="metric-card__value">27%</div>
-          <div class="metric-card__label">Native American Students</div>
+        <div class="data-source">
+          <span class="data-source__icon">📋</span>
+          <span>Data sourced from IPEDS, FLC Institutional Research, and official fact sheets</span>
         </div>
-        <div class="metric-card">
-          <div class="metric-card__icon">🌍</div>
-          <div class="metric-card__value">62%</div>
-          <div class="metric-card__label">Out-of-State Students</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-card__icon">💰</div>
-          <div class="metric-card__value">42%</div>
-          <div class="metric-card__label">Pell Grant Recipients</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-card__icon">📚</div>
-          <div class="metric-card__value">60+</div>
-          <div class="metric-card__label">Degree Programs</div>
-        </div>
-      </div>
+      </div><!-- End TAB 1: Dashboard -->
 
-      <div class="data-source">
-        <span class="data-source__icon">📋</span>
-        <span>Data sourced from IPEDS, FLC Institutional Research, and official fact sheets</span>
-      </div>
+      <!-- TAB 2: Data Tables -->
+      <div class="ir-tab-content" id="tab-tables" role="tabpanel">
+        <h2 class="dashboard__title" style="margin-bottom: var(--space-4);">Historical Data Tables</h2>
+
+        <!-- Enrollment Data Table -->
+        <div class="chart-container">
+          <h3 class="chart-title">Enrollment by Year</h3>
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Total</th>
+                  <th>Men</th>
+                  <th>Women</th>
+                  <th>Full-Time</th>
+                  <th>Part-Time</th>
+                  <th>YoY Change</th>
+                </tr>
+              </thead>
+              <tbody id="dataTableBody">
+                <!-- Generated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Demographics Table -->
+        <div class="chart-container" style="margin-top: var(--space-4);">
+          <h3 class="chart-title">Demographics Breakdown (2023-24)</h3>
+          <div class="data-table-container">
+            <table class="data-table" id="demographicsTable">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Count</th>
+                  <th>Percentage</th>
+                </tr>
+              </thead>
+              <tbody id="demographicsTableBody">
+                <!-- Generated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- End TAB 2: Data Tables -->
+
+      <!-- TAB 3: Data Explorer -->
+      <div class="ir-tab-content" id="tab-explorer" role="tabpanel">
+        <div class="explorer">
+          <!-- Field Panel -->
+          <div class="field-panel">
+            <div class="field-panel__section">
+              <div class="field-panel__title">Dimensions</div>
+              <div class="field field--dimension" draggable="true" data-field="year" data-type="dimension">
+                <span class="field__icon">📅</span>
+                <span>Year</span>
+              </div>
+            </div>
+
+            <div class="field-panel__section">
+              <div class="field-panel__title">Measures</div>
+              <div class="field field--measure" draggable="true" data-field="total" data-type="measure">
+                <span class="field__icon">📊</span>
+                <span>Total Enrollment</span>
+              </div>
+              <div class="field field--measure" draggable="true" data-field="male" data-type="measure">
+                <span class="field__icon">👨</span>
+                <span>Men</span>
+              </div>
+              <div class="field field--measure" draggable="true" data-field="female" data-type="measure">
+                <span class="field__icon">👩</span>
+                <span>Women</span>
+              </div>
+              <div class="field field--measure" draggable="true" data-field="fullTime" data-type="measure">
+                <span class="field__icon">🎓</span>
+                <span>Full-Time</span>
+              </div>
+              <div class="field field--measure" draggable="true" data-field="partTime" data-type="measure">
+                <span class="field__icon">📚</span>
+                <span>Part-Time</span>
+              </div>
+            </div>
+
+            <div class="field-panel__section">
+              <div class="field-panel__title">Demographics</div>
+              <div class="field field--demographic" draggable="true" data-field="ethnicity" data-type="demographic">
+                <span class="field__icon">🌍</span>
+                <span>Race/Ethnicity</span>
+              </div>
+              <div class="field field--demographic" draggable="true" data-field="gender" data-type="demographic">
+                <span class="field__icon">⚤</span>
+                <span>Gender Distribution</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Workspace -->
+          <div class="explorer__workspace">
+            <!-- Drop Zones -->
+            <div class="drop-zones">
+              <div class="drop-zone" id="dropX" data-zone="x-axis">
+                <div class="drop-zone__label">X-Axis (Columns)</div>
+                <div class="drop-zone__content" id="dropXContent">
+                  <span class="drop-zone__placeholder">Drag a dimension here</span>
+                </div>
+              </div>
+              <div class="drop-zone" id="dropY" data-zone="y-axis">
+                <div class="drop-zone__label">Y-Axis (Rows)</div>
+                <div class="drop-zone__content" id="dropYContent">
+                  <span class="drop-zone__placeholder">Drag measures here</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chart Type Selector -->
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div class="chart-type-selector">
+                <button class="chart-type-btn active" data-chart-type="line" title="Line Chart">📈</button>
+                <button class="chart-type-btn" data-chart-type="bar" title="Bar Chart">📊</button>
+                <button class="chart-type-btn" data-chart-type="area" title="Area Chart">📉</button>
+                <button class="chart-type-btn" data-chart-type="donut" title="Donut Chart">🍩</button>
+              </div>
+              <button class="explorer__reset" id="explorerReset">Reset All</button>
+            </div>
+
+            <!-- Chart Preview -->
+            <div class="chart-preview">
+              <div class="chart-preview__header">
+                <h3 class="chart-preview__title" id="explorerChartTitle">Chart Preview</h3>
+              </div>
+              <div class="chart-preview__content" id="explorerChartContent">
+                <div class="chart-preview__empty">
+                  <div class="chart-preview__empty-icon">📊</div>
+                  <div class="chart-preview__empty-text">Drag fields to build your visualization</div>
+                  <div class="chart-preview__empty-hint">Drop dimensions on X-axis and measures on Y-axis</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- End TAB 3: Data Explorer -->
+
     </div>
   </section>
 
@@ -830,6 +1358,48 @@
       { label: 'Men', value: 1585, percent: 46.4, color: '#3B82F6' }
     ];
 
+    // Extended data from IPEDS, DataUSA, CollegeTuitionCompare
+    const extendedData = {
+      // Admissions data
+      admissions: {
+        years: ['2019-20', '2020-21', '2021-22', '2022-23', '2023-24'],
+        applicants: [3892, 4102, 4356, 4253, 4986],
+        admitted: [3425, 3689, 3876, 3955, 3854],
+        enrolled: [812, 798, 845, 795, 751],
+        acceptanceRate: [88.0, 89.9, 89.0, 93.0, 77.3],
+        yieldRate: [23.7, 21.6, 21.8, 20.1, 19.5]
+      },
+      // Retention rates (first-year to second-year)
+      retention: {
+        years: ['2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24'],
+        rates: [65, 62, 67, 64, 63, 63]
+      },
+      // Graduation rates (6-year)
+      graduation: {
+        years: ['2017', '2018', '2019', '2020', '2021', '2022'],
+        cohortYears: ['2011', '2012', '2013', '2014', '2015', '2016'],
+        sixYear: [40, 38, 41, 42, 43, 43],
+        fourYear: [24, 22, 26, 28, 29, 30]
+      },
+      // Financial metrics
+      financial: {
+        avgNetPrice: 16074,
+        inStateTuition: 9958,
+        outStateTuition: 21526,
+        roomBoard: 12482,
+        financialAidPct: 89,
+        pellGrantPct: 42,
+        loanDefaultRate: 0
+      },
+      // Academic metrics
+      academic: {
+        studentFacultyRatio: 15,
+        avgClassSize: 22,
+        programs: 60,
+        campusAcres: 362
+      }
+    };
+
     // Chart configuration
     const chartConfig = {
       width: 800,
@@ -847,7 +1417,10 @@
       renderDonutChart('ethnicityChart', 'ethnicityLegend', ethnicityData);
       renderDonutChart('genderChart', 'genderLegend', genderData);
       renderDataTable();
+      renderDemographicsTable();
       setupEventListeners();
+      setupTabs();
+      setupDataExplorer();
       initTheme();
     }
 
@@ -903,11 +1476,11 @@
         `;
       } else if (currentView === 'status') {
         datasets = [
-          { data: fullTime, class: 'total', color: 'var(--color-primary)' },
-          { data: partTime, class: 'male', color: '#10B981' }
+          { data: fullTime, class: 'fulltime', color: '#003366' },
+          { data: partTime, class: 'parttime', color: '#10B981' }
         ];
         legend.innerHTML = `
-          <div class="legend-item"><span class="legend-dot" style="background: var(--color-primary);"></span><span>Full-Time</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background: #003366;"></span><span>Full-Time</span></div>
           <div class="legend-item"><span class="legend-dot" style="background: #10B981;"></span><span>Part-Time</span></div>
         `;
       }
@@ -1106,6 +1679,377 @@
           renderEnrollmentChart();
         });
       });
+    }
+
+    // Render demographics table
+    function renderDemographicsTable() {
+      const tbody = document.getElementById('demographicsTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      // Combine ethnicity and gender data
+      const allDemographics = [
+        ...ethnicityData.map(d => ({ category: `Race/Ethnicity: ${d.label}`, count: d.value, percent: d.percent })),
+        ...genderData.map(d => ({ category: `Gender: ${d.label}`, count: d.value, percent: d.percent }))
+      ];
+
+      allDemographics.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.category}</td>
+          <td>${item.count.toLocaleString()}</td>
+          <td>${item.percent}%</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    // Tab switching functionality
+    function setupTabs() {
+      const tabs = document.querySelectorAll('.ir-tab');
+      const tabContents = document.querySelectorAll('.ir-tab-content');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const targetTab = tab.dataset.tab;
+
+          // Update active tab
+          tabs.forEach(t => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+
+          // Update active content
+          tabContents.forEach(content => {
+            content.classList.remove('active');
+          });
+          document.getElementById(`tab-${targetTab}`).classList.add('active');
+        });
+      });
+    }
+
+    // Data Explorer - Drag and Drop functionality
+    function setupDataExplorer() {
+      const explorerState = {
+        xAxis: null,
+        yAxis: [],
+        chartType: 'line'
+      };
+
+      const fields = document.querySelectorAll('.field[draggable="true"]');
+      const dropX = document.getElementById('dropX');
+      const dropY = document.getElementById('dropY');
+      const dropXContent = document.getElementById('dropXContent');
+      const dropYContent = document.getElementById('dropYContent');
+      const chartTypeButtons = document.querySelectorAll('.chart-type-btn');
+      const resetButton = document.getElementById('explorerReset');
+      const chartContent = document.getElementById('explorerChartContent');
+      const chartTitle = document.getElementById('explorerChartTitle');
+
+      // Drag start
+      fields.forEach(field => {
+        field.addEventListener('dragstart', (e) => {
+          e.dataTransfer.setData('text/plain', JSON.stringify({
+            field: field.dataset.field,
+            type: field.dataset.type,
+            label: field.querySelector('span:last-child').textContent
+          }));
+          field.classList.add('dragging');
+        });
+
+        field.addEventListener('dragend', () => {
+          field.classList.remove('dragging');
+        });
+      });
+
+      // Drop zones
+      [dropX, dropY].forEach(zone => {
+        zone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          zone.classList.add('drag-over');
+        });
+
+        zone.addEventListener('dragleave', () => {
+          zone.classList.remove('drag-over');
+        });
+
+        zone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          zone.classList.remove('drag-over');
+
+          try {
+            const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+
+            if (zone === dropX) {
+              // X-axis accepts only dimensions
+              if (data.type === 'dimension') {
+                explorerState.xAxis = data;
+                updateDropZone(dropXContent, [data]);
+              }
+            } else if (zone === dropY) {
+              // Y-axis accepts measures (allow multiple)
+              if (data.type === 'measure' || data.type === 'demographic') {
+                // Check if already added
+                if (!explorerState.yAxis.find(y => y.field === data.field)) {
+                  explorerState.yAxis.push(data);
+                  updateDropZone(dropYContent, explorerState.yAxis);
+                }
+              }
+            }
+
+            updateExplorerChart();
+          } catch (err) {
+            console.error('Drop error:', err);
+          }
+        });
+      });
+
+      // Update drop zone display
+      function updateDropZone(container, items) {
+        if (items.length === 0) {
+          container.innerHTML = `<span class="drop-zone__placeholder">${container === dropXContent ? 'Drag a dimension here' : 'Drag measures here'}</span>`;
+        } else {
+          container.innerHTML = items.map(item => `
+            <div class="dropped-field" data-field="${item.field}">
+              <span>${item.label}</span>
+              <button class="dropped-field__remove" data-field="${item.field}">&times;</button>
+            </div>
+          `).join('');
+
+          // Add remove handlers
+          container.querySelectorAll('.dropped-field__remove').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const fieldToRemove = btn.dataset.field;
+              if (container === dropXContent) {
+                explorerState.xAxis = null;
+                updateDropZone(dropXContent, []);
+              } else {
+                explorerState.yAxis = explorerState.yAxis.filter(y => y.field !== fieldToRemove);
+                updateDropZone(dropYContent, explorerState.yAxis);
+              }
+              updateExplorerChart();
+            });
+          });
+        }
+      }
+
+      // Chart type selection
+      chartTypeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          chartTypeButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          explorerState.chartType = btn.dataset.chartType;
+          updateExplorerChart();
+        });
+      });
+
+      // Reset button
+      resetButton.addEventListener('click', () => {
+        explorerState.xAxis = null;
+        explorerState.yAxis = [];
+        explorerState.chartType = 'line';
+        updateDropZone(dropXContent, []);
+        updateDropZone(dropYContent, []);
+        chartTypeButtons.forEach(b => b.classList.remove('active'));
+        chartTypeButtons[0].classList.add('active');
+        updateExplorerChart();
+      });
+
+      // Update chart based on state
+      function updateExplorerChart() {
+        if (!explorerState.xAxis || explorerState.yAxis.length === 0) {
+          chartContent.innerHTML = `
+            <div class="chart-preview__empty">
+              <div class="chart-preview__empty-icon">📊</div>
+              <div class="chart-preview__empty-text">Drag fields to build your visualization</div>
+              <div class="chart-preview__empty-hint">Drop dimensions on X-axis and measures on Y-axis</div>
+            </div>
+          `;
+          chartTitle.textContent = 'Chart Preview';
+          return;
+        }
+
+        // Build chart title
+        const measureNames = explorerState.yAxis.map(y => y.label).join(', ');
+        chartTitle.textContent = `${measureNames} by ${explorerState.xAxis.label}`;
+
+        // Render chart based on type
+        if (explorerState.chartType === 'donut') {
+          renderExplorerDonut();
+        } else {
+          renderExplorerLineBarArea();
+        }
+      }
+
+      // Render line/bar/area chart
+      function renderExplorerLineBarArea() {
+        const { years, total, male, female, fullTime, partTime } = enrollmentData;
+        const width = 700;
+        const height = 300;
+        const padding = { top: 30, right: 30, bottom: 50, left: 60 };
+        const chartWidth = width - padding.left - padding.right;
+        const chartHeight = height - padding.top - padding.bottom;
+
+        // Get data for selected measures
+        const datasets = explorerState.yAxis.map((y, i) => {
+          const colors = ['#003366', '#3B82F6', '#EC4899', '#10B981', '#8B5CF6'];
+          return {
+            field: y.field,
+            label: y.label,
+            data: enrollmentData[y.field] || [],
+            color: colors[i % colors.length]
+          };
+        });
+
+        // Calculate Y scale
+        const allValues = datasets.flatMap(d => d.data);
+        const minY = Math.floor(Math.min(...allValues) * 0.95);
+        const maxY = Math.ceil(Math.max(...allValues) * 1.05);
+
+        // X positions
+        const xStep = chartWidth / (years.length - 1);
+        const xPositions = years.map((_, i) => padding.left + i * xStep);
+
+        // Y scale
+        const scaleY = (val) => {
+          const ratio = (val - minY) / (maxY - minY);
+          return height - padding.bottom - (ratio * chartHeight);
+        };
+
+        // Build SVG
+        let svg = `<svg class="explorer-chart-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet">`;
+
+        // Grid lines
+        svg += '<g class="chart-grid">';
+        for (let i = 0; i <= 4; i++) {
+          const y = padding.top + (chartHeight / 4) * i;
+          svg += `<line class="chart-grid-line" x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}"/>`;
+        }
+        svg += '</g>';
+
+        // Y-axis labels
+        svg += '<g class="chart-y-axis">';
+        for (let i = 0; i <= 4; i++) {
+          const value = maxY - ((maxY - minY) / 4) * i;
+          const y = padding.top + (chartHeight / 4) * i;
+          svg += `<text class="chart-axis-label" x="${padding.left - 10}" y="${y + 4}" text-anchor="end">${Math.round(value).toLocaleString()}</text>`;
+        }
+        svg += '</g>';
+
+        // X-axis labels
+        svg += '<g class="chart-x-axis">';
+        years.forEach((year, i) => {
+          svg += `<text class="chart-axis-label" x="${xPositions[i]}" y="${height - 15}" text-anchor="middle">${year.split('-')[0]}</text>`;
+        });
+        svg += '</g>';
+
+        // Draw datasets
+        datasets.forEach(dataset => {
+          const points = dataset.data.map((val, i) => `${xPositions[i]},${scaleY(val)}`);
+
+          if (explorerState.chartType === 'area') {
+            // Area chart
+            const areaPath = `M${points.join(' L')} L${xPositions[xPositions.length - 1]},${height - padding.bottom} L${xPositions[0]},${height - padding.bottom} Z`;
+            svg += `<path d="${areaPath}" fill="${dataset.color}" opacity="0.2"/>`;
+          }
+
+          if (explorerState.chartType === 'bar') {
+            // Bar chart
+            const barWidth = (chartWidth / years.length) * 0.6 / datasets.length;
+            const offset = datasets.indexOf(dataset) * barWidth - (datasets.length * barWidth / 2);
+            dataset.data.forEach((val, i) => {
+              const barHeight = (height - padding.bottom) - scaleY(val);
+              svg += `<rect x="${xPositions[i] + offset}" y="${scaleY(val)}" width="${barWidth}" height="${barHeight}" fill="${dataset.color}" rx="2"/>`;
+            });
+          } else {
+            // Line chart (or area outline)
+            svg += `<path d="M${points.join(' L')}" fill="none" stroke="${dataset.color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+
+            // Points
+            dataset.data.forEach((val, i) => {
+              svg += `<circle cx="${xPositions[i]}" cy="${scaleY(val)}" r="5" fill="white" stroke="${dataset.color}" stroke-width="3"/>`;
+            });
+          }
+        });
+
+        svg += '</svg>';
+
+        // Legend
+        let legend = '<div class="chart-legend" style="margin-top: var(--space-3); justify-content: center;">';
+        datasets.forEach(dataset => {
+          legend += `<div class="legend-item"><span class="legend-dot" style="background: ${dataset.color};"></span><span>${dataset.label}</span></div>`;
+        });
+        legend += '</div>';
+
+        chartContent.innerHTML = svg + legend;
+      }
+
+      // Render donut chart
+      function renderExplorerDonut() {
+        // Use the first measure's latest value distribution
+        const field = explorerState.yAxis[0].field;
+
+        // If it's a demographic field, use that data
+        if (field === 'ethnicity') {
+          renderExplorerDonutFromData(ethnicityData);
+        } else if (field === 'gender') {
+          renderExplorerDonutFromData(genderData);
+        } else {
+          // Create donut from enrollment data comparison (latest year)
+          const latestIdx = enrollmentData.years.length - 1;
+          const data = explorerState.yAxis.map((y, i) => {
+            const colors = ['#003366', '#3B82F6', '#EC4899', '#10B981', '#8B5CF6'];
+            return {
+              label: y.label,
+              value: enrollmentData[y.field][latestIdx],
+              color: colors[i % colors.length]
+            };
+          });
+          renderExplorerDonutFromData(data);
+        }
+      }
+
+      function renderExplorerDonutFromData(data) {
+        const total = data.reduce((sum, d) => sum + d.value, 0);
+        const centerX = 120, centerY = 120, radius = 90, innerRadius = 55;
+
+        let svg = `<svg viewBox="0 0 240 240" style="width: 240px; height: 240px;">`;
+
+        let currentAngle = -90;
+        data.forEach(item => {
+          const angle = (item.value / total) * 360;
+          const startAngle = currentAngle;
+          const endAngle = currentAngle + angle;
+
+          const path = describeArc(centerX, centerY, radius, innerRadius, startAngle, endAngle);
+          svg += `<path d="${path}" fill="${item.color}" class="donut-segment"/>`;
+          currentAngle = endAngle;
+        });
+
+        svg += `<text x="${centerX}" y="${centerY}" text-anchor="middle" dominant-baseline="middle" class="donut-center-text">${total.toLocaleString()}</text>`;
+        svg += `<text x="${centerX}" y="${centerY + 18}" text-anchor="middle" class="donut-center-label">Total</text>`;
+        svg += '</svg>';
+
+        // Legend
+        let legend = '<div class="demographics-legend" style="display: flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; margin-top: var(--space-3);">';
+        data.forEach(item => {
+          const percent = ((item.value / total) * 100).toFixed(1);
+          legend += `
+            <div class="demo-legend-item" style="background: var(--color-bg-light); padding: 0.5rem 1rem; border-radius: var(--radius-sm);">
+              <div class="demo-legend-left">
+                <div class="demo-legend-color" style="background: ${item.color};"></div>
+                <span class="demo-legend-label">${item.label}</span>
+              </div>
+              <span class="demo-legend-value" style="margin-left: var(--space-2);">${item.value.toLocaleString()} (${percent}%)</span>
+            </div>
+          `;
+        });
+        legend += '</div>';
+
+        chartContent.innerHTML = `<div style="display: flex; flex-direction: column; align-items: center;">${svg}${legend}</div>`;
+      }
     }
 
     // Theme toggle
