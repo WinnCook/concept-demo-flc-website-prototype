@@ -1478,6 +1478,7 @@
       setupTabs();
       setupDataExplorer();
       initTheme();
+      initMobileNav();
     }
 
     // Render enrollment line chart
@@ -2235,6 +2236,39 @@
       themeToggle.addEventListener('click', () => {
         const currentTheme = root.getAttribute('data-theme');
         setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      });
+    }
+
+    // Mobile hamburger menu
+    function initMobileNav() {
+      const hamburger = document.querySelector('.nav__hamburger');
+      const mobileNav = document.querySelector('.mobile-nav');
+      const backdrop = document.querySelector('.mobile-nav__backdrop');
+
+      if (!hamburger || !mobileNav) return;
+
+      function toggleMobileNav() {
+        const isActive = mobileNav.classList.contains('active');
+        hamburger.classList.toggle('active', !isActive);
+        mobileNav.classList.toggle('active', !isActive);
+        if (backdrop) backdrop.classList.toggle('active', !isActive);
+        document.body.style.overflow = isActive ? '' : 'hidden';
+      }
+
+      function closeMobileNav() {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('active');
+        if (backdrop) backdrop.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      hamburger.addEventListener('click', toggleMobileNav);
+      if (backdrop) backdrop.addEventListener('click', closeMobileNav);
+      mobileNav.querySelectorAll('.mobile-nav__link, .mobile-nav__cta').forEach(link => {
+        link.addEventListener('click', closeMobileNav);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileNav.classList.contains('active')) closeMobileNav();
       });
     }
 

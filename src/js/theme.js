@@ -45,28 +45,6 @@
   // Initialize theme immediately (before DOM ready to prevent flash)
   setTheme(getPreferredTheme(), false);
 
-  // Setup event listeners when DOM is ready
-  function init() {
-    // Attach click handlers to all theme toggles
-    document.querySelectorAll('.theme-toggle, #themeToggle').forEach(toggle => {
-      toggle.addEventListener('click', toggleTheme);
-    });
-
-    // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      if (!localStorage.getItem(STORAGE_KEY)) {
-        setTheme(e.matches ? 'dark' : 'light', false);
-      }
-    });
-  }
-
-  // Run init on DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-
   // ===== MOBILE HAMBURGER MENU =====
   function initMobileNav() {
     const hamburger = document.querySelector('.nav__hamburger');
@@ -136,6 +114,13 @@
 
     // Initialize mobile nav
     initMobileNav();
+  }
+
+  // Run init on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 
   // Expose for external use

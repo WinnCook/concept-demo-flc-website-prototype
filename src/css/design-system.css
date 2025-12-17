@@ -695,7 +695,7 @@ textarea {
   background: linear-gradient(180deg, rgba(13, 17, 23, 0.98) 0%, rgba(0, 0, 0, 0.98) 100%);
 }
 
-/* Show hamburger on mobile */
+/* Show hamburger on mobile, hide everything else */
 @media (max-width: 767px) {
   .nav__hamburger {
     display: flex;
@@ -703,5 +703,21 @@ textarea {
 
   .nav__links {
     display: none !important;
+  }
+
+  /* Hide all nav links and buttons on mobile - only show logo and hamburger */
+  .nav__link,
+  .nav__cta,
+  .page-header__link,
+  .page-header__nav > a,
+  .persona-nav__link,
+  .theme-toggle {
+    display: none !important;
+  }
+
+  /* Ensure hamburger stays visible */
+  .nav__hamburger,
+  .page-header__nav .nav__hamburger {
+    display: flex !important;
   }
 }
