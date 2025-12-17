@@ -1,6 +1,6 @@
-# SKYRIDGE - Active State
+# HORIZON - Active State
 **Mission Card | Session Continuity Document**
-**Last Updated:** 2025-12-17 | Session 6
+**Last Updated:** 2025-12-17 | Session 7
 
 ---
 
@@ -8,125 +8,134 @@
 
 | Field | Value |
 |-------|-------|
-| **Phase** | 7+ - Enhanced Functionality |
+| **Phase** | 8 - Executive Polish |
 | **Status** | COMPLETE |
 | **Active Task** | None - All enhancements complete |
 | **Blockers** | None |
-| **Next Milestone** | User testing and feedback |
+| **Next Milestone** | User testing and executive demo |
 
 ---
 
-## PHASE 7+ COMPLETION
+## SESSION 7 COMPLETION
 
-**All Enhanced Functionality tasks complete:**
-- [x] Created 6 new core pages (admission, visit, tuition, about, campus, contact)
-- [x] Fixed all placeholder links across entire site
-- [x] Added stunning FLC imagery with parallax backgrounds
-- [x] Implemented dark mode toggle with localStorage persistence
-- [x] Built intelligent cross-site search with fuzzy matching
-- [x] Created interactive calendar view for events
-- [x] Added toast notification system for user feedback
-- [x] Added counting number animations on stats
+**Major Rebrand: SKYRIDGE → HORIZON**
 
-**Key Deliverables:**
+All enhancements complete:
+- [x] Renamed project from SKYRIDGE to HORIZON across all 19 pages
+- [x] Fixed white wave readability issue with gradient fade
+- [x] Implemented dramatic night sky dark mode with animated stars
+- [x] Added prototype disclaimer badge with personality
+- [x] Created elite IR Data Dashboard with real FLC data
+- [x] Built interactive charts (enrollment trends, demographics)
+- [x] Added AI Chat placeholder bubble with modal
+- [x] Added Live Activity Feed with simulated engagement
+- [x] Updated localStorage theme key to horizon-theme
+- [x] Updated all project documentation
 
-### New Pages Created
+---
 
-#### `admission.html` - Admission Hub
-- Application timeline with 5 milestones
-- Requirements for First-Year, Transfer, International, Veteran students
-- Interactive application form with tabs
-- Links to visit, contact, and tuition pages
+## KEY DELIVERABLES
 
-#### `visit.html` - Campus Visit Scheduler
-- Interactive JavaScript calendar with month navigation
-- Time slot selection
-- Visit type cards (Campus Tour, Admission Visit, Family Visit Day)
-- Virtual tour section
+### Homepage Enhancements
 
-#### `tuition.html` - Cost & Financial Aid
-- Resident/non-resident toggle
-- Interactive cost calculator with sliders (income, GPA)
-- Financial aid cards (Tuition Promise, Native American Waiver)
-- Real-time net cost calculation
+#### Night Sky Dark Mode
+- Deep navy/black sky gradient when dark mode enabled
+- 20+ animated twinkling stars with varying sizes
+- 2 shooting star animations with staggered delays
+- Smooth transition between day/night themes
+- Snow particles reduced opacity in dark mode
 
-#### `about.html` - College Overview
-- Mission statement and values
-- Core values grid
-- History timeline
-- Leadership section with cabinet members
+#### Prototype Disclaimer Badge
+- Semi-transparent glass effect card
+- Gold accent border
+- Clear "PROTOTYPE · NOT THE REAL WEBSITE" label
+- Humorous copy: "Any resemblance to an actual functioning university website is purely aspirational"
 
-#### `campus.html` - Campus Life
-- Interactive SVG campus map with clickable buildings
-- Facilities grid (academic, recreation, student services)
-- Housing options with features
-- Dining and recreation information
+#### AI Chat Bubble
+- Fixed position chat bubble (bottom-right)
+- "Ask Anything" with pulsing indicator
+- Modal opens on click with "Coming Soon" message
+- Professional preview of AI assistant capability
 
-#### `contact.html` - Contact Directory
-- Quick contact cards
-- Request info form with interest selection
-- Searchable department directory
-- Location information
+#### Live Activity Feed
+- Fixed position (bottom-left)
+- Simulated real-time engagement notifications
+- "14 people viewing Computer Science"
+- "Application submitted 2 min ago"
+- Auto-rotating with 7-second intervals
+- Max 2 items visible, auto-dismiss after 5s
 
-### Visual Enhancements
+#### IR Data Button
+- Prominent gold-bordered button in hero
+- "Institutional Research & Data" with LIVE badge
+- Links to new data.html dashboard
 
-#### Parallax Backgrounds
-- Homepage hero: Stunning mountain panorama with snow particle animation
-- Stats section: Mountain backdrop with parallax scrolling
-- Events page: Campus life imagery
-- Careers page: Professional backdrop
-- Future student hero: Landscape with mountain silhouette
-- All new pages: Consistent parallax mountain imagery
+### Institutional Research Dashboard (data.html)
 
-#### Counting Animations
-- Homepage stats section numbers animate from 0 when scrolling into view
-- Smooth ease-out cubic animation
-- Supports comma formatting (7,600) and suffixes (300+, 15:1)
+#### Stats Cards
+- Total Enrollment: 3,413 (+0.4% YoY)
+- Retention Rate: 63%
+- Graduation Rate: 43%
+- Student-Faculty Ratio: 15:1
 
-### Interactive Features
+#### Interactive Line Chart
+- 9 years of enrollment data (2015-2024)
+- Toggle views: Total / By Gender / By Status
+- SVG-based with animated line drawing
+- Hover tooltips with exact values
+- Responsive design
 
-#### Dark Mode Toggle
-- Toggle button in navigation (moon/sun icons)
-- Smooth CSS transitions on theme change
-- Persists to localStorage
-- Respects system preference (prefers-color-scheme)
-- Toast notification on toggle
-- Full support across all components
+#### Demographics Donut Charts
+- Race/Ethnicity breakdown with 5 categories
+- Gender distribution (53.6% Women, 46.4% Men)
+- Interactive legends
+- Center text showing totals
 
-#### Intelligent Cross-Site Search
-- Real-time search across all site content
-- Categories: Quick Actions, Programs (10), Events (5), Jobs (5), Pages (10)
-- Fuzzy matching for typos (1-character tolerance)
-- Arrow key navigation (up/down)
-- Enter to select
-- Keyboard shortcuts: `/` to open, `ESC` to close, `Cmd/Ctrl+K` toggle
-- Category-grouped results with counts
-- Empty state with suggestions
+#### Data Table
+- Full historical enrollment data
+- Year, Total, Men, Women, Full-Time, Part-Time
+- Year-over-year change indicators
+- Sortable columns
 
-#### Calendar View for Events
-- Toggle between Grid View and Calendar View
-- Full month calendar grid
-- Month navigation (prev/next arrows, Today button)
-- Color-coded event dots by type (Academic, Athletics, Arts, Community, Career)
-- Click date to filter events
-- Today indicator with gold highlight
-- Selected date highlight
+#### Key Metrics Cards
+- 27% Native American Students
+- 62% Out-of-State Students
+- 42% Pell Grant Recipients
+- 60+ Degree Programs
 
-#### Toast Notifications
-- Success, warning, error, info variants
-- Auto-dismiss after 3 seconds
-- Manual close button
-- Slide-in/out animations
-- Dark mode support
-- Stacking support
+### Visual Fixes
 
-### Navigation Fixes
-- All "Apply Now" buttons → admission.html
-- All "Schedule Visit" → visit.html
-- All "Request Info" → contact.html
-- All "Tuition & Aid" → tuition.html
-- Navigation links across all pages updated
-- Quick access links on persona pages updated
+#### White Wave Issue (RESOLVED)
+- Replaced SVG wave with gradient fade
+- `background: linear-gradient(180deg, transparent 0%, var(--color-bg-light) 100%)`
+- Adapts to dark mode automatically
+- No more text/button overlap
+
+---
+
+## SITE MAP (Complete)
+
+```
+HORIZON Site Structure (19 pages)
+├── index.html (Landing with night sky, search, activity feed, AI chat)
+├── data.html (IR Dashboard with interactive charts) [NEW]
+├── programs.html (Program explorer with filtering)
+├── events.html (Events discovery + calendar view)
+├── careers.html (Career marketplace)
+├── admission.html (Application timeline & form)
+├── visit.html (Tour scheduler with calendar)
+├── tuition.html (Cost calculator)
+├── about.html (Mission & leadership)
+├── campus.html (Interactive map & facilities)
+├── contact.html (Directory & forms)
+├── future-student.html (Prospective student persona)
+├── parent.html (Parent/family persona)
+├── current-student.html (Current student persona)
+├── alumni.html (Alumni persona with career network)
+├── faculty.html (Faculty persona)
+├── staff.html (Staff persona)
+└── community.html (Community persona with Durango)
+```
 
 ---
 
@@ -141,32 +150,8 @@
 | 4 | Role-Based Entry | COMPLETE | 7 persona pages with routing |
 | 5 | Information Architecture | COMPLETE | Navigation, search, program explorer |
 | 6 | Extended Value | COMPLETE | Events, careers, Durango, alumni |
-| 7+ | Enhanced Functionality | COMPLETE | Full navigation, search, calendar, dark mode |
-
----
-
-## SITE MAP (Complete)
-
-```
-SKYRIDGE Site Structure (18 pages)
-├── index.html (Landing with routing, search, dark mode)
-├── programs.html (Program explorer with filtering)
-├── events.html (Events discovery + calendar view) [ENHANCED]
-├── careers.html (Career marketplace)
-├── admission.html (Application timeline & form) [NEW]
-├── visit.html (Tour scheduler with calendar) [NEW]
-├── tuition.html (Cost calculator) [NEW]
-├── about.html (Mission & leadership) [NEW]
-├── campus.html (Interactive map & facilities) [NEW]
-├── contact.html (Directory & forms) [NEW]
-├── future-student.html (Prospective student persona)
-├── parent.html (Parent/family persona)
-├── current-student.html (Current student persona)
-├── alumni.html (Alumni persona with career network)
-├── faculty.html (Faculty persona)
-├── staff.html (Staff persona)
-└── community.html (Community persona with Durango)
-```
+| 7 | Enhanced Functionality | COMPLETE | Full navigation, search, calendar, dark mode |
+| 8 | Executive Polish | COMPLETE | HORIZON rebrand, IR Dashboard, AI chat, activity feed |
 
 ---
 
@@ -175,16 +160,17 @@ SKYRIDGE Site Structure (18 pages)
 ### Production-Ready Features
 - **Navigation**: All links functional, no dead ends
 - **Search**: Intelligent omnisearch across all content
-- **Theming**: Dark/light mode with persistence
+- **Theming**: Dark/light mode with night sky transformation
 - **Events**: Grid and calendar views with filtering
 - **Programs**: 60 programs with interest-based filtering
 - **Jobs**: 10 job listings with industry filtering
+- **IR Dashboard**: Real FLC data with interactive visualizations
 - **Responsiveness**: Mobile-first design across all pages
 - **Performance**: Lazy-loaded images, optimized animations
 
 ### Interactive Elements
-- Parallax scrolling backgrounds
-- Animated snow particles (homepage)
+- Night sky with twinkling stars (dark mode)
+- Snow particle animation (light mode)
 - Counting number animations
 - Scroll-triggered reveal animations
 - Cost calculator with sliders
@@ -192,6 +178,23 @@ SKYRIDGE Site Structure (18 pages)
 - Calendar picker (visit & events)
 - Search with keyboard navigation
 - Toast notifications
+- AI Chat placeholder
+- Live Activity Feed
+- IR Dashboard charts (line, donut, table)
+
+---
+
+## DATA SOURCES
+
+### IR Dashboard Data (Verified)
+| Data Point | Source | Years |
+|------------|--------|-------|
+| Enrollment by Year | IPEDS, CollegeTuitionCompare | 2015-2024 |
+| Gender Distribution | IPEDS | 2015-2024 |
+| Race/Ethnicity | IPEDS, DataUSA | 2023-24 |
+| Retention Rate | IPEDS DFR | 2022 cohort |
+| Graduation Rate | IPEDS DFR | 2017 cohort |
+| Full-Time/Part-Time | CollegeTuitionCompare | 2015-2024 |
 
 ---
 
@@ -231,16 +234,15 @@ https://winncook.github.io/future-flc-website/
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
-| 2025-12-17 | Concept name: SKYRIDGE | Evokes elevation, vision, FLC mountain context |
-| 2025-12-17 | Vanilla HTML/CSS/JS | Maximum control, no dependencies, fast iteration |
-| 2025-12-17 | GitHub Pages hosting | Free, simple, shareable URL |
-| 2025-12-17 | Unsplash imagery | High-quality, free, reliable CDN |
-| 2025-12-17 | Parallax backgrounds | Creates depth and mountain ambiance |
-| 2025-12-17 | Dark mode via data-theme | CSS custom properties for easy theming |
-| 2025-12-17 | localStorage for preferences | Persistence without backend |
-| 2025-12-17 | Fuzzy search | Tolerates typos for better UX |
-| 2025-12-17 | Calendar toggle on events | Visual alternative to grid view |
-| 2025-12-17 | Toast notifications | Non-blocking user feedback |
+| 2025-12-17 | Renamed to HORIZON | Future-forward concept, vision metaphor |
+| 2025-12-17 | Gradient fade vs SVG wave | Solves readability, adapts to themes |
+| 2025-12-17 | Night sky dark mode | Maximum wow factor for executives |
+| 2025-12-17 | Full IR Dashboard | User is from IR office, needs to impress VP |
+| 2025-12-17 | AI Chat placeholder | Demonstrates vision without full implementation |
+| 2025-12-17 | Live Activity Feed | Creates sense of real-time engagement |
+| 2025-12-17 | horizon-theme localStorage | Consistent with new branding |
+| 2025-12-17 | Vanilla JS for charts | No dependencies, full control |
+| 2025-12-17 | Real FLC data only | Accuracy critical for IR dashboard |
 
 ---
 
@@ -253,33 +255,35 @@ https://winncook.github.io/future-flc-website/
 | 3 | 2025-12-17 | Phase 4 | Complete - 7 persona pages with routing |
 | 4 | 2025-12-17 | Phase 5 | Complete - IA, search, program explorer |
 | 5 | 2025-12-17 | Phase 6 | Complete - events, careers, Durango, alumni |
-| 6 | 2025-12-17 | Phase 7+ | Complete - enhanced functionality, full navigation |
+| 6 | 2025-12-17 | Phase 7 | Complete - enhanced functionality, full navigation |
+| 7 | 2025-12-17 | Phase 8 | Complete - HORIZON rebrand, IR Dashboard, executive features |
 
 ---
 
 ## HANDOFF NOTES
 
-**Session 6 Summary:**
-- Created 6 new core pages (admission, visit, tuition, about, campus, contact)
-- Fixed all placeholder links across the entire site
-- Added stunning FLC imagery with parallax scrolling
-- Implemented dark mode toggle with localStorage persistence
-- Built intelligent cross-site search with fuzzy matching
-- Created interactive calendar view for events page
-- Added toast notification system
-- Added counting number animations for stats
+**Session 7 Summary:**
+- Rebranded from SKYRIDGE to HORIZON across all 19 pages
+- Fixed white wave readability with gradient solution
+- Added dramatic night sky dark mode with animated stars
+- Created comprehensive IR Dashboard with real FLC data
+- Added AI Chat placeholder demonstrating future capability
+- Added Live Activity Feed for engagement simulation
+- All localStorage keys updated to horizon-theme
+- Project documentation fully updated
 
-**Site is now fully functional:**
-- 18 pages total
+**Site is now executive-ready:**
+- 19 pages total (added data.html)
 - All navigation links working
-- Interactive features: search, calendar, dark mode, cost calculator
-- Visual polish: parallax, animations, toasts
+- Interactive features: search, calendar, dark mode, cost calculator, IR charts
+- Visual polish: night sky, animations, activity feed
 - Mobile responsive across all pages
+- Clear prototype disclaimers throughout
 
 **For Next Session (if needed):**
 - Commit and push all changes to GitHub
 - Test on multiple devices/browsers
-- Gather user feedback
+- Gather user feedback from executive demo
 - Consider any final refinements
 
 ---
@@ -288,15 +292,16 @@ https://winncook.github.io/future-flc-website/
 
 **Branch:** main
 **Remote:** origin (https://github.com/WinnCook/future-flc-website)
-**Last Commit:** 1f11a30 - Complete Phase 7+: Enhanced Functionality
-**Status:** Clean - all changes committed and pushed
+**Status:** Changes pending - needs commit and push
 
-**Live URL:** https://winncook.github.io/future-flc-website/
-
-**To Test:** Open the live URL above. GitHub Pages typically updates within 1-2 minutes of push.
+**Changes to commit:**
+- HORIZON rebrand (all HTML, CSS, docs)
+- data.html (new IR Dashboard)
+- Homepage enhancements (night sky, activity feed, AI chat)
+- Project documentation updates
 
 ---
 
-*This document is the living mission card for SKYRIDGE.*
+*This document is the living mission card for HORIZON.*
 *Update this file at the end of every session.*
 *All agents must read this file to understand current project state.*

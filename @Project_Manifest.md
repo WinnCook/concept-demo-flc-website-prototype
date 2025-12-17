@@ -1,21 +1,23 @@
-# SKYRIDGE - Project Manifest
+# HORIZON - Project Manifest
 **Fort Lewis College Concept Website Prototype**
-**Version:** 1.0
+**Version:** 2.0
 **Created:** 2025-12-17
+**Updated:** 2025-12-17
 **Status:** Active
 
 ---
 
 ## 1. PROJECT IDENTITY
 
-**Codename:** SKYRIDGE
-**Tagline:** *Elevating the Digital Campus Experience*
+**Codename:** HORIZON
+**Tagline:** *Where Vision Becomes Reality*
 
 The name evokes:
-- Elevation (Fort Lewis sits at 7,600 ft in the San Juan Mountains)
-- Vision and forward-thinking
-- The ridge as a vantage point - seeing further, seeing clearer
-- Mountain heritage central to FLC identity
+- Future-forward thinking and innovation
+- The horizon as unlimited possibility
+- Vision beyond current limitations
+- AI-driven workflows meeting institutional vision
+- A "concept car" demonstration of what's possible
 
 ---
 
@@ -81,7 +83,7 @@ The presentation should inspire vision, not require technical understanding.
 | 0 | Initialization | Establish workflow, documentation, repository |
 | 1 | Website Inventory | Crawl and catalog entire existing FLC website |
 | 2 | Experience Benchmarking | Analyze elite digital experiences for patterns |
-| 3 | Concept Vision | Define SKYRIDGE identity, tone, and visual direction |
+| 3 | Concept Vision | Define HORIZON identity, tone, and visual direction |
 | 4 | Role-Based Entry | Design stakeholder-specific entry experiences |
 | 5 | Information Architecture | Rebuild navigation and content structure |
 | 6 | Extended Value | Integrate community, jobs, events, local context |
@@ -188,7 +190,7 @@ Future FLC Website/
 
 | Assumption | Rationale | Revisit Trigger |
 |------------|-----------|-----------------|
-| Concept name "SKYRIDGE" | Mountain context, vision metaphor | Phase 3 if better option emerges |
+| Concept name "HORIZON" | Mountain context, vision metaphor | Phase 3 if better option emerges |
 | Vanilla HTML/CSS/JS | Maximum control, no dependencies | If interactivity demands framework |
 | GitHub Pages hosting | Simple, free, shareable URL | If dynamic features required |
 | Single-page application style | Cohesive concept car experience | Phase 4 architecture decision |
@@ -199,7 +201,7 @@ Future FLC Website/
 ## 13. DELIVERABLES
 
 ### Primary Deliverable
-A live, hosted concept website demonstrating SKYRIDGE vision.
+A live, hosted concept website demonstrating HORIZON vision.
 
 **URL:** https://winncook.github.io/future-flc-website/
 
@@ -215,9 +217,10 @@ A live, hosted concept website demonstrating SKYRIDGE vision.
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 2.0 | 2025-12-17 | Renamed to HORIZON, added IR Dashboard, dark mode night sky, AI chat, activity feed |
 | 1.0 | 2025-12-17 | Initial manifest created |
 
 ---
 
-*This document is the constitutional source of truth for the SKYRIDGE project.*
+*This document is the constitutional source of truth for the HORIZON project.*
 *All agents operating on this project must read this file before beginning work.*

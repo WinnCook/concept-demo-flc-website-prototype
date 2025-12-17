@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HORIZON - Fort Lewis College Institutional Research Dashboard. Interactive data visualization.">
+  <title>Institutional Research & Data | HORIZON</title>
+  <link rel="stylesheet" href="src/css/design-system.css">
+  <style>
+    /* Page Header */
+    .page-header {
+      background: var(--gradient-hero);
+      color: var(--color-text-inverse);
+      padding: var(--space-4) 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .page-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .page-header__logo {
+      font-size: 1.25rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: var(--color-text-inverse);
+      text-decoration: none;
+    }
+
+    .page-header__nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .page-header__link {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--text-body-sm);
+      transition: color var(--duration-fast);
+    }
+
+    .page-header__link:hover {
+      color: var(--color-accent);
+    }
+
+    /* Hero Section */
+    .ir-hero {
+      background: linear-gradient(135deg, #003366 0%, #001a33 50%, #002244 100%);
+      color: var(--color-text-inverse);
+      padding: var(--space-8) 0 var(--space-10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ir-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1920&q=80') center/cover no-repeat;
+      opacity: 0.1;
+    }
+
+    .ir-hero__content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .ir-hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      background: rgba(255, 184, 28, 0.2);
+      border: 1px solid rgba(255, 184, 28, 0.4);
+      border-radius: var(--radius-full);
+      padding: 0.5rem 1rem;
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: var(--color-accent);
+      margin-bottom: var(--space-3);
+    }
+
+    .ir-hero__title {
+      font-size: var(--text-h1);
+      margin-bottom: var(--space-2);
+    }
+
+    .ir-hero__subtitle {
+      font-size: var(--text-body);
+      opacity: 0.9;
+      max-width: 600px;
+      margin-bottom: var(--space-6);
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-3);
+      margin-top: calc(-1 * var(--space-6));
+      position: relative;
+      z-index: 2;
+    }
+
+    @media (min-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .stat-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-xl);
+      text-align: center;
+      border: 1px solid var(--color-border);
+    }
+
+    .stat-card__value {
+      font-size: clamp(2rem, 5vw, 2.5rem);
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1;
+      margin-bottom: var(--space-1);
+    }
+
+    .stat-card__label {
+      font-size: var(--text-caption);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-1);
+    }
+
+    .stat-card__trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: var(--text-caption);
+      font-weight: 600;
+    }
+
+    .stat-card__trend--up {
+      color: var(--color-success);
+    }
+
+    .stat-card__trend--down {
+      color: var(--color-error);
+    }
+
+    /* Dashboard Section */
+    .dashboard {
+      padding: var(--space-8) 0;
+    }
+
+    .dashboard__header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+
+    .dashboard__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .dashboard__controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .control-btn {
+      background: var(--color-surface);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 0.5rem 1rem;
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--duration-fast);
+    }
+
+    .control-btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .control-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+
+    /* Chart Container */
+    .chart-container {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-md);
+      margin-bottom: var(--space-6);
+      border: 1px solid var(--color-border);
+    }
+
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-4);
+    }
+
+    .chart-title {
+      font-size: var(--text-h3);
+      color: var(--color-primary);
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--text-caption);
+      color: var(--color-text-secondary);
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    /* SVG Chart Styles */
+    .chart-svg {
+      width: 100%;
+      height: 300px;
+    }
+
+    .chart-line {
+      fill: none;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .chart-line--total {
+      stroke: var(--color-primary);
+    }
+
+    .chart-line--male {
+      stroke: #3B82F6;
+    }
+
+    .chart-line--female {
+      stroke: #EC4899;
+    }
+
+    .chart-area {
+      opacity: 0.1;
+    }
+
+    .chart-area--total {
+      fill: var(--color-primary);
+    }
+
+    .chart-point {
+      fill: var(--color-surface);
+      stroke-width: 3;
+      cursor: pointer;
+      transition: r 0.2s ease;
+    }
+
+    .chart-point:hover {
+      r: 8;
+    }
+
+    .chart-point--total {
+      stroke: var(--color-primary);
+    }
+
+    .chart-point--male {
+      stroke: #3B82F6;
+    }
+
+    .chart-point--female {
+      stroke: #EC4899;
+    }
+
+    .chart-grid-line {
+      stroke: var(--color-border);
+      stroke-dasharray: 4, 4;
+    }
+
+    .chart-axis-label {
+      fill: var(--color-text-secondary);
+      font-size: 11px;
+    }
+
+    .chart-tooltip {
+      position: absolute;
+      background: var(--color-bg-dark);
+      color: var(--color-text-inverse);
+      padding: var(--space-2);
+      border-radius: var(--radius-md);
+      font-size: var(--text-caption);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 100;
+    }
+
+    .chart-tooltip.visible {
+      opacity: 1;
+    }
+
+    /* Demographics Section */
+    .demographics-grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .demographics-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .donut-chart-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .donut-svg {
+      width: 250px;
+      height: 250px;
+    }
+
+    .donut-segment {
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      transform-origin: center;
+    }
+
+    .donut-segment:hover {
+      opacity: 0.8;
+    }
+
+    .donut-center-text {
+      font-size: 24px;
+      font-weight: 700;
+      fill: var(--color-primary);
+    }
+
+    .donut-center-label {
+      font-size: 12px;
+      fill: var(--color-text-secondary);
+    }
+
+    .demographics-legend {
+      display: grid;
+      gap: var(--space-2);
+      margin-top: var(--space-3);
+    }
+
+    .demo-legend-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .demo-legend-item:hover {
+      background: var(--color-bg-light);
+    }
+
+    .demo-legend-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .demo-legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: var(--radius-sm);
+    }
+
+    .demo-legend-label {
+      font-size: var(--text-body-sm);
+      color: var(--color-text-primary);
+    }
+
+    .demo-legend-value {
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .demo-legend-percent {
+      font-size: var(--text-caption);
+      color: var(--color-text-secondary);
+      margin-left: var(--space-1);
+    }
+
+    /* Data Table */
+    .data-table-container {
+      overflow-x: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-body-sm);
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: var(--space-2) var(--space-3);
+      text-align: left;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .data-table th {
+      background: var(--color-bg-light);
+      font-weight: 600;
+      color: var(--color-text-primary);
+      white-space: nowrap;
+    }
+
+    .data-table tr:hover {
+      background: var(--color-bg-light);
+    }
+
+    .data-table td {
+      color: var(--color-text-primary);
+    }
+
+    /* Key Metrics */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .metric-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      border: 1px solid var(--color-border);
+      text-align: center;
+    }
+
+    .metric-card__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .metric-card__value {
+      font-size: var(--text-h2);
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .metric-card__label {
+      font-size: var(--text-caption);
+      color: var(--color-text-secondary);
+    }
+
+    /* Footer */
+    .page-footer {
+      background: var(--color-bg-dark);
+      color: var(--color-text-inverse);
+      padding: var(--space-6) 0;
+      text-align: center;
+    }
+
+    .page-footer__logo {
+      font-size: 1.25rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      margin-bottom: var(--space-2);
+    }
+
+    .page-footer__text {
+      font-size: var(--text-caption);
+      opacity: 0.7;
+    }
+
+    .page-footer__disclaimer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-1);
+      margin-top: var(--space-3);
+      font-size: var(--text-caption);
+      opacity: 0.5;
+    }
+
+    /* Data Source Badge */
+    .data-source {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      background: var(--color-bg-light);
+      border-radius: var(--radius-full);
+      padding: 0.5rem 1rem;
+      font-size: var(--text-caption);
+      color: var(--color-text-secondary);
+      margin-top: var(--space-4);
+    }
+
+    .data-source__icon {
+      font-size: 1rem;
+    }
+
+    /* Dark Mode */
+    [data-theme="dark"] .stat-card,
+    [data-theme="dark"] .chart-container,
+    [data-theme="dark"] .metric-card {
+      background: var(--color-surface);
+      border-color: var(--color-border);
+    }
+
+    [data-theme="dark"] .stat-card__value,
+    [data-theme="dark"] .chart-title,
+    [data-theme="dark"] .dashboard__title,
+    [data-theme="dark"] .metric-card__value {
+      color: var(--color-text-primary);
+    }
+
+    [data-theme="dark"] .ir-hero {
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 50%, #0d1117 100%);
+    }
+
+    /* Theme Toggle in Header */
+    .theme-toggle {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-text-inverse);
+      font-size: 1rem;
+      transition: all var(--duration-fast);
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Animation */
+    .fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    @keyframes drawLine {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container page-header__inner">
+      <a href="index.html" class="page-header__logo">HORIZON</a>
+      <nav class="page-header__nav">
+        <a href="index.html" class="page-header__link">Home</a>
+        <a href="programs.html" class="page-header__link">Programs</a>
+        <a href="about.html" class="page-header__link">About</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <span class="theme-toggle__icon">🌙</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="ir-hero">
+    <div class="container ir-hero__content">
+      <div class="ir-hero__badge">
+        <span>📊</span>
+        <span>Institutional Research</span>
+      </div>
+      <h1 class="ir-hero__title">Fort Lewis College Data & Analytics</h1>
+      <p class="ir-hero__subtitle">
+        Explore enrollment trends, demographic insights, and key institutional metrics.
+        Real data, beautifully visualized.
+      </p>
+    </div>
+  </section>
+
+  <!-- Stats Cards -->
+  <section class="container">
+    <div class="stats-grid">
+      <div class="stat-card fade-in">
+        <div class="stat-card__value" id="totalEnrollment">3,413</div>
+        <div class="stat-card__label">Total Enrollment (2023-24)</div>
+        <div class="stat-card__trend stat-card__trend--up">
+          <span>↑</span>
+          <span>+0.4% from last year</span>
+        </div>
+      </div>
+      <div class="stat-card fade-in" style="animation-delay: 0.1s;">
+        <div class="stat-card__value">63%</div>
+        <div class="stat-card__label">Retention Rate</div>
+        <div class="stat-card__trend stat-card__trend--down">
+          <span>↓</span>
+          <span>-3% from median</span>
+        </div>
+      </div>
+      <div class="stat-card fade-in" style="animation-delay: 0.2s;">
+        <div class="stat-card__value">43%</div>
+        <div class="stat-card__label">6-Year Graduation Rate</div>
+        <div class="stat-card__trend stat-card__trend--up">
+          <span>↑</span>
+          <span>+9% vs peers</span>
+        </div>
+      </div>
+      <div class="stat-card fade-in" style="animation-delay: 0.3s;">
+        <div class="stat-card__value">15:1</div>
+        <div class="stat-card__label">Student-Faculty Ratio</div>
+        <div class="stat-card__trend">
+          <span>—</span>
+          <span>At target</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enrollment Dashboard -->
+  <section class="dashboard">
+    <div class="container">
+      <div class="dashboard__header">
+        <h2 class="dashboard__title">Enrollment Trends</h2>
+        <div class="dashboard__controls">
+          <button class="control-btn active" data-view="total">Total</button>
+          <button class="control-btn" data-view="gender">By Gender</button>
+          <button class="control-btn" data-view="status">By Status</button>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart-header">
+          <h3 class="chart-title">Enrollment Over Time (2015-2024)</h3>
+          <div class="chart-legend" id="chartLegend">
+            <div class="legend-item">
+              <span class="legend-dot" style="background: var(--color-primary);"></span>
+              <span>Total Enrollment</span>
+            </div>
+          </div>
+        </div>
+        <div style="position: relative;">
+          <svg class="chart-svg" id="enrollmentChart" viewBox="0 0 800 300" preserveAspectRatio="xMidYMid meet">
+            <!-- Grid lines -->
+            <g class="chart-grid">
+              <line class="chart-grid-line" x1="60" y1="40" x2="780" y2="40"/>
+              <line class="chart-grid-line" x1="60" y1="105" x2="780" y2="105"/>
+              <line class="chart-grid-line" x1="60" y1="170" x2="780" y2="170"/>
+              <line class="chart-grid-line" x1="60" y1="235" x2="780" y2="235"/>
+            </g>
+            <!-- Y-axis labels -->
+            <g class="chart-y-axis">
+              <text class="chart-axis-label" x="50" y="44" text-anchor="end">4,000</text>
+              <text class="chart-axis-label" x="50" y="109" text-anchor="end">3,500</text>
+              <text class="chart-axis-label" x="50" y="174" text-anchor="end">3,000</text>
+              <text class="chart-axis-label" x="50" y="239" text-anchor="end">2,500</text>
+            </g>
+            <!-- X-axis labels -->
+            <g class="chart-x-axis" id="xAxisLabels">
+              <!-- Generated by JS -->
+            </g>
+            <!-- Chart content area -->
+            <g id="chartContent">
+              <!-- Generated by JS -->
+            </g>
+          </svg>
+          <div class="chart-tooltip" id="chartTooltip"></div>
+        </div>
+      </div>
+
+      <!-- Demographics -->
+      <div class="dashboard__header">
+        <h2 class="dashboard__title">Student Demographics (2023-24)</h2>
+      </div>
+
+      <div class="demographics-grid">
+        <!-- Race/Ethnicity Donut -->
+        <div class="chart-container">
+          <h3 class="chart-title">Race & Ethnicity</h3>
+          <div class="donut-chart-container">
+            <svg class="donut-svg" viewBox="0 0 200 200" id="ethnicityChart">
+              <!-- Generated by JS -->
+            </svg>
+            <div class="demographics-legend" id="ethnicityLegend">
+              <!-- Generated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Gender Donut -->
+        <div class="chart-container">
+          <h3 class="chart-title">Gender Distribution</h3>
+          <div class="donut-chart-container">
+            <svg class="donut-svg" viewBox="0 0 200 200" id="genderChart">
+              <!-- Generated by JS -->
+            </svg>
+            <div class="demographics-legend" id="genderLegend">
+              <!-- Generated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Table -->
+      <div class="chart-container" style="margin-top: var(--space-6);">
+        <h3 class="chart-title">Historical Enrollment Data</h3>
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Total</th>
+                <th>Men</th>
+                <th>Women</th>
+                <th>Full-Time</th>
+                <th>Part-Time</th>
+                <th>Change</th>
+              </tr>
+            </thead>
+            <tbody id="dataTableBody">
+              <!-- Generated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Key Metrics -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-card__icon">🎓</div>
+          <div class="metric-card__value">27%</div>
+          <div class="metric-card__label">Native American Students</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-card__icon">🌍</div>
+          <div class="metric-card__value">62%</div>
+          <div class="metric-card__label">Out-of-State Students</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-card__icon">💰</div>
+          <div class="metric-card__value">42%</div>
+          <div class="metric-card__label">Pell Grant Recipients</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-card__icon">📚</div>
+          <div class="metric-card__value">60+</div>
+          <div class="metric-card__label">Degree Programs</div>
+        </div>
+      </div>
+
+      <div class="data-source">
+        <span class="data-source__icon">📋</span>
+        <span>Data sourced from IPEDS, FLC Institutional Research, and official fact sheets</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="container">
+      <div class="page-footer__logo">HORIZON</div>
+      <p class="page-footer__text">Institutional Research & Data Dashboard</p>
+      <div class="page-footer__disclaimer">
+        <span>🧪</span>
+        <span>Prototype · Real data, concept visualization</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Real FLC Data
+    const enrollmentData = {
+      years: ['2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24'],
+      total: [3707, 3601, 3332, 3319, 3300, 3469, 3567, 3400, 3413],
+      male: [1806, 1796, 1610, 1596, 1514, 1556, 1601, 1517, 1585],
+      female: [1901, 1805, 1722, 1723, 1786, 1913, 1966, 1883, 1828],
+      fullTime: [3393, 3179, 2921, 2883, 2862, 2904, 2914, 2877, 2826],
+      partTime: [301, 412, 379, 389, 358, 455, 535, 431, 487]
+    };
+
+    const ethnicityData = [
+      { label: 'White', value: 1504, percent: 44.1, color: '#3B82F6' },
+      { label: 'Native American', value: 922, percent: 27.0, color: '#FFB81C' },
+      { label: 'Hispanic/Latino', value: 492, percent: 14.4, color: '#10B981' },
+      { label: 'Two or More', value: 387, percent: 11.3, color: '#8B5CF6' },
+      { label: 'Other', value: 108, percent: 3.2, color: '#6B7280' }
+    ];
+
+    const genderData = [
+      { label: 'Women', value: 1828, percent: 53.6, color: '#EC4899' },
+      { label: 'Men', value: 1585, percent: 46.4, color: '#3B82F6' }
+    ];
+
+    // Chart configuration
+    const chartConfig = {
+      width: 800,
+      height: 300,
+      padding: { top: 40, right: 20, bottom: 40, left: 60 },
+      minY: 2500,
+      maxY: 4000
+    };
+
+    let currentView = 'total';
+
+    // Initialize charts
+    function init() {
+      renderEnrollmentChart();
+      renderDonutChart('ethnicityChart', 'ethnicityLegend', ethnicityData);
+      renderDonutChart('genderChart', 'genderLegend', genderData);
+      renderDataTable();
+      setupEventListeners();
+      initTheme();
+    }
+
+    // Render enrollment line chart
+    function renderEnrollmentChart() {
+      const svg = document.getElementById('chartContent');
+      const xLabels = document.getElementById('xAxisLabels');
+      const legend = document.getElementById('chartLegend');
+
+      svg.innerHTML = '';
+      xLabels.innerHTML = '';
+
+      const { years, total, male, female, fullTime, partTime } = enrollmentData;
+      const { width, height, padding, minY, maxY } = chartConfig;
+
+      const chartWidth = width - padding.left - padding.right;
+      const chartHeight = height - padding.top - padding.bottom;
+
+      // X positions
+      const xStep = chartWidth / (years.length - 1);
+      const xPositions = years.map((_, i) => padding.left + i * xStep);
+
+      // Y scale function
+      const scaleY = (val) => {
+        const ratio = (val - minY) / (maxY - minY);
+        return height - padding.bottom - (ratio * chartHeight);
+      };
+
+      // Render X-axis labels
+      years.forEach((year, i) => {
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('class', 'chart-axis-label');
+        text.setAttribute('x', xPositions[i]);
+        text.setAttribute('y', height - 10);
+        text.setAttribute('text-anchor', 'middle');
+        text.textContent = year.split('-')[0];
+        xLabels.appendChild(text);
+      });
+
+      // Determine which lines to draw
+      let datasets = [];
+      if (currentView === 'total') {
+        datasets = [{ data: total, class: 'total', color: 'var(--color-primary)' }];
+        legend.innerHTML = '<div class="legend-item"><span class="legend-dot" style="background: var(--color-primary);"></span><span>Total Enrollment</span></div>';
+      } else if (currentView === 'gender') {
+        datasets = [
+          { data: male, class: 'male', color: '#3B82F6' },
+          { data: female, class: 'female', color: '#EC4899' }
+        ];
+        legend.innerHTML = `
+          <div class="legend-item"><span class="legend-dot" style="background: #3B82F6;"></span><span>Men</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background: #EC4899;"></span><span>Women</span></div>
+        `;
+      } else if (currentView === 'status') {
+        datasets = [
+          { data: fullTime, class: 'total', color: 'var(--color-primary)' },
+          { data: partTime, class: 'male', color: '#10B981' }
+        ];
+        legend.innerHTML = `
+          <div class="legend-item"><span class="legend-dot" style="background: var(--color-primary);"></span><span>Full-Time</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background: #10B981;"></span><span>Part-Time</span></div>
+        `;
+      }
+
+      // Draw each dataset
+      datasets.forEach(({ data, class: cls, color }) => {
+        // Create area path
+        const areaPoints = data.map((val, i) => `${xPositions[i]},${scaleY(val)}`);
+        const areaPath = `M${areaPoints.join(' L')} L${xPositions[xPositions.length - 1]},${height - padding.bottom} L${xPositions[0]},${height - padding.bottom} Z`;
+
+        const area = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        area.setAttribute('class', `chart-area chart-area--${cls}`);
+        area.setAttribute('d', areaPath);
+        area.setAttribute('fill', color);
+        svg.appendChild(area);
+
+        // Create line path
+        const linePoints = data.map((val, i) => `${xPositions[i]},${scaleY(val)}`);
+        const linePath = `M${linePoints.join(' L')}`;
+
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        line.setAttribute('class', `chart-line chart-line--${cls}`);
+        line.setAttribute('d', linePath);
+        line.setAttribute('stroke', color);
+
+        // Animate line
+        const length = line.getTotalLength ? line.getTotalLength() : 1000;
+        line.style.strokeDasharray = length;
+        line.style.strokeDashoffset = length;
+        line.style.animation = 'drawLine 1.5s ease forwards';
+
+        svg.appendChild(line);
+
+        // Create points
+        data.forEach((val, i) => {
+          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          circle.setAttribute('class', `chart-point chart-point--${cls}`);
+          circle.setAttribute('cx', xPositions[i]);
+          circle.setAttribute('cy', scaleY(val));
+          circle.setAttribute('r', 5);
+          circle.setAttribute('stroke', color);
+          circle.setAttribute('data-year', years[i]);
+          circle.setAttribute('data-value', val.toLocaleString());
+          svg.appendChild(circle);
+        });
+      });
+
+      // Tooltip functionality
+      const tooltip = document.getElementById('chartTooltip');
+      svg.querySelectorAll('.chart-point').forEach(point => {
+        point.addEventListener('mouseenter', (e) => {
+          const year = e.target.getAttribute('data-year');
+          const value = e.target.getAttribute('data-value');
+          tooltip.innerHTML = `<strong>${year}</strong><br>${value} students`;
+          tooltip.classList.add('visible');
+        });
+
+        point.addEventListener('mousemove', (e) => {
+          const rect = svg.getBoundingClientRect();
+          tooltip.style.left = (e.clientX - rect.left + 10) + 'px';
+          tooltip.style.top = (e.clientY - rect.top - 40) + 'px';
+        });
+
+        point.addEventListener('mouseleave', () => {
+          tooltip.classList.remove('visible');
+        });
+      });
+    }
+
+    // Render donut chart
+    function renderDonutChart(chartId, legendId, data) {
+      const svg = document.getElementById(chartId);
+      const legend = document.getElementById(legendId);
+
+      svg.innerHTML = '';
+      legend.innerHTML = '';
+
+      const total = data.reduce((sum, d) => sum + d.value, 0);
+      const centerX = 100;
+      const centerY = 100;
+      const radius = 70;
+      const innerRadius = 45;
+
+      let currentAngle = -90;
+
+      data.forEach((item, index) => {
+        const angle = (item.value / total) * 360;
+        const startAngle = currentAngle;
+        const endAngle = currentAngle + angle;
+
+        // Create arc path
+        const path = describeArc(centerX, centerY, radius, innerRadius, startAngle, endAngle);
+
+        const segment = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        segment.setAttribute('class', 'donut-segment');
+        segment.setAttribute('d', path);
+        segment.setAttribute('fill', item.color);
+        segment.setAttribute('data-index', index);
+        svg.appendChild(segment);
+
+        currentAngle = endAngle;
+
+        // Create legend item
+        const legendItem = document.createElement('div');
+        legendItem.className = 'demo-legend-item';
+        legendItem.innerHTML = `
+          <div class="demo-legend-left">
+            <div class="demo-legend-color" style="background: ${item.color};"></div>
+            <span class="demo-legend-label">${item.label}</span>
+          </div>
+          <div>
+            <span class="demo-legend-value">${item.value.toLocaleString()}</span>
+            <span class="demo-legend-percent">(${item.percent}%)</span>
+          </div>
+        `;
+        legend.appendChild(legendItem);
+      });
+
+      // Center text
+      const centerText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      centerText.setAttribute('class', 'donut-center-text');
+      centerText.setAttribute('x', centerX);
+      centerText.setAttribute('y', centerY);
+      centerText.setAttribute('text-anchor', 'middle');
+      centerText.setAttribute('dominant-baseline', 'middle');
+      centerText.textContent = total.toLocaleString();
+      svg.appendChild(centerText);
+
+      const centerLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      centerLabel.setAttribute('class', 'donut-center-label');
+      centerLabel.setAttribute('x', centerX);
+      centerLabel.setAttribute('y', centerY + 18);
+      centerLabel.setAttribute('text-anchor', 'middle');
+      centerLabel.textContent = 'Students';
+      svg.appendChild(centerLabel);
+    }
+
+    // Helper function to create arc path
+    function describeArc(x, y, outerRadius, innerRadius, startAngle, endAngle) {
+      const start = polarToCartesian(x, y, outerRadius, endAngle);
+      const end = polarToCartesian(x, y, outerRadius, startAngle);
+      const innerStart = polarToCartesian(x, y, innerRadius, endAngle);
+      const innerEnd = polarToCartesian(x, y, innerRadius, startAngle);
+      const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
+
+      return [
+        'M', start.x, start.y,
+        'A', outerRadius, outerRadius, 0, largeArcFlag, 0, end.x, end.y,
+        'L', innerEnd.x, innerEnd.y,
+        'A', innerRadius, innerRadius, 0, largeArcFlag, 1, innerStart.x, innerStart.y,
+        'Z'
+      ].join(' ');
+    }
+
+    function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+      const angleInRadians = (angleInDegrees) * Math.PI / 180.0;
+      return {
+        x: centerX + (radius * Math.cos(angleInRadians)),
+        y: centerY + (radius * Math.sin(angleInRadians))
+      };
+    }
+
+    // Render data table
+    function renderDataTable() {
+      const tbody = document.getElementById('dataTableBody');
+      tbody.innerHTML = '';
+
+      const { years, total, male, female, fullTime, partTime } = enrollmentData;
+
+      years.forEach((year, i) => {
+        const change = i > 0 ? total[i] - total[i - 1] : 0;
+        const changeStr = change > 0 ? `+${change}` : change.toString();
+        const changeClass = change > 0 ? 'stat-card__trend--up' : change < 0 ? 'stat-card__trend--down' : '';
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><strong>${year}</strong></td>
+          <td>${total[i].toLocaleString()}</td>
+          <td>${male[i].toLocaleString()}</td>
+          <td>${female[i].toLocaleString()}</td>
+          <td>${fullTime[i].toLocaleString()}</td>
+          <td>${partTime[i].toLocaleString()}</td>
+          <td class="${changeClass}">${i === 0 ? '—' : changeStr}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    // Event listeners
+    function setupEventListeners() {
+      document.querySelectorAll('.control-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.control-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentView = btn.dataset.view;
+          renderEnrollmentChart();
+        });
+      });
+    }
+
+    // Theme toggle
+    function initTheme() {
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = themeToggle.querySelector('.theme-toggle__icon');
+      const root = document.documentElement;
+
+      function getPreferredTheme() {
+        const savedTheme = localStorage.getItem('horizon-theme');
+        if (savedTheme) return savedTheme;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      function setTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        localStorage.setItem('horizon-theme', theme);
+        themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+      }
+
+      setTheme(getPreferredTheme());
+
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = root.getAttribute('data-theme');
+        setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      });
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
