@@ -711,6 +711,79 @@
       }
     }
 
+    /* Mobile-friendly Data Explorer */
+    @media (max-width: 768px) {
+      .explorer {
+        min-height: auto;
+        gap: var(--space-3);
+      }
+
+      .field-panel {
+        padding: var(--space-3);
+      }
+
+      .field-panel__section {
+        margin-bottom: var(--space-3);
+      }
+
+      /* Make fields tappable instead of draggable on mobile */
+      .field {
+        cursor: pointer;
+        padding: var(--space-3);
+        font-size: var(--text-body-sm);
+      }
+
+      .field.selected {
+        background: var(--color-primary);
+        color: white;
+        border-color: var(--color-primary);
+      }
+
+      .drop-zones--three {
+        grid-template-columns: 1fr;
+        gap: var(--space-2);
+      }
+
+      .drop-zone {
+        min-height: 70px;
+        padding: var(--space-3);
+      }
+
+      .drop-zone__label {
+        font-size: 11px;
+      }
+
+      .chart-type-selector {
+        flex-wrap: wrap;
+      }
+
+      .chart-preview {
+        min-height: 300px;
+        padding: var(--space-3);
+      }
+
+      .explorer-chart-svg {
+        height: 250px;
+      }
+
+      .chart-preview__empty-icon {
+        font-size: 2.5rem;
+      }
+
+      .chart-preview__empty-text {
+        font-size: var(--text-body-sm);
+      }
+
+      .chart-preview__empty-hint {
+        font-size: 11px;
+      }
+
+      /* Show mobile hint on mobile only */
+      .mobile-explorer-hint {
+        display: block !important;
+      }
+    }
+
     /* Field Panel */
     .field-panel {
       background: var(--color-surface);
@@ -1348,6 +1421,11 @@
               <button class="explorer__reset" id="explorerReset">Reset All</button>
             </div>
 
+            <!-- Mobile instructions -->
+            <div class="mobile-explorer-hint" style="display: none; background: var(--color-bg-light); padding: var(--space-2); border-radius: var(--radius-sm); margin-bottom: var(--space-2); font-size: 12px; text-align: center;">
+              <strong>Tap</strong> a field above, then <strong>tap</strong> a zone below to place it
+            </div>
+
             <!-- Chart Preview -->
             <div class="chart-preview">
               <div class="chart-preview__header">
@@ -1859,8 +1937,13 @@
       const chartContent = document.getElementById('explorerChartContent');
       const chartTitle = document.getElementById('explorerChartTitle');
 
-      // Initialize drag events
+      // Mobile detection
+      const isMobile = window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window;
+      let selectedField = null;
+
+      // Initialize drag events (desktop) and tap events (mobile)
       fields.forEach(field => {
+        // Desktop: drag and drop
         field.addEventListener('dragstart', (e) => {
           e.dataTransfer.setData('text/plain', JSON.stringify({
             field: field.dataset.field,
@@ -1870,6 +1953,23 @@
           field.classList.add('dragging');
         });
         field.addEventListener('dragend', () => field.classList.remove('dragging'));
+
+        // Mobile: tap to select, then tap zone to place
+        field.addEventListener('click', (e) => {
+          if (!isMobile) return;
+          e.preventDefault();
+
+          // Deselect all fields
+          fields.forEach(f => f.classList.remove('selected'));
+
+          // Select this field
+          field.classList.add('selected');
+          selectedField = {
+            field: field.dataset.field,
+            type: field.dataset.type,
+            label: field.querySelector('span:last-child').textContent
+          };
+        });
       });
 
       // Setup drop zones
@@ -1880,6 +1980,7 @@
       ];
 
       zones.forEach(zone => {
+        // Desktop: drag and drop
         zone.el.addEventListener('dragover', (e) => { e.preventDefault(); zone.el.classList.add('drag-over'); });
         zone.el.addEventListener('dragleave', () => zone.el.classList.remove('drag-over'));
         zone.el.addEventListener('drop', (e) => {
@@ -1893,6 +1994,22 @@
               updateExplorerChart();
             }
           } catch (err) { console.error('Drop error:', err); }
+        });
+
+        // Mobile: tap zone to place selected field
+        zone.el.addEventListener('click', (e) => {
+          if (!isMobile || !selectedField) return;
+          if (e.target.classList.contains('dropped-field__remove')) return; // Don't interfere with remove button
+
+          if (selectedField.type === zone.accepts) {
+            explorerState[zone.key] = selectedField;
+            updateDropZoneDisplay(zone.content, selectedField, zone.key, zone.placeholder);
+            updateExplorerChart();
+
+            // Clear selection
+            fields.forEach(f => f.classList.remove('selected'));
+            selectedField = null;
+          }
         });
       });
 
@@ -1958,14 +2075,20 @@
           return;
         }
 
-        // Build title
-        let title = values.label;
-        if (columns) title += ` by ${columns.label}`;
-        title += ` over ${rows.label}`;
-        chartTitle.textContent = title;
-
         // Get chart data based on dimension combinations
-        const chartData = buildChartData(rows, columns, values);
+        const chartData = buildChartData(rows, columns, values, explorerState.chartType);
+
+        // Build title based on what we're actually showing
+        let title = '';
+        if (chartData.type === 'categorical') {
+          title = chartData.series[0]?.label || 'Distribution';
+          if (rows.field !== 'year') title = `${rows.label} Distribution`;
+        } else {
+          title = values.label;
+          if (columns) title += ` by ${columns.label}`;
+          title += ` over ${rows.label}`;
+        }
+        chartTitle.textContent = title;
 
         // Render based on chart type
         if (explorerState.chartType === 'donut') {
@@ -1976,7 +2099,7 @@
       }
 
       // Build data structure for charts
-      function buildChartData(rows, columns, values) {
+      function buildChartData(rows, columns, values, chartType) {
         const rowDim = dimensionData[rows.field];
         const colDim = columns ? dimensionData[columns.field] : null;
 
@@ -1984,6 +2107,53 @@
         if (rows.field === 'year') {
           const labels = rowDim.labels;
           let series = [];
+
+          // For donut chart with year, use the Group By dimension or show gender breakdown
+          if (chartType === 'donut') {
+            const latestIdx = enrollmentData.years.length - 1;
+            if (columns && columns.field === 'genderBreakdown') {
+              return {
+                labels: ['Men', 'Women'],
+                series: [{
+                  label: 'Gender (Latest Year)',
+                  data: [enrollmentData.male[latestIdx], enrollmentData.female[latestIdx]],
+                  color: [colors.gender.male, colors.gender.female]
+                }],
+                type: 'categorical'
+              };
+            } else if (columns && columns.field === 'statusBreakdown') {
+              return {
+                labels: ['Full-Time', 'Part-Time'],
+                series: [{
+                  label: 'Status (Latest Year)',
+                  data: [enrollmentData.fullTime[latestIdx], enrollmentData.partTime[latestIdx]],
+                  color: [colors.status.fullTime, colors.status.partTime]
+                }],
+                type: 'categorical'
+              };
+            } else if (columns && columns.field === 'ethnicityBreakdown') {
+              return {
+                labels: ethnicityData.map(e => e.label),
+                series: [{
+                  label: 'Ethnicity',
+                  data: ethnicityData.map(e => e.value),
+                  color: ethnicityData.map(e => e.color)
+                }],
+                type: 'categorical'
+              };
+            } else {
+              // No group by - show gender breakdown by default for donut
+              return {
+                labels: ['Men', 'Women'],
+                series: [{
+                  label: 'Gender (Latest Year)',
+                  data: [enrollmentData.male[latestIdx], enrollmentData.female[latestIdx]],
+                  color: [colors.gender.male, colors.gender.female]
+                }],
+                type: 'categorical'
+              };
+            }
+          }
 
           if (!columns) {
             // Single series - total enrollment
@@ -2004,6 +2174,18 @@
               { label: 'Full-Time', data: enrollmentData.fullTime, color: colors.status.fullTime },
               { label: 'Part-Time', data: enrollmentData.partTime, color: colors.status.partTime }
             ];
+          } else if (columns.field === 'ethnicityBreakdown') {
+            // For ethnicity over time, we only have latest year data
+            // Show a note and use latest year
+            return {
+              labels: ethnicityData.map(e => e.label),
+              series: [{
+                label: 'Ethnicity (2023-24)',
+                data: ethnicityData.map(e => e.value),
+                color: ethnicityData.map(e => e.color)
+              }],
+              type: 'categorical'
+            };
           }
           return { labels, series, type: 'timeseries' };
         }
