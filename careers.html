@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Launch your career with Fort Lewis College. Browse jobs, internships, and connect with employers in the Four Corners region.">
+  <title>Careers | SKYRIDGE</title>
+  <link rel="stylesheet" href="src/css/design-system.css">
+  <style>
+    /* Page Header */
+    .page-header {
+      background: var(--gradient-hero);
+      color: var(--color-text-inverse);
+      padding: var(--space-8) 0 var(--space-10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.02)" points="0,100 100,50 100,100"/></svg>') no-repeat bottom;
+      background-size: 100% 50%;
+      pointer-events: none;
+    }
+
+    /* Navigation */
+    .nav {
+      padding: var(--space-3) 0;
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .nav__logo {
+      font-size: 1.5rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: var(--color-text-inverse);
+      text-decoration: none;
+    }
+
+    .nav__links {
+      display: none;
+      gap: var(--space-4);
+      list-style: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav__links {
+        display: flex;
+      }
+    }
+
+    .nav__link {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--text-body-sm);
+      transition: color var(--duration-fast) var(--ease-default);
+      padding: var(--space-1) 0;
+    }
+
+    .nav__link:hover,
+    .nav__link--active {
+      color: var(--color-accent);
+    }
+
+    .nav__cta {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-caption);
+    }
+
+    .nav__cta:hover {
+      background: var(--color-accent-hover);
+      color: var(--color-primary);
+    }
+
+    /* Header Content */
+    .page-header__content {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      padding-top: var(--space-6);
+    }
+
+    .page-header__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .page-header__title {
+      font-size: var(--text-h1);
+      margin-bottom: var(--space-3);
+    }
+
+    .page-header__subtitle {
+      font-size: var(--text-body);
+      opacity: 0.9;
+      margin-bottom: var(--space-5);
+    }
+
+    /* Search Bar */
+    .search-bar {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .search-bar__input {
+      width: 100%;
+      padding: 1rem 1.5rem 1rem 3.5rem;
+      font-size: var(--text-body);
+      border: none;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--color-text-primary);
+      box-shadow: var(--shadow-lg);
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .search-bar__input:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(255, 184, 28, 0.3), var(--shadow-xl);
+    }
+
+    .search-bar__input::placeholder {
+      color: var(--color-text-secondary);
+    }
+
+    .search-bar__icon {
+      position: absolute;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.25rem;
+      pointer-events: none;
+    }
+
+    .search-bar__clear {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--color-border);
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      transition: all var(--duration-fast);
+    }
+
+    .search-bar__clear:hover {
+      background: var(--color-text-secondary);
+      color: white;
+    }
+
+    .search-bar__clear.visible {
+      display: flex;
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: var(--space-3) 0;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .stats-bar span {
+      opacity: 0.8;
+    }
+
+    /* Industry Tags */
+    .industry-tags {
+      padding: var(--space-3) 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .industry-tags::-webkit-scrollbar {
+      display: none;
+    }
+
+    .industry-tags__inner {
+      display: flex;
+      gap: var(--space-2);
+      padding: 0 var(--space-1);
+    }
+
+    .industry-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 500;
+      white-space: nowrap;
+      border: 2px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .industry-tag:hover {
+      border-color: var(--color-accent);
+      background: rgba(255, 184, 28, 0.1);
+    }
+
+    .industry-tag.active {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    .industry-tag__icon {
+      font-size: 1.125rem;
+    }
+
+    /* Filters Section */
+    .filters {
+      padding: var(--space-4) 0;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .filters__inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      align-items: center;
+    }
+
+    .filters__group {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .filters__label {
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 500;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .filter-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+
+    .filters__count {
+      margin-left: auto;
+      font-size: var(--text-caption);
+      color: var(--color-text-secondary);
+    }
+
+    .filters__count strong {
+      color: var(--color-primary);
+    }
+
+    /* Jobs Grid */
+    .jobs {
+      padding: var(--space-6) 0 var(--space-12);
+    }
+
+    .jobs__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 640px) {
+      .jobs__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .jobs__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Job Card */
+    .job-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-md);
+      transition: all var(--duration-normal) var(--ease-default);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .job-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--color-primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--duration-normal) var(--ease-default);
+    }
+
+    .job-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .job-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .job-card__header {
+      margin-bottom: var(--space-2);
+    }
+
+    .job-card__title {
+      font-size: var(--text-h3);
+      color: var(--color-primary);
+      margin: 0 0 var(--space-1);
+      line-height: 1.3;
+    }
+
+    .job-card__company {
+      font-size: var(--text-body-sm);
+      color: var(--color-text-secondary);
+      font-weight: 500;
+    }
+
+    .job-card__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+
+    .job-card__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      background: var(--color-bg-light);
+      color: var(--color-text-secondary);
+    }
+
+    .job-card__badge--type {
+      background: rgba(0, 51, 102, 0.1);
+      color: var(--color-primary);
+    }
+
+    .job-card__badge--remote {
+      background: rgba(34, 197, 94, 0.15);
+      color: #16a34a;
+    }
+
+    .job-card__desc {
+      font-size: var(--text-body-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-3);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .job-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .job-card__salary {
+      font-size: var(--text-body-sm);
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .job-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: var(--color-primary);
+      transition: gap var(--duration-fast) var(--ease-default);
+    }
+
+    .job-card:hover .job-card__cta {
+      color: var(--color-accent);
+      gap: 0.75rem;
+    }
+
+    /* Featured Job */
+    .job-card--featured {
+      border: 2px solid var(--color-accent);
+    }
+
+    .job-card--featured::before {
+      background: var(--color-accent);
+      transform: scaleX(1);
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    /* Alumni Badge */
+    .alumni-badge {
+      position: absolute;
+      top: var(--space-3);
+      left: var(--space-3);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: rgba(0, 51, 102, 0.1);
+      color: var(--color-primary);
+    }
+
+    /* No Results */
+    .no-results {
+      text-align: center;
+      padding: var(--space-10) var(--space-4);
+    }
+
+    .no-results__icon {
+      font-size: 4rem;
+      margin-bottom: var(--space-3);
+      opacity: 0.5;
+    }
+
+    .no-results__title {
+      font-size: var(--text-h3);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .no-results__text {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+    }
+
+    .no-results__btn {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* Employer Spotlight */
+    .employer-spotlight {
+      padding: var(--space-12) 0;
+      background: var(--color-bg-light);
+    }
+
+    .employer-spotlight__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .employer-spotlight__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .employer-spotlight__title {
+      font-size: var(--text-h2);
+      color: var(--color-primary);
+    }
+
+    .employer-spotlight__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .employer-spotlight__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .employer-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .employer-card__icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .employer-card__name {
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .employer-card__jobs {
+      font-size: var(--text-caption);
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+
+    /* CTA Sections */
+    .cta-sections {
+      display: grid;
+      gap: var(--space-4);
+      padding: var(--space-12) 0;
+    }
+
+    @media (min-width: 768px) {
+      .cta-sections {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .cta-card {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      text-align: center;
+    }
+
+    .cta-card--alt {
+      background: var(--gradient-dark);
+    }
+
+    .cta-card__icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-3);
+    }
+
+    .cta-card__title {
+      font-size: var(--text-h3);
+      margin-bottom: var(--space-2);
+    }
+
+    .cta-card__text {
+      opacity: 0.9;
+      margin-bottom: var(--space-4);
+    }
+
+    .cta-card__btn {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .cta-card__btn:hover {
+      background: var(--color-accent-hover);
+      color: var(--color-primary);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-bg-dark);
+      color: var(--color-text-inverse);
+      padding: var(--space-6) 0 var(--space-4);
+    }
+
+    .footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .footer__logo {
+      font-size: 1.25rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+    }
+
+    .footer__links {
+      display: flex;
+      gap: var(--space-3);
+      list-style: none;
+    }
+
+    .footer__link {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: var(--text-caption);
+    }
+
+    .footer__link:hover {
+      color: var(--color-accent);
+    }
+
+    .footer__concept {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--text-caption);
+      opacity: 0.5;
+    }
+
+    .footer__pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* Animations */
+    .fade-in {
+      animation: fadeIn 0.5s var(--ease-out) forwards;
+    }
+
+    .jobs__grid > * {
+      opacity: 0;
+      animation: fadeInUp 0.5s var(--ease-out) forwards;
+    }
+
+    .jobs__grid > *:nth-child(1) { animation-delay: 0.05s; }
+    .jobs__grid > *:nth-child(2) { animation-delay: 0.1s; }
+    .jobs__grid > *:nth-child(3) { animation-delay: 0.15s; }
+    .jobs__grid > *:nth-child(4) { animation-delay: 0.2s; }
+    .jobs__grid > *:nth-child(5) { animation-delay: 0.25s; }
+    .jobs__grid > *:nth-child(6) { animation-delay: 0.3s; }
+    .jobs__grid > *:nth-child(7) { animation-delay: 0.35s; }
+    .jobs__grid > *:nth-child(8) { animation-delay: 0.4s; }
+    .jobs__grid > *:nth-child(9) { animation-delay: 0.45s; }
+  </style>
+</head>
+<body>
+  <!-- Page Header -->
+  <header class="page-header">
+    <nav class="nav">
+      <div class="container nav__inner">
+        <a href="index.html" class="nav__logo">SKYRIDGE</a>
+        <ul class="nav__links">
+          <li><a href="programs.html" class="nav__link">Programs</a></li>
+          <li><a href="events.html" class="nav__link">Events</a></li>
+          <li><a href="alumni.html" class="nav__link">Alumni</a></li>
+          <li><a href="#" class="nav__link nav__link--active">Careers</a></li>
+        </ul>
+        <a href="#" class="nav__cta">Post a Job</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="page-header__content">
+        <span class="page-header__overline">Career Services</span>
+        <h1 class="page-header__title">Launch Your Career</h1>
+        <p class="page-header__subtitle">
+          Connect with employers in the Four Corners region. Internships, full-time roles, and opportunities for Skyhawks.
+        </p>
+
+        <div class="search-bar">
+          <span class="search-bar__icon">🔍</span>
+          <input
+            type="text"
+            class="search-bar__input"
+            id="jobSearch"
+            placeholder="Search jobs, companies, skills..."
+            autocomplete="off"
+          >
+          <button class="search-bar__clear" id="clearSearch" type="button">✕</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="container">
+      <strong id="jobCount">45</strong> jobs from <strong id="employerCount">28</strong> employers <span>in the Four Corners region</span>
+    </div>
+  </div>
+
+  <!-- Industry Tags -->
+  <section class="industry-tags">
+    <div class="container">
+      <div class="industry-tags__inner">
+        <button class="industry-tag active" data-industry="all">
+          <span class="industry-tag__icon">✨</span>
+          <span>All Industries</span>
+        </button>
+        <button class="industry-tag" data-industry="outdoor">
+          <span class="industry-tag__icon">🏔️</span>
+          <span>Outdoor & Recreation</span>
+        </button>
+        <button class="industry-tag" data-industry="tech">
+          <span class="industry-tag__icon">💻</span>
+          <span>Technology</span>
+        </button>
+        <button class="industry-tag" data-industry="business">
+          <span class="industry-tag__icon">📈</span>
+          <span>Business</span>
+        </button>
+        <button class="industry-tag" data-industry="healthcare">
+          <span class="industry-tag__icon">🏥</span>
+          <span>Healthcare</span>
+        </button>
+        <button class="industry-tag" data-industry="education">
+          <span class="industry-tag__icon">📚</span>
+          <span>Education</span>
+        </button>
+        <button class="industry-tag" data-industry="environment">
+          <span class="industry-tag__icon">🌿</span>
+          <span>Environment</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="filters">
+    <div class="container">
+      <div class="filters__inner">
+        <div class="filters__group">
+          <span class="filters__label">Type:</span>
+          <button class="filter-btn active" data-type="all">All</button>
+          <button class="filter-btn" data-type="full-time">Full-Time</button>
+          <button class="filter-btn" data-type="part-time">Part-Time</button>
+          <button class="filter-btn" data-type="internship">Internship</button>
+        </div>
+        <div class="filters__group">
+          <span class="filters__label">Location:</span>
+          <button class="filter-btn active" data-remote="all">All</button>
+          <button class="filter-btn" data-remote="onsite">On-Site</button>
+          <button class="filter-btn" data-remote="hybrid">Hybrid</button>
+          <button class="filter-btn" data-remote="remote">Remote</button>
+        </div>
+        <span class="filters__count">
+          Showing <strong id="resultCount">0</strong> jobs
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Jobs Grid -->
+  <main class="jobs">
+    <div class="container">
+      <div class="jobs__grid" id="jobsGrid">
+        <!-- Jobs injected by JavaScript -->
+      </div>
+
+      <div class="no-results" id="noResults" style="display: none;">
+        <div class="no-results__icon">💼</div>
+        <h3 class="no-results__title">No jobs found</h3>
+        <p class="no-results__text">Try adjusting your filters or search terms.</p>
+        <button class="no-results__btn" id="resetFilters">Reset All Filters</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Employer Spotlight -->
+  <section class="employer-spotlight">
+    <div class="container">
+      <header class="employer-spotlight__header">
+        <span class="employer-spotlight__overline">Partner Employers</span>
+        <h2 class="employer-spotlight__title">Who Hires Skyhawks</h2>
+      </header>
+
+      <div class="employer-spotlight__grid">
+        <article class="employer-card">
+          <div class="employer-card__icon">⛷️</div>
+          <h3 class="employer-card__name">Purgatory Resort</h3>
+          <p class="employer-card__jobs">12 Open Positions</p>
+        </article>
+        <article class="employer-card">
+          <div class="employer-card__icon">🏥</div>
+          <h3 class="employer-card__name">Mercy Regional</h3>
+          <p class="employer-card__jobs">8 Open Positions</p>
+        </article>
+        <article class="employer-card">
+          <div class="employer-card__icon">🏛️</div>
+          <h3 class="employer-card__name">City of Durango</h3>
+          <p class="employer-card__jobs">5 Open Positions</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Sections -->
+  <section class="cta-sections">
+    <div class="container cta-sections">
+      <article class="cta-card">
+        <div class="cta-card__icon">🎓</div>
+        <h3 class="cta-card__title">For Alumni</h3>
+        <p class="cta-card__text">Hire fellow Skyhawks or post your company's openings. Give back to the FLC community.</p>
+        <a href="alumni.html" class="cta-card__btn">Alumni Network</a>
+      </article>
+      <article class="cta-card cta-card--alt">
+        <div class="cta-card__icon">🏢</div>
+        <h3 class="cta-card__title">For Employers</h3>
+        <p class="cta-card__text">Access a pipeline of talented graduates. Post jobs, attend career fairs, and recruit on campus.</p>
+        <a href="#" class="cta-card__btn">Partner With Us</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__logo">SKYRIDGE</div>
+        <ul class="footer__links">
+          <li><a href="index.html" class="footer__link">Home</a></li>
+          <li><a href="programs.html" class="footer__link">Programs</a></li>
+          <li><a href="events.html" class="footer__link">Events</a></li>
+          <li><a href="alumni.html" class="footer__link">Alumni</a></li>
+        </ul>
+        <div class="footer__concept">
+          <span class="footer__pulse"></span>
+          <span>Concept Prototype</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Job Data
+    const jobs = [
+      {
+        id: "job-001",
+        title: "Guest Services Manager",
+        company: "Purgatory Resort",
+        location: "Durango, CO",
+        type: "full-time",
+        remote: "onsite",
+        industry: "outdoor",
+        salary: "$45K - $55K",
+        description: "Lead guest services operations at Colorado's premier ski resort. Oversee front-desk staff and ensure exceptional guest experiences.",
+        isAlumniEmployer: false,
+        isFeatured: true
+      },
+      {
+        id: "job-002",
+        title: "Environmental Analyst",
+        company: "Four Corners Research Institute",
+        location: "Durango, CO",
+        type: "full-time",
+        remote: "hybrid",
+        industry: "environment",
+        salary: "$50K - $62K",
+        description: "Conduct environmental impact assessments and water quality research in the San Juan Basin. GIS experience preferred.",
+        isAlumniEmployer: true,
+        isFeatured: true
+      },
+      {
+        id: "job-003",
+        title: "Marketing Coordinator",
+        company: "Ska Brewing Company",
+        location: "Durango, CO",
+        type: "full-time",
+        remote: "onsite",
+        industry: "business",
+        salary: "$42K - $50K",
+        description: "Manage social media, events, and brand partnerships for award-winning craft brewery. Creative and energetic team environment.",
+        isAlumniEmployer: false,
+        isFeatured: false
+      },
+      {
+        id: "job-004",
+        title: "Software Developer",
+        company: "Mountain Tech Solutions",
+        location: "Remote",
+        type: "full-time",
+        remote: "remote",
+        industry: "tech",
+        salary: "$70K - $90K",
+        description: "Build web applications for outdoor industry clients. React, Node.js, and cloud experience. Work from anywhere in Colorado.",
+        isAlumniEmployer: true,
+        isFeatured: false
+      },
+      {
+        id: "job-005",
+        title: "Registered Nurse",
+        company: "Mercy Regional Medical Center",
+        location: "Durango, CO",
+        type: "full-time",
+        remote: "onsite",
+        industry: "healthcare",
+        salary: "$65K - $85K",
+        description: "Join our emergency department team. Competitive pay, mountain lifestyle, and excellent benefits package.",
+        isAlumniEmployer: false,
+        isFeatured: false
+      },
+      {
+        id: "job-006",
+        title: "Outdoor Education Instructor",
+        company: "Durango Nature Center",
+        location: "Durango, CO",
+        type: "part-time",
+        remote: "onsite",
+        industry: "education",
+        salary: "$18 - $22/hr",
+        description: "Lead youth outdoor programs including hiking, wildlife observation, and environmental education. Seasonal with potential for full-time.",
+        isAlumniEmployer: false,
+        isFeatured: false
+      },
+      {
+        id: "job-007",
+        title: "Summer Internship - Finance",
+        company: "Community First Bank",
+        location: "Durango, CO",
+        type: "internship",
+        remote: "onsite",
+        industry: "business",
+        salary: "$18/hr",
+        description: "10-week summer program for finance and accounting students. Hands-on experience in community banking operations.",
+        isAlumniEmployer: true,
+        isFeatured: false
+      },
+      {
+        id: "job-008",
+        title: "Trail Crew Lead",
+        company: "San Juan National Forest",
+        location: "Durango, CO",
+        type: "full-time",
+        remote: "onsite",
+        industry: "outdoor",
+        salary: "$38K - $45K",
+        description: "Lead trail maintenance crews in the San Juan Mountains. CDL preferred. Housing assistance available.",
+        isAlumniEmployer: false,
+        isFeatured: false
+      },
+      {
+        id: "job-009",
+        title: "Physical Therapy Aide",
+        company: "Alpine Physical Therapy",
+        location: "Durango, CO",
+        type: "part-time",
+        remote: "onsite",
+        industry: "healthcare",
+        salary: "$16 - $19/hr",
+        description: "Support licensed PTs with patient care and facility operations. Great opportunity for pre-PT students.",
+        isAlumniEmployer: false,
+        isFeatured: false
+      },
+      {
+        id: "job-010",
+        title: "Teacher Residency Program",
+        company: "Durango School District 9-R",
+        location: "Durango, CO",
+        type: "full-time",
+        remote: "onsite",
+        industry: "education",
+        salary: "$40K - $48K",
+        description: "Paid residency for aspiring teachers. Mentorship, coursework, and pathway to certification while earning a salary.",
+        isAlumniEmployer: false,
+        isFeatured: false
+      }
+    ];
+
+    // State
+    let activeIndustry = 'all';
+    let activeType = 'all';
+    let activeRemote = 'all';
+    let searchQuery = '';
+
+    // DOM Elements
+    const jobsGrid = document.getElementById('jobsGrid');
+    const resultCount = document.getElementById('resultCount');
+    const jobCount = document.getElementById('jobCount');
+    const noResults = document.getElementById('noResults');
+    const searchInput = document.getElementById('jobSearch');
+    const clearSearch = document.getElementById('clearSearch');
+    const industryTags = document.querySelectorAll('.industry-tag');
+    const typeBtns = document.querySelectorAll('[data-type]');
+    const remoteBtns = document.querySelectorAll('[data-remote]');
+    const resetBtn = document.getElementById('resetFilters');
+
+    // Filter jobs
+    function filterJobs() {
+      return jobs.filter(job => {
+        const matchesIndustry = activeIndustry === 'all' || job.industry === activeIndustry;
+        const matchesType = activeType === 'all' || job.type === activeType;
+        const matchesRemote = activeRemote === 'all' || job.remote === activeRemote;
+        const matchesSearch = searchQuery === '' ||
+          job.title.toLowerCase().includes(searchQuery) ||
+          job.company.toLowerCase().includes(searchQuery) ||
+          job.description.toLowerCase().includes(searchQuery) ||
+          job.location.toLowerCase().includes(searchQuery);
+
+        return matchesIndustry && matchesType && matchesRemote && matchesSearch;
+      });
+    }
+
+    // Get type label
+    function getTypeLabel(type) {
+      const types = {
+        'full-time': 'Full-Time',
+        'part-time': 'Part-Time',
+        'internship': 'Internship',
+        'contract': 'Contract'
+      };
+      return types[type] || type;
+    }
+
+    // Get remote label
+    function getRemoteLabel(remote) {
+      const labels = {
+        'onsite': 'On-Site',
+        'hybrid': 'Hybrid',
+        'remote': 'Remote'
+      };
+      return labels[remote] || remote;
+    }
+
+    // Render job card
+    function renderJobCard(job) {
+      return `
+        <article class="job-card ${job.isFeatured ? 'job-card--featured' : ''}">
+          ${job.isFeatured ? '<span class="featured-badge">Featured</span>' : ''}
+          ${job.isAlumniEmployer ? '<span class="alumni-badge">🎓 Alumni Employer</span>' : ''}
+          <div class="job-card__header">
+            <h3 class="job-card__title">${job.title}</h3>
+            <span class="job-card__company">${job.company}</span>
+          </div>
+          <div class="job-card__meta">
+            <span class="job-card__badge">📍 ${job.location}</span>
+            <span class="job-card__badge job-card__badge--type">${getTypeLabel(job.type)}</span>
+            <span class="job-card__badge job-card__badge--remote">${getRemoteLabel(job.remote)}</span>
+          </div>
+          <p class="job-card__desc">${job.description}</p>
+          <div class="job-card__footer">
+            <span class="job-card__salary">${job.salary}</span>
+            <a href="#" class="job-card__cta">
+              Apply Now <span>→</span>
+            </a>
+          </div>
+        </article>
+      `;
+    }
+
+    // Render all jobs
+    function render() {
+      const filtered = filterJobs();
+
+      if (filtered.length === 0) {
+        jobsGrid.innerHTML = '';
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+        // Sort: featured first, then by company
+        filtered.sort((a, b) => {
+          if (a.isFeatured && !b.isFeatured) return -1;
+          if (!a.isFeatured && b.isFeatured) return 1;
+          return a.company.localeCompare(b.company);
+        });
+        jobsGrid.innerHTML = filtered.map(renderJobCard).join('');
+      }
+
+      resultCount.textContent = filtered.length;
+      jobCount.textContent = filtered.length;
+    }
+
+    // Event: Industry tag click
+    industryTags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        industryTags.forEach(t => t.classList.remove('active'));
+        tag.classList.add('active');
+        activeIndustry = tag.dataset.industry;
+        render();
+      });
+    });
+
+    // Event: Type filter click
+    typeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        typeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeType = btn.dataset.type;
+        render();
+      });
+    });
+
+    // Event: Remote filter click
+    remoteBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        remoteBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeRemote = btn.dataset.remote;
+        render();
+      });
+    });
+
+    // Event: Search input
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      clearSearch.classList.toggle('visible', searchQuery.length > 0);
+      render();
+    });
+
+    // Event: Clear search
+    clearSearch.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      clearSearch.classList.remove('visible');
+      render();
+      searchInput.focus();
+    });
+
+    // Event: Reset all filters
+    resetBtn.addEventListener('click', () => {
+      activeIndustry = 'all';
+      activeType = 'all';
+      activeRemote = 'all';
+      searchQuery = '';
+      searchInput.value = '';
+      clearSearch.classList.remove('visible');
+
+      industryTags.forEach(t => t.classList.toggle('active', t.dataset.industry === 'all'));
+      typeBtns.forEach(b => b.classList.toggle('active', b.dataset.type === 'all'));
+      remoteBtns.forEach(b => b.classList.toggle('active', b.dataset.remote === 'all'));
+
+      render();
+    });
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>

@@ -311,7 +311,7 @@
 
     .network__header {
       text-align: center;
-      margin-bottom: var(--space-8);
+      margin-bottom: var(--space-6);
     }
 
     .network__overline {
@@ -324,6 +324,90 @@
 
     .network__title {
       font-size: var(--text-h2);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .network__subtitle {
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Network Stats */
+    .network-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
+    }
+
+    @media (min-width: 768px) {
+      .network-stats {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .network-stat {
+      text-align: center;
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+    }
+
+    .network-stat__value {
+      font-size: var(--text-h2);
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1;
+      margin-bottom: var(--space-1);
+    }
+
+    .network-stat__label {
+      font-size: var(--text-caption);
+      color: var(--color-text-secondary);
+    }
+
+    /* Featured Job Banner */
+    .network-banner {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      margin-bottom: var(--space-6);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .network-banner__content {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .network-banner__title {
+      font-size: var(--text-h3);
+      margin-bottom: var(--space-1);
+    }
+
+    .network-banner__text {
+      opacity: 0.9;
+    }
+
+    .network-banner__btn {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: 0.875rem 1.5rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .network-banner__btn:hover {
+      background: var(--color-accent-hover);
       color: var(--color-primary);
     }
 
@@ -344,6 +428,14 @@
       padding: var(--space-4);
       background: var(--color-surface);
       border-radius: var(--radius-lg);
+      transition: all var(--duration-fast) var(--ease-default);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .network-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
     }
 
     .network-card__icon {
@@ -368,6 +460,16 @@
       color: var(--color-text-secondary);
       font-size: var(--text-body-sm);
       margin: 0;
+    }
+
+    .network-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-top: var(--space-2);
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: var(--color-accent);
     }
 
     /* Campus News */
@@ -535,7 +637,7 @@
           <span class="quick-action__icon">💝</span>
           <span class="quick-action__label">Give</span>
         </a>
-        <a href="#" class="quick-action reveal reveal--delay-2">
+        <a href="events.html" class="quick-action reveal reveal--delay-2">
           <span class="quick-action__icon">📅</span>
           <span class="quick-action__label">Events</span>
         </a>
@@ -619,40 +721,74 @@
       <header class="network__header reveal">
         <span class="network__overline">Professional Growth</span>
         <h2 class="network__title">Career Network</h2>
+        <p class="network__subtitle">The Skyhawk professional community spans industries and continents. Tap into our network.</p>
       </header>
 
+      <!-- Network Stats -->
+      <div class="network-stats reveal">
+        <div class="network-stat">
+          <div class="network-stat__value">25K+</div>
+          <div class="network-stat__label">Alumni Worldwide</div>
+        </div>
+        <div class="network-stat">
+          <div class="network-stat__value">45</div>
+          <div class="network-stat__label">Open Jobs</div>
+        </div>
+        <div class="network-stat">
+          <div class="network-stat__value">150+</div>
+          <div class="network-stat__label">Active Mentors</div>
+        </div>
+        <div class="network-stat">
+          <div class="network-stat__value">28</div>
+          <div class="network-stat__label">Partner Employers</div>
+        </div>
+      </div>
+
+      <!-- Featured Banner -->
+      <div class="network-banner reveal">
+        <div class="network-banner__content">
+          <h3 class="network-banner__title">Browse the Skyhawk Job Board</h3>
+          <p class="network-banner__text">45 opportunities from employers who love to hire FLC grads.</p>
+        </div>
+        <a href="careers.html" class="network-banner__btn">View All Jobs →</a>
+      </div>
+
       <div class="network__grid">
-        <article class="network-card reveal">
+        <a href="careers.html" class="network-card reveal">
           <div class="network-card__icon">💼</div>
           <div>
-            <h3 class="network-card__title">Job Board</h3>
-            <p class="network-card__text">Exclusive job postings from Skyhawk employers and alumni-owned businesses.</p>
+            <h3 class="network-card__title">Hire a Skyhawk</h3>
+            <p class="network-card__text">Post jobs to reach FLC students and alumni. Free for alumni employers.</p>
+            <span class="network-card__cta">Post a Job →</span>
           </div>
-        </article>
+        </a>
 
-        <article class="network-card reveal reveal--delay-1">
+        <a href="#" class="network-card reveal reveal--delay-1">
           <div class="network-card__icon">🤝</div>
           <div>
-            <h3 class="network-card__title">Mentorship</h3>
-            <p class="network-card__text">Mentor current students and recent grads. Share your experience and expertise.</p>
+            <h3 class="network-card__title">Become a Mentor</h3>
+            <p class="network-card__text">Guide current students and recent grads. 1 hour/month makes a difference.</p>
+            <span class="network-card__cta">Sign Up →</span>
           </div>
-        </article>
+        </a>
 
-        <article class="network-card reveal reveal--delay-2">
+        <a href="#" class="network-card reveal reveal--delay-2">
           <div class="network-card__icon">🔗</div>
           <div>
             <h3 class="network-card__title">LinkedIn Network</h3>
             <p class="network-card__text">Join 10,000+ Skyhawks on LinkedIn. Network, recruit, and stay connected.</p>
+            <span class="network-card__cta">Join Group →</span>
           </div>
-        </article>
+        </a>
 
-        <article class="network-card reveal reveal--delay-3">
+        <a href="#" class="network-card reveal reveal--delay-3">
           <div class="network-card__icon">🎤</div>
           <div>
             <h3 class="network-card__title">Speaker Series</h3>
-            <p class="network-card__text">Share your career journey with current students. Inspire the next generation.</p>
+            <p class="network-card__text">Share your career journey with current students. Virtual or in-person.</p>
+            <span class="network-card__cta">Volunteer →</span>
           </div>
-        </article>
+        </a>
       </div>
     </div>
   </section>

@@ -444,7 +444,252 @@
       margin: 0;
     }
 
-    /* Durango Section */
+    /* Durango Advantage Section */
+    .durango-advantage {
+      padding: var(--space-12) 0;
+      background: linear-gradient(135deg, #003366 0%, #001a33 100%);
+      color: var(--color-text-inverse);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .durango-advantage::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.02)" points="0,0 100,20 100,100 0,80"/></svg>') no-repeat center;
+      background-size: cover;
+      pointer-events: none;
+    }
+
+    .durango-advantage__header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+      position: relative;
+      z-index: 5;
+    }
+
+    .durango-advantage__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .durango-advantage__title {
+      font-size: var(--text-h1);
+      margin-bottom: var(--space-3);
+    }
+
+    .durango-advantage__subtitle {
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: var(--text-body);
+    }
+
+    /* Weather Widget */
+    .weather-widget {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      margin-bottom: var(--space-8);
+      position: relative;
+      z-index: 5;
+    }
+
+    .weather-widget__inner {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .weather-widget__inner {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    .weather-widget__current {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .weather-widget__icon {
+      font-size: 3rem;
+    }
+
+    .weather-widget__temp {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .weather-widget__details {
+      font-size: var(--text-caption);
+      opacity: 0.8;
+    }
+
+    .weather-widget__condition {
+      display: block;
+      font-size: var(--text-body);
+      font-weight: 600;
+    }
+
+    .condition-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+    }
+
+    .condition-card__icon {
+      font-size: 2rem;
+    }
+
+    .condition-card__content {
+      flex: 1;
+    }
+
+    .condition-card__label {
+      display: block;
+      font-size: var(--text-caption);
+      opacity: 0.7;
+    }
+
+    .condition-card__value {
+      display: block;
+      font-weight: 600;
+    }
+
+    .condition-card__detail {
+      font-size: var(--text-caption);
+      color: var(--color-accent);
+    }
+
+    /* Attraction Category Tags */
+    .attraction-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      justify-content: center;
+      margin-bottom: var(--space-6);
+      position: relative;
+      z-index: 5;
+    }
+
+    .attraction-tag {
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 500;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      background: transparent;
+      color: rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .attraction-tag:hover {
+      border-color: var(--color-accent);
+      background: rgba(255, 184, 28, 0.1);
+    }
+
+    .attraction-tag.active {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    /* Attractions Grid */
+    .attractions-grid {
+      display: grid;
+      gap: var(--space-3);
+      position: relative;
+      z-index: 5;
+    }
+
+    @media (min-width: 640px) {
+      .attractions-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .attractions-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .attraction-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      transition: all var(--duration-fast) var(--ease-default);
+      cursor: pointer;
+    }
+
+    .attraction-card:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-4px);
+      border-color: var(--color-accent);
+    }
+
+    .attraction-card__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: var(--space-2);
+    }
+
+    .attraction-card__icon {
+      font-size: 2rem;
+    }
+
+    .attraction-card__distance {
+      font-size: var(--text-overline);
+      background: rgba(255, 184, 28, 0.2);
+      color: var(--color-accent);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .attraction-card__title {
+      font-size: var(--text-h4);
+      margin-bottom: var(--space-1);
+    }
+
+    .attraction-card__desc {
+      font-size: var(--text-caption);
+      opacity: 0.8;
+      margin-bottom: var(--space-2);
+    }
+
+    .attraction-card__tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .attraction-card__tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .attraction-card__tag--discount {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+    }
+
+    /* Legacy Durango Section - simplified */
     .durango {
       padding: var(--space-12) 0;
       background: var(--color-bg-light);
@@ -581,7 +826,7 @@
           Home
         </a>
         <a href="programs.html" class="persona-nav__back">Programs</a>
-        <a href="#" class="persona-nav__cta">Events Calendar</a>
+        <a href="events.html" class="persona-nav__cta">Events Calendar</a>
       </div>
     </div>
   </nav>
@@ -597,7 +842,7 @@
           Explore what we have to offer.
         </p>
         <div class="hero__actions">
-          <a href="#" class="btn btn--primary">View Events</a>
+          <a href="events.html" class="btn btn--primary">View Events</a>
           <a href="#" class="btn btn--ghost">Contact Us</a>
         </div>
       </div>
@@ -658,7 +903,7 @@
       </div>
 
       <div style="text-align: center; margin-top: var(--space-5);">
-        <a href="#" class="btn btn--secondary reveal">View Full Calendar</a>
+        <a href="events.html" class="btn btn--secondary reveal">View Full Calendar</a>
       </div>
     </div>
   </section>
@@ -783,33 +1028,62 @@
     </div>
   </section>
 
-  <!-- Durango Connection -->
-  <section class="durango">
+  <!-- Durango Advantage Section -->
+  <section class="durango-advantage">
     <div class="container">
-      <header class="durango__header reveal">
-        <span class="durango__overline">Our Home</span>
-        <h2 class="durango__title">The Durango Connection</h2>
-        <p class="durango__subtitle">Fort Lewis College is proud to call Durango home since 1911.</p>
+      <header class="durango-advantage__header reveal">
+        <span class="durango-advantage__overline">Your Lifestyle</span>
+        <h2 class="durango-advantage__title">The Durango Advantage</h2>
+        <p class="durango-advantage__subtitle">
+          At 6,512 ft in the San Juan Mountains, Durango offers a quality of life you won't find anywhere else.
+          This isn't just where you study - it's where you live your best life.
+        </p>
       </header>
 
-      <div class="durango__grid">
-        <article class="durango-card reveal">
-          <div class="durango-card__icon">🏔️</div>
-          <h3 class="durango-card__title">Outdoor Paradise</h3>
-          <p class="durango-card__text">300+ miles of trails, world-class skiing, and four-season adventure.</p>
-        </article>
+      <!-- Weather Widget -->
+      <div class="weather-widget reveal">
+        <div class="weather-widget__inner">
+          <div class="weather-widget__current">
+            <span class="weather-widget__icon" id="weatherIcon">☀️</span>
+            <div>
+              <span class="weather-widget__temp" id="weatherTemp">32°</span>
+              <div class="weather-widget__details">
+                <span class="weather-widget__condition" id="weatherCondition">Partly Cloudy</span>
+                <span>H: 42° L: 22°</span>
+              </div>
+            </div>
+          </div>
+          <div class="condition-card">
+            <span class="condition-card__icon">⛷️</span>
+            <div class="condition-card__content">
+              <span class="condition-card__label">Purgatory Resort</span>
+              <span class="condition-card__value">6" New Snow</span>
+              <span class="condition-card__detail">85/95 Trails Open</span>
+            </div>
+          </div>
+          <div class="condition-card">
+            <span class="condition-card__icon">🥾</span>
+            <div class="condition-card__content">
+              <span class="condition-card__label">Trail Conditions</span>
+              <span class="condition-card__value">Snowy/Packed</span>
+              <span class="condition-card__detail">Traction recommended</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <article class="durango-card reveal reveal--delay-1">
-          <div class="durango-card__icon">🏘️</div>
-          <h3 class="durango-card__title">Historic Downtown</h3>
-          <p class="durango-card__text">Vibrant Main Avenue with local shops, restaurants, and the historic train.</p>
-        </article>
+      <!-- Category Tags -->
+      <div class="attraction-tags reveal">
+        <button class="attraction-tag active" data-category="all">All</button>
+        <button class="attraction-tag" data-category="skiing">⛷️ Skiing</button>
+        <button class="attraction-tag" data-category="hiking">🥾 Hiking & Biking</button>
+        <button class="attraction-tag" data-category="downtown">🏘️ Downtown</button>
+        <button class="attraction-tag" data-category="culture">🎭 Culture</button>
+      </div>
 
-        <article class="durango-card reveal reveal--delay-2">
-          <div class="durango-card__icon">🤝</div>
-          <h3 class="durango-card__title">Community Spirit</h3>
-          <p class="durango-card__text">10,000 residents, 3,500 students, and a shared love of the San Juans.</p>
-        </article>
+      <!-- Attractions Grid -->
+      <div class="attractions-grid" id="attractionsGrid">
+        <!-- Attractions rendered by JavaScript -->
       </div>
     </div>
   </section>
@@ -838,6 +1112,142 @@
   </footer>
 
   <script>
+    // Durango Attractions Data
+    const attractions = [
+      {
+        id: "attr-001",
+        name: "Purgatory Resort",
+        category: "skiing",
+        distance: "25 min",
+        icon: "⛷️",
+        description: "World-class skiing with 105 trails and 1,600 acres. Student season passes available.",
+        tags: ["Winter", "Student Discount"],
+        hasDiscount: true
+      },
+      {
+        id: "attr-002",
+        name: "Chapman Hill",
+        category: "skiing",
+        distance: "5 min",
+        icon: "🎿",
+        description: "In-town ski hill perfect for quick runs between classes. Night skiing available.",
+        tags: ["Winter", "Beginner-Friendly"],
+        hasDiscount: false
+      },
+      {
+        id: "attr-003",
+        name: "Animas River Trail",
+        category: "hiking",
+        distance: "On Campus",
+        icon: "🚴",
+        description: "7-mile paved trail connecting campus to downtown. Walk, run, or bike year-round.",
+        tags: ["Year-Round", "Free"],
+        hasDiscount: false
+      },
+      {
+        id: "attr-004",
+        name: "Horse Gulch",
+        category: "hiking",
+        distance: "10 min",
+        icon: "🥾",
+        description: "30+ miles of trails for hiking and mountain biking. Stunning mesa views.",
+        tags: ["Year-Round", "Dogs Welcome"],
+        hasDiscount: false
+      },
+      {
+        id: "attr-005",
+        name: "Main Avenue",
+        category: "downtown",
+        distance: "10 min",
+        icon: "🏘️",
+        description: "Historic downtown with local shops, restaurants, breweries, and live music venues.",
+        tags: ["Dining", "Shopping"],
+        hasDiscount: false
+      },
+      {
+        id: "attr-006",
+        name: "Ska Brewing",
+        category: "downtown",
+        distance: "10 min",
+        icon: "🍺",
+        description: "Award-winning local brewery. Live music, food trucks, and outdoor patio.",
+        tags: ["21+", "Local Favorite"],
+        hasDiscount: false
+      },
+      {
+        id: "attr-007",
+        name: "Durango & Silverton Railroad",
+        category: "culture",
+        distance: "15 min",
+        icon: "🚂",
+        description: "Historic narrow gauge railroad through the San Juan Mountains. A must-do experience.",
+        tags: ["Historic", "Tourism"],
+        hasDiscount: true
+      },
+      {
+        id: "attr-008",
+        name: "Mesa Verde National Park",
+        category: "culture",
+        distance: "35 min",
+        icon: "🏛️",
+        description: "UNESCO World Heritage Site with ancient Puebloan cliff dwellings. Student discount with ID.",
+        tags: ["Historic", "Student Discount"],
+        hasDiscount: true
+      }
+    ];
+
+    // State
+    let activeCategory = 'all';
+
+    // DOM Elements
+    const attractionsGrid = document.getElementById('attractionsGrid');
+    const categoryTags = document.querySelectorAll('.attraction-tag');
+
+    // Filter attractions
+    function filterAttractions() {
+      return attractions.filter(attr => {
+        return activeCategory === 'all' || attr.category === activeCategory;
+      });
+    }
+
+    // Render attraction card
+    function renderAttractionCard(attraction) {
+      return `
+        <article class="attraction-card">
+          <div class="attraction-card__header">
+            <span class="attraction-card__icon">${attraction.icon}</span>
+            <span class="attraction-card__distance">${attraction.distance}</span>
+          </div>
+          <h3 class="attraction-card__title">${attraction.name}</h3>
+          <p class="attraction-card__desc">${attraction.description}</p>
+          <div class="attraction-card__tags">
+            ${attraction.tags.map(tag =>
+              `<span class="attraction-card__tag ${tag === 'Student Discount' ? 'attraction-card__tag--discount' : ''}">${tag}</span>`
+            ).join('')}
+          </div>
+        </article>
+      `;
+    }
+
+    // Render attractions
+    function renderAttractions() {
+      const filtered = filterAttractions();
+      attractionsGrid.innerHTML = filtered.map(renderAttractionCard).join('');
+    }
+
+    // Event: Category tag click
+    categoryTags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        categoryTags.forEach(t => t.classList.remove('active'));
+        tag.classList.add('active');
+        activeCategory = tag.dataset.category;
+        renderAttractions();
+      });
+    });
+
+    // Initial render
+    renderAttractions();
+
     // Intersection Observer for scroll reveals
     const observerOptions = {
       threshold: 0.1,

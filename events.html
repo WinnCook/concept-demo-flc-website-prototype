@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover events at Fort Lewis College. From research symposiums to outdoor adventures, find what's happening on campus and in the community.">
+  <title>Events | SKYRIDGE</title>
+  <link rel="stylesheet" href="src/css/design-system.css">
+  <style>
+    /* Page Header */
+    .page-header {
+      background: var(--gradient-hero);
+      color: var(--color-text-inverse);
+      padding: var(--space-8) 0 var(--space-10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.02)" points="0,100 100,50 100,100"/></svg>') no-repeat bottom;
+      background-size: 100% 50%;
+      pointer-events: none;
+    }
+
+    /* Navigation */
+    .nav {
+      padding: var(--space-3) 0;
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .nav__logo {
+      font-size: 1.5rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: var(--color-text-inverse);
+      text-decoration: none;
+    }
+
+    .nav__links {
+      display: none;
+      gap: var(--space-4);
+      list-style: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav__links {
+        display: flex;
+      }
+    }
+
+    .nav__link {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--text-body-sm);
+      transition: color var(--duration-fast) var(--ease-default);
+      padding: var(--space-1) 0;
+    }
+
+    .nav__link:hover,
+    .nav__link--active {
+      color: var(--color-accent);
+    }
+
+    .nav__cta {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-caption);
+    }
+
+    .nav__cta:hover {
+      background: var(--color-accent-hover);
+      color: var(--color-primary);
+    }
+
+    /* Header Content */
+    .page-header__content {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      padding-top: var(--space-6);
+    }
+
+    .page-header__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .page-header__title {
+      font-size: var(--text-h1);
+      margin-bottom: var(--space-3);
+    }
+
+    .page-header__subtitle {
+      font-size: var(--text-body);
+      opacity: 0.9;
+      margin-bottom: var(--space-5);
+    }
+
+    /* Search Bar */
+    .search-bar {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .search-bar__input {
+      width: 100%;
+      padding: 1rem 1.5rem 1rem 3.5rem;
+      font-size: var(--text-body);
+      border: none;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--color-text-primary);
+      box-shadow: var(--shadow-lg);
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .search-bar__input:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(255, 184, 28, 0.3), var(--shadow-xl);
+    }
+
+    .search-bar__input::placeholder {
+      color: var(--color-text-secondary);
+    }
+
+    .search-bar__icon {
+      position: absolute;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.25rem;
+      pointer-events: none;
+    }
+
+    .search-bar__clear {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--color-border);
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      transition: all var(--duration-fast);
+    }
+
+    .search-bar__clear:hover {
+      background: var(--color-text-secondary);
+      color: white;
+    }
+
+    .search-bar__clear.visible {
+      display: flex;
+    }
+
+    /* Event Type Tags */
+    .event-types {
+      padding: var(--space-3) 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .event-types::-webkit-scrollbar {
+      display: none;
+    }
+
+    .event-types__inner {
+      display: flex;
+      gap: var(--space-2);
+      padding: 0 var(--space-1);
+    }
+
+    .event-type {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 500;
+      white-space: nowrap;
+      border: 2px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .event-type:hover {
+      border-color: var(--color-accent);
+      background: rgba(255, 184, 28, 0.1);
+    }
+
+    .event-type.active {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    .event-type__icon {
+      font-size: 1.125rem;
+    }
+
+    /* Filters Section */
+    .filters {
+      padding: var(--space-4) 0;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .filters__inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      align-items: center;
+    }
+
+    .filters__group {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .filters__label {
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 500;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .filter-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+
+    .filters__count {
+      margin-left: auto;
+      font-size: var(--text-caption);
+      color: var(--color-text-secondary);
+    }
+
+    .filters__count strong {
+      color: var(--color-primary);
+    }
+
+    /* Events Grid */
+    .events {
+      padding: var(--space-6) 0 var(--space-12);
+    }
+
+    .events__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 640px) {
+      .events__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .events__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Event Card */
+    .event-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: all var(--duration-normal) var(--ease-default);
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .event-card__date-bar {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      padding: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .event-card__date {
+      text-align: center;
+      min-width: 50px;
+    }
+
+    .event-card__month {
+      display: block;
+      font-size: var(--text-overline);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .event-card__day {
+      display: block;
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .event-card__time-loc {
+      flex: 1;
+      font-size: var(--text-caption);
+    }
+
+    .event-card__time {
+      display: block;
+      font-weight: 600;
+    }
+
+    .event-card__location {
+      display: block;
+      opacity: 0.8;
+    }
+
+    .event-card__content {
+      padding: var(--space-4);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event-card__type {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: var(--text-overline);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--color-bg-light);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+      width: fit-content;
+    }
+
+    .event-card__type--academic { background: rgba(74, 144, 226, 0.15); color: #2563eb; }
+    .event-card__type--athletics { background: rgba(239, 68, 68, 0.15); color: #dc2626; }
+    .event-card__type--arts { background: rgba(168, 85, 247, 0.15); color: #9333ea; }
+    .event-card__type--community { background: rgba(34, 197, 94, 0.15); color: #16a34a; }
+    .event-card__type--career { background: rgba(255, 184, 28, 0.15); color: #b45309; }
+
+    .event-card__title {
+      font-size: var(--text-h3);
+      color: var(--color-primary);
+      margin: 0 0 var(--space-2);
+      line-height: 1.3;
+    }
+
+    .event-card__desc {
+      font-size: var(--text-body-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-3);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .event-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: var(--space-3);
+    }
+
+    .event-card__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      background: var(--color-bg-light);
+      color: var(--color-text-secondary);
+    }
+
+    .event-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .event-card__price {
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: var(--color-accent);
+    }
+
+    .event-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: var(--color-primary);
+      transition: gap var(--duration-fast) var(--ease-default);
+    }
+
+    .event-card:hover .event-card__cta {
+      color: var(--color-accent);
+      gap: 0.75rem;
+    }
+
+    /* Featured Event */
+    .event-card--featured {
+      border: 2px solid var(--color-accent);
+    }
+
+    .event-card--featured .event-card__date-bar {
+      background: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--color-accent);
+      color: var(--color-primary);
+      z-index: 10;
+    }
+
+    /* No Results */
+    .no-results {
+      text-align: center;
+      padding: var(--space-10) var(--space-4);
+    }
+
+    .no-results__icon {
+      font-size: 4rem;
+      margin-bottom: var(--space-3);
+      opacity: 0.5;
+    }
+
+    .no-results__title {
+      font-size: var(--text-h3);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .no-results__text {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+    }
+
+    .no-results__btn {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-bg-dark);
+      color: var(--color-text-inverse);
+      padding: var(--space-6) 0 var(--space-4);
+    }
+
+    .footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .footer__logo {
+      font-size: 1.25rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+    }
+
+    .footer__links {
+      display: flex;
+      gap: var(--space-3);
+      list-style: none;
+    }
+
+    .footer__link {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: var(--text-caption);
+    }
+
+    .footer__link:hover {
+      color: var(--color-accent);
+    }
+
+    .footer__concept {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--text-caption);
+      opacity: 0.5;
+    }
+
+    .footer__pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* Animations */
+    .fade-in {
+      animation: fadeIn 0.5s var(--ease-out) forwards;
+    }
+
+    .events__grid > * {
+      opacity: 0;
+      animation: fadeInUp 0.5s var(--ease-out) forwards;
+    }
+
+    .events__grid > *:nth-child(1) { animation-delay: 0.05s; }
+    .events__grid > *:nth-child(2) { animation-delay: 0.1s; }
+    .events__grid > *:nth-child(3) { animation-delay: 0.15s; }
+    .events__grid > *:nth-child(4) { animation-delay: 0.2s; }
+    .events__grid > *:nth-child(5) { animation-delay: 0.25s; }
+    .events__grid > *:nth-child(6) { animation-delay: 0.3s; }
+    .events__grid > *:nth-child(7) { animation-delay: 0.35s; }
+    .events__grid > *:nth-child(8) { animation-delay: 0.4s; }
+    .events__grid > *:nth-child(9) { animation-delay: 0.45s; }
+  </style>
+</head>
+<body>
+  <!-- Page Header -->
+  <header class="page-header">
+    <nav class="nav">
+      <div class="container nav__inner">
+        <a href="index.html" class="nav__logo">SKYRIDGE</a>
+        <ul class="nav__links">
+          <li><a href="programs.html" class="nav__link">Programs</a></li>
+          <li><a href="#" class="nav__link">Admission</a></li>
+          <li><a href="community.html" class="nav__link">Community</a></li>
+          <li><a href="#" class="nav__link nav__link--active">Events</a></li>
+        </ul>
+        <a href="#" class="nav__cta">Apply Now</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="page-header__content">
+        <span class="page-header__overline">Campus Life</span>
+        <h1 class="page-header__title">Discover What's Happening</h1>
+        <p class="page-header__subtitle">
+          From research symposiums to outdoor adventures, there's always something happening at Fort Lewis College.
+        </p>
+
+        <div class="search-bar">
+          <span class="search-bar__icon">🔍</span>
+          <input
+            type="text"
+            class="search-bar__input"
+            id="eventSearch"
+            placeholder="Search events, speakers, activities..."
+            autocomplete="off"
+          >
+          <button class="search-bar__clear" id="clearSearch" type="button">✕</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Event Type Tags -->
+  <section class="event-types">
+    <div class="container">
+      <div class="event-types__inner">
+        <button class="event-type active" data-type="all">
+          <span class="event-type__icon">✨</span>
+          <span>All Events</span>
+        </button>
+        <button class="event-type" data-type="academic">
+          <span class="event-type__icon">🎓</span>
+          <span>Academic</span>
+        </button>
+        <button class="event-type" data-type="athletics">
+          <span class="event-type__icon">🏀</span>
+          <span>Athletics</span>
+        </button>
+        <button class="event-type" data-type="arts">
+          <span class="event-type__icon">🎭</span>
+          <span>Arts & Culture</span>
+        </button>
+        <button class="event-type" data-type="community">
+          <span class="event-type__icon">🤝</span>
+          <span>Community</span>
+        </button>
+        <button class="event-type" data-type="career">
+          <span class="event-type__icon">💼</span>
+          <span>Career</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="filters">
+    <div class="container">
+      <div class="filters__inner">
+        <div class="filters__group">
+          <span class="filters__label">Audience:</span>
+          <button class="filter-btn active" data-audience="all">All</button>
+          <button class="filter-btn" data-audience="students">Students</button>
+          <button class="filter-btn" data-audience="alumni">Alumni</button>
+          <button class="filter-btn" data-audience="public">Public</button>
+        </div>
+        <div class="filters__group">
+          <span class="filters__label">Price:</span>
+          <button class="filter-btn active" data-price="all">All</button>
+          <button class="filter-btn" data-price="free">Free Only</button>
+        </div>
+        <span class="filters__count">
+          Showing <strong id="resultCount">0</strong> events
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Grid -->
+  <main class="events">
+    <div class="container">
+      <div class="events__grid" id="eventsGrid">
+        <!-- Events injected by JavaScript -->
+      </div>
+
+      <div class="no-results" id="noResults" style="display: none;">
+        <div class="no-results__icon">📅</div>
+        <h3 class="no-results__title">No events found</h3>
+        <p class="no-results__text">Try adjusting your filters or search terms.</p>
+        <button class="no-results__btn" id="resetFilters">Reset All Filters</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__logo">SKYRIDGE</div>
+        <ul class="footer__links">
+          <li><a href="index.html" class="footer__link">Home</a></li>
+          <li><a href="programs.html" class="footer__link">Programs</a></li>
+          <li><a href="careers.html" class="footer__link">Careers</a></li>
+          <li><a href="community.html" class="footer__link">Community</a></li>
+        </ul>
+        <div class="footer__concept">
+          <span class="footer__pulse"></span>
+          <span>Concept Prototype</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Event Data
+    const events = [
+      {
+        id: "evt-001",
+        title: "Spring Research Symposium",
+        date: "2025-03-15",
+        time: "9:00 AM - 4:00 PM",
+        location: "Student Union Ballroom",
+        type: "academic",
+        audience: ["students", "faculty", "public"],
+        description: "Annual showcase featuring undergraduate research from all disciplines. Over 150 student presentations and poster sessions.",
+        tags: ["Research", "Presentation", "Networking"],
+        featured: true,
+        isFree: true
+      },
+      {
+        id: "evt-002",
+        title: "Skyhawks vs. Colorado Mesa",
+        date: "2025-01-25",
+        time: "7:00 PM",
+        location: "Whalen Gymnasium",
+        type: "athletics",
+        audience: ["students", "alumni", "public"],
+        description: "RMAC basketball rivalry game. Student section gets free t-shirts! Come support your Skyhawks.",
+        tags: ["Basketball", "RMAC", "Home Game"],
+        featured: false,
+        isFree: false
+      },
+      {
+        id: "evt-003",
+        title: "Outdoor Industry Career Fair",
+        date: "2025-02-20",
+        time: "10:00 AM - 3:00 PM",
+        location: "Student Union",
+        type: "career",
+        audience: ["students", "alumni"],
+        description: "Connect with 30+ outdoor industry employers including Patagonia, REI, and local adventure companies. Bring your resume!",
+        tags: ["Jobs", "Networking", "Outdoor Industry"],
+        featured: true,
+        isFree: true
+      },
+      {
+        id: "evt-004",
+        title: "Winter Concert Series: Jazz Ensemble",
+        date: "2025-02-08",
+        time: "7:30 PM",
+        location: "Roshong Recital Hall",
+        type: "arts",
+        audience: ["students", "public"],
+        description: "FLC Jazz Ensemble performs classic and contemporary jazz. Free admission for students with ID.",
+        tags: ["Music", "Jazz", "Performance"],
+        featured: false,
+        isFree: false
+      },
+      {
+        id: "evt-005",
+        title: "Indigenous Water Rights Lecture",
+        date: "2025-02-12",
+        time: "6:00 PM",
+        location: "Noble Hall 130",
+        type: "community",
+        audience: ["students", "faculty", "public"],
+        description: "Nationally recognized speaker discusses tribal water rights and policy in the Colorado River Basin. Reception follows.",
+        tags: ["Lecture", "Indigenous Studies", "Environment"],
+        featured: false,
+        isFree: true
+      },
+      {
+        id: "evt-006",
+        title: "Ski & Ride Day at Purgatory",
+        date: "2025-01-31",
+        time: "8:00 AM - 4:00 PM",
+        location: "Purgatory Resort",
+        type: "community",
+        audience: ["students"],
+        description: "Discounted lift tickets and free shuttle from campus. Meet fellow Skyhawks on the slopes!",
+        tags: ["Skiing", "Social", "Outdoor"],
+        featured: false,
+        isFree: false
+      },
+      {
+        id: "evt-007",
+        title: "Alumni Networking Night - Denver",
+        date: "2025-03-08",
+        time: "6:00 PM - 8:00 PM",
+        location: "Denver, CO",
+        type: "career",
+        audience: ["alumni"],
+        description: "Connect with fellow Skyhawks in the Denver metro area. Appetizers and drinks provided. RSVP required.",
+        tags: ["Networking", "Alumni", "Denver"],
+        featured: false,
+        isFree: true
+      },
+      {
+        id: "evt-008",
+        title: "Admitted Students Day",
+        date: "2025-04-05",
+        time: "9:00 AM - 3:00 PM",
+        location: "Campus-wide",
+        type: "academic",
+        audience: ["public"],
+        description: "Future Skyhawks and families: experience campus life with tours, academic sessions, and lunch with current students.",
+        tags: ["Admissions", "Campus Visit", "Prospective"],
+        featured: true,
+        isFree: true
+      },
+      {
+        id: "evt-009",
+        title: "Theatre: 'The Glass Menagerie'",
+        date: "2025-02-28",
+        time: "7:30 PM",
+        location: "Center of Southwest Studies",
+        type: "arts",
+        audience: ["students", "public"],
+        description: "Tennessee Williams' classic memory play performed by FLC Theatre students. Three-night run Feb 28 - Mar 2.",
+        tags: ["Theatre", "Drama", "Performance"],
+        featured: false,
+        isFree: false
+      },
+      {
+        id: "evt-010",
+        title: "Intramural Flag Football Signup",
+        date: "2025-01-20",
+        time: "All Day",
+        location: "Campus Recreation",
+        type: "athletics",
+        audience: ["students"],
+        description: "Registration deadline for spring intramural flag football. Form a team or sign up as a free agent.",
+        tags: ["Intramurals", "Recreation", "Team Sports"],
+        featured: false,
+        isFree: true
+      },
+      {
+        id: "evt-011",
+        title: "Chemistry Department Seminar",
+        date: "2025-02-05",
+        time: "4:00 PM",
+        location: "Berndt Hall 107",
+        type: "academic",
+        audience: ["students", "faculty"],
+        description: "Guest speaker from Los Alamos National Lab presents on environmental chemistry research. Pizza provided.",
+        tags: ["Science", "Seminar", "Chemistry"],
+        featured: false,
+        isFree: true
+      },
+      {
+        id: "evt-012",
+        title: "Durango Farmers Market",
+        date: "2025-05-03",
+        time: "8:00 AM - 12:00 PM",
+        location: "Downtown Durango",
+        type: "community",
+        audience: ["students", "public"],
+        description: "Weekly farmers market featuring local produce, crafts, and FLC student organization booths.",
+        tags: ["Local", "Community", "Market"],
+        featured: false,
+        isFree: true
+      }
+    ];
+
+    // State
+    let activeType = 'all';
+    let activeAudience = 'all';
+    let activePrice = 'all';
+    let searchQuery = '';
+
+    // DOM Elements
+    const eventsGrid = document.getElementById('eventsGrid');
+    const resultCount = document.getElementById('resultCount');
+    const noResults = document.getElementById('noResults');
+    const searchInput = document.getElementById('eventSearch');
+    const clearSearch = document.getElementById('clearSearch');
+    const typeTags = document.querySelectorAll('.event-type');
+    const audienceBtns = document.querySelectorAll('[data-audience]');
+    const priceBtns = document.querySelectorAll('[data-price]');
+    const resetBtn = document.getElementById('resetFilters');
+
+    // Filter events
+    function filterEvents() {
+      return events.filter(event => {
+        const matchesType = activeType === 'all' || event.type === activeType;
+        const matchesAudience = activeAudience === 'all' || event.audience.includes(activeAudience);
+        const matchesPrice = activePrice === 'all' || (activePrice === 'free' && event.isFree);
+        const matchesSearch = searchQuery === '' ||
+          event.title.toLowerCase().includes(searchQuery) ||
+          event.description.toLowerCase().includes(searchQuery) ||
+          event.location.toLowerCase().includes(searchQuery) ||
+          event.tags.some(t => t.toLowerCase().includes(searchQuery));
+
+        return matchesType && matchesAudience && matchesPrice && matchesSearch;
+      });
+    }
+
+    // Format date
+    function formatDate(dateStr) {
+      const date = new Date(dateStr + 'T00:00:00');
+      return {
+        month: date.toLocaleDateString('en-US', { month: 'short' }),
+        day: date.getDate()
+      };
+    }
+
+    // Get type label and class
+    function getTypeInfo(type) {
+      const types = {
+        'academic': { label: 'Academic', class: 'event-card__type--academic' },
+        'athletics': { label: 'Athletics', class: 'event-card__type--athletics' },
+        'arts': { label: 'Arts & Culture', class: 'event-card__type--arts' },
+        'community': { label: 'Community', class: 'event-card__type--community' },
+        'career': { label: 'Career', class: 'event-card__type--career' }
+      };
+      return types[type] || { label: type, class: '' };
+    }
+
+    // Get audience labels
+    function getAudienceLabel(audience) {
+      const labels = {
+        'students': 'Students',
+        'alumni': 'Alumni',
+        'faculty': 'Faculty',
+        'public': 'Public'
+      };
+      return labels[audience] || audience;
+    }
+
+    // Render event card
+    function renderEventCard(event) {
+      const date = formatDate(event.date);
+      const typeInfo = getTypeInfo(event.type);
+
+      return `
+        <article class="event-card ${event.featured ? 'event-card--featured' : ''}">
+          ${event.featured ? '<span class="featured-badge">Featured</span>' : ''}
+          <div class="event-card__date-bar">
+            <div class="event-card__date">
+              <span class="event-card__month">${date.month}</span>
+              <span class="event-card__day">${date.day}</span>
+            </div>
+            <div class="event-card__time-loc">
+              <span class="event-card__time">${event.time}</span>
+              <span class="event-card__location">${event.location}</span>
+            </div>
+          </div>
+          <div class="event-card__content">
+            <span class="event-card__type ${typeInfo.class}">${typeInfo.label}</span>
+            <h3 class="event-card__title">${event.title}</h3>
+            <p class="event-card__desc">${event.description}</p>
+            <div class="event-card__tags">
+              ${event.audience.map(a => `<span class="event-card__tag">${getAudienceLabel(a)}</span>`).join('')}
+            </div>
+            <div class="event-card__footer">
+              <span class="event-card__price">${event.isFree ? 'Free' : 'Tickets Required'}</span>
+              <a href="#" class="event-card__cta">
+                ${event.isFree ? 'Learn More' : 'Get Tickets'} <span>→</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    // Render all events
+    function render() {
+      const filtered = filterEvents();
+
+      if (filtered.length === 0) {
+        eventsGrid.innerHTML = '';
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+        // Sort: featured first, then by date
+        filtered.sort((a, b) => {
+          if (a.featured && !b.featured) return -1;
+          if (!a.featured && b.featured) return 1;
+          return new Date(a.date) - new Date(b.date);
+        });
+        eventsGrid.innerHTML = filtered.map(renderEventCard).join('');
+      }
+
+      resultCount.textContent = filtered.length;
+    }
+
+    // Event: Type tag click
+    typeTags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        typeTags.forEach(t => t.classList.remove('active'));
+        tag.classList.add('active');
+        activeType = tag.dataset.type;
+        render();
+      });
+    });
+
+    // Event: Audience filter click
+    audienceBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        audienceBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeAudience = btn.dataset.audience;
+        render();
+      });
+    });
+
+    // Event: Price filter click
+    priceBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        priceBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activePrice = btn.dataset.price;
+        render();
+      });
+    });
+
+    // Event: Search input
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      clearSearch.classList.toggle('visible', searchQuery.length > 0);
+      render();
+    });
+
+    // Event: Clear search
+    clearSearch.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      clearSearch.classList.remove('visible');
+      render();
+      searchInput.focus();
+    });
+
+    // Event: Reset all filters
+    resetBtn.addEventListener('click', () => {
+      activeType = 'all';
+      activeAudience = 'all';
+      activePrice = 'all';
+      searchQuery = '';
+      searchInput.value = '';
+      clearSearch.classList.remove('visible');
+
+      typeTags.forEach(t => t.classList.toggle('active', t.dataset.type === 'all'));
+      audienceBtns.forEach(b => b.classList.toggle('active', b.dataset.audience === 'all'));
+      priceBtns.forEach(b => b.classList.toggle('active', b.dataset.price === 'all'));
+
+      render();
+    });
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
