@@ -70,6 +70,31 @@
       color: var(--color-accent);
     }
 
+    .nav__actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .nav__search {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-text-inverse);
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .nav__search:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--color-accent);
+    }
+
     .nav__cta {
       background: var(--color-accent);
       color: var(--color-primary);
@@ -82,6 +107,149 @@
     .nav__cta:hover {
       background: var(--color-accent-hover);
       color: var(--color-primary);
+    }
+
+    /* Omnisearch Modal */
+    .omnisearch {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: var(--space-8) var(--space-4);
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--duration-normal) var(--ease-default);
+    }
+
+    .omnisearch.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .omnisearch__container {
+      width: 100%;
+      max-width: 640px;
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      transform: translateY(-20px) scale(0.95);
+      transition: transform var(--duration-normal) var(--ease-out);
+    }
+
+    .omnisearch.active .omnisearch__container {
+      transform: translateY(0) scale(1);
+    }
+
+    .omnisearch__input-wrapper {
+      display: flex;
+      align-items: center;
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .omnisearch__icon {
+      color: var(--color-text-secondary);
+      margin-right: var(--space-2);
+    }
+
+    .omnisearch__input {
+      flex: 1;
+      border: none;
+      font-size: var(--text-body);
+      color: var(--color-text-primary);
+      outline: none;
+    }
+
+    .omnisearch__input::placeholder {
+      color: var(--color-text-secondary);
+    }
+
+    .omnisearch__kbd {
+      padding: 0.25rem 0.5rem;
+      background: var(--color-bg-light);
+      border-radius: var(--radius-sm);
+      font-size: var(--text-caption);
+      color: var(--color-text-secondary);
+      font-family: monospace;
+    }
+
+    .omnisearch__results {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .omnisearch__section {
+      padding: var(--space-2) var(--space-4);
+    }
+
+    .omnisearch__label {
+      font-size: var(--text-overline);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-1);
+    }
+
+    .omnisearch__item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2);
+      border-radius: var(--radius-md);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: background var(--duration-fast);
+    }
+
+    .omnisearch__item:hover,
+    .omnisearch__item.focused {
+      background: var(--color-bg-light);
+    }
+
+    .omnisearch__item-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 51, 102, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .omnisearch__item-content {
+      flex: 1;
+    }
+
+    .omnisearch__item-title {
+      font-weight: 500;
+      color: var(--color-text-primary);
+    }
+
+    .omnisearch__item-meta {
+      font-size: var(--text-caption);
+      color: var(--color-text-secondary);
+    }
+
+    .omnisearch__footer {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-bg-light);
+      font-size: var(--text-caption);
+      color: var(--color-text-secondary);
+    }
+
+    .omnisearch__hint {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
     }
 
     /* Hero Content */
@@ -527,13 +695,20 @@
       <div class="container nav__inner">
         <a href="/" class="nav__logo">SKYRIDGE</a>
         <ul class="nav__links">
-          <li><a href="#" class="nav__link">About</a></li>
-          <li><a href="#" class="nav__link">Academics</a></li>
+          <li><a href="programs.html" class="nav__link">Programs</a></li>
           <li><a href="#" class="nav__link">Admission</a></li>
-          <li><a href="#" class="nav__link">Campus Life</a></li>
-          <li><a href="#" class="nav__link">Visit</a></li>
+          <li><a href="#" class="nav__link">Campus</a></li>
+          <li><a href="#" class="nav__link">About</a></li>
         </ul>
-        <a href="#" class="nav__cta">Apply Now</a>
+        <div class="nav__actions">
+          <button class="nav__search" id="searchTrigger" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </button>
+          <a href="#" class="nav__cta">Apply Now</a>
+        </div>
       </div>
     </nav>
 
@@ -714,10 +889,10 @@
         <div>
           <h4 class="footer__heading">Explore</h4>
           <ul class="footer__links">
-            <li><a href="#" class="footer__link">About FLC</a></li>
-            <li><a href="#" class="footer__link">Academics</a></li>
+            <li><a href="programs.html" class="footer__link">Programs</a></li>
             <li><a href="#" class="footer__link">Admission</a></li>
-            <li><a href="#" class="footer__link">Campus Life</a></li>
+            <li><a href="#" class="footer__link">Campus</a></li>
+            <li><a href="#" class="footer__link">About</a></li>
           </ul>
         </div>
 
@@ -752,6 +927,104 @@
     </div>
   </footer>
 
+  <!-- Omnisearch Modal -->
+  <div class="omnisearch" id="omnisearch" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="omnisearch__container">
+      <div class="omnisearch__input-wrapper">
+        <svg class="omnisearch__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input
+          type="text"
+          class="omnisearch__input"
+          id="omnisearchInput"
+          placeholder="Search programs, pages, people..."
+          autocomplete="off"
+        >
+        <kbd class="omnisearch__kbd">ESC</kbd>
+      </div>
+      <div class="omnisearch__results" id="omnisearchResults">
+        <div class="omnisearch__section">
+          <div class="omnisearch__label">Quick Actions</div>
+          <a href="#" class="omnisearch__item">
+            <div class="omnisearch__item-icon">📝</div>
+            <div class="omnisearch__item-content">
+              <div class="omnisearch__item-title">Apply Now</div>
+              <div class="omnisearch__item-meta">Start your application</div>
+            </div>
+          </a>
+          <a href="#" class="omnisearch__item">
+            <div class="omnisearch__item-icon">🗓️</div>
+            <div class="omnisearch__item-content">
+              <div class="omnisearch__item-title">Schedule a Visit</div>
+              <div class="omnisearch__item-meta">Campus tours available daily</div>
+            </div>
+          </a>
+          <a href="#" class="omnisearch__item">
+            <div class="omnisearch__item-icon">💰</div>
+            <div class="omnisearch__item-content">
+              <div class="omnisearch__item-title">Tuition & Aid</div>
+              <div class="omnisearch__item-meta">Cost, scholarships, financial aid</div>
+            </div>
+          </a>
+        </div>
+        <div class="omnisearch__section">
+          <div class="omnisearch__label">Popular Programs</div>
+          <a href="programs.html" class="omnisearch__item">
+            <div class="omnisearch__item-icon">🏔️</div>
+            <div class="omnisearch__item-content">
+              <div class="omnisearch__item-title">Adventure Education</div>
+              <div class="omnisearch__item-meta">B.A. · School of Education</div>
+            </div>
+          </a>
+          <a href="programs.html" class="omnisearch__item">
+            <div class="omnisearch__item-icon">📈</div>
+            <div class="omnisearch__item-content">
+              <div class="omnisearch__item-title">Business Administration</div>
+              <div class="omnisearch__item-meta">B.S. · Katz School of Business</div>
+            </div>
+          </a>
+          <a href="programs.html" class="omnisearch__item">
+            <div class="omnisearch__item-icon">🔬</div>
+            <div class="omnisearch__item-content">
+              <div class="omnisearch__item-title">Biology</div>
+              <div class="omnisearch__item-meta">B.S. · School of Arts & Sciences</div>
+            </div>
+          </a>
+        </div>
+        <div class="omnisearch__section">
+          <div class="omnisearch__label">Pages</div>
+          <a href="future-student.html" class="omnisearch__item">
+            <div class="omnisearch__item-icon">🎓</div>
+            <div class="omnisearch__item-content">
+              <div class="omnisearch__item-title">Future Students</div>
+              <div class="omnisearch__item-meta">Explore what FLC offers you</div>
+            </div>
+          </a>
+          <a href="programs.html" class="omnisearch__item">
+            <div class="omnisearch__item-icon">📚</div>
+            <div class="omnisearch__item-content">
+              <div class="omnisearch__item-title">All Programs</div>
+              <div class="omnisearch__item-meta">Browse 60+ majors and minors</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="omnisearch__footer">
+        <div class="omnisearch__hint">
+          <span>Press</span>
+          <kbd class="omnisearch__kbd">/</kbd>
+          <span>to search anytime</span>
+        </div>
+        <div class="omnisearch__hint">
+          <kbd class="omnisearch__kbd">↵</kbd>
+          <span>to select</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Intersection Observer for scroll reveals
     const observerOptions = {
@@ -777,6 +1050,55 @@
           window.location.href = route;
         }
       });
+    });
+
+    // Omnisearch functionality
+    const omnisearch = document.getElementById('omnisearch');
+    const omnisearchInput = document.getElementById('omnisearchInput');
+    const searchTrigger = document.getElementById('searchTrigger');
+
+    function openSearch() {
+      omnisearch.classList.add('active');
+      omnisearchInput.focus();
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSearch() {
+      omnisearch.classList.remove('active');
+      omnisearchInput.value = '';
+      document.body.style.overflow = '';
+    }
+
+    // Open search on button click
+    searchTrigger.addEventListener('click', openSearch);
+
+    // Close on backdrop click
+    omnisearch.addEventListener('click', (e) => {
+      if (e.target === omnisearch) {
+        closeSearch();
+      }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      // Open with / key
+      if (e.key === '/' && !omnisearch.classList.contains('active')) {
+        e.preventDefault();
+        openSearch();
+      }
+      // Close with Escape
+      if (e.key === 'Escape' && omnisearch.classList.contains('active')) {
+        closeSearch();
+      }
+      // Open with Cmd/Ctrl + K
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        if (omnisearch.classList.contains('active')) {
+          closeSearch();
+        } else {
+          openSearch();
+        }
+      }
     });
   </script>
 </body>

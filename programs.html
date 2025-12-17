@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore 60+ academic programs at Fort Lewis College. Find your path in STEM, Business, Arts, Education, and more.">
+  <title>Academic Programs | SKYRIDGE</title>
+  <link rel="stylesheet" href="src/css/design-system.css">
+  <style>
+    /* Page Header */
+    .page-header {
+      background: var(--gradient-hero);
+      color: var(--color-text-inverse);
+      padding: var(--space-8) 0 var(--space-10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.02)" points="0,100 100,50 100,100"/></svg>') no-repeat bottom;
+      background-size: 100% 50%;
+      pointer-events: none;
+    }
+
+    /* Navigation */
+    .nav {
+      padding: var(--space-3) 0;
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .nav__logo {
+      font-size: 1.5rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: var(--color-text-inverse);
+      text-decoration: none;
+    }
+
+    .nav__links {
+      display: none;
+      gap: var(--space-4);
+      list-style: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav__links {
+        display: flex;
+      }
+    }
+
+    .nav__link {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--text-body-sm);
+      transition: color var(--duration-fast) var(--ease-default);
+      padding: var(--space-1) 0;
+    }
+
+    .nav__link:hover,
+    .nav__link--active {
+      color: var(--color-accent);
+    }
+
+    .nav__cta {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-caption);
+    }
+
+    .nav__cta:hover {
+      background: var(--color-accent-hover);
+      color: var(--color-primary);
+    }
+
+    /* Header Content */
+    .page-header__content {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      padding-top: var(--space-6);
+    }
+
+    .page-header__overline {
+      font-size: var(--text-overline);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .page-header__title {
+      font-size: var(--text-h1);
+      margin-bottom: var(--space-3);
+    }
+
+    .page-header__subtitle {
+      font-size: var(--text-body);
+      opacity: 0.9;
+      margin-bottom: var(--space-5);
+    }
+
+    /* Search Bar */
+    .search-bar {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .search-bar__input {
+      width: 100%;
+      padding: 1rem 1.5rem 1rem 3.5rem;
+      font-size: var(--text-body);
+      border: none;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--color-text-primary);
+      box-shadow: var(--shadow-lg);
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .search-bar__input:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(255, 184, 28, 0.3), var(--shadow-xl);
+    }
+
+    .search-bar__input::placeholder {
+      color: var(--color-text-secondary);
+    }
+
+    .search-bar__icon {
+      position: absolute;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.25rem;
+      pointer-events: none;
+    }
+
+    .search-bar__clear {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--color-border);
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      transition: all var(--duration-fast);
+    }
+
+    .search-bar__clear:hover {
+      background: var(--color-text-secondary);
+      color: white;
+    }
+
+    .search-bar__clear.visible {
+      display: flex;
+    }
+
+    /* Filters Section */
+    .filters {
+      padding: var(--space-4) 0;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .filters__inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      align-items: center;
+    }
+
+    .filters__group {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .filters__label {
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 500;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .filter-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+
+    .filters__count {
+      margin-left: auto;
+      font-size: var(--text-caption);
+      color: var(--color-text-secondary);
+    }
+
+    .filters__count strong {
+      color: var(--color-primary);
+    }
+
+    /* Interest Tags */
+    .interest-tags {
+      padding: var(--space-3) 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .interest-tags::-webkit-scrollbar {
+      display: none;
+    }
+
+    .interest-tags__inner {
+      display: flex;
+      gap: var(--space-2);
+      padding: 0 var(--space-1);
+    }
+
+    .interest-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: 500;
+      white-space: nowrap;
+      border: 2px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .interest-tag:hover {
+      border-color: var(--color-accent);
+      background: rgba(255, 184, 28, 0.1);
+    }
+
+    .interest-tag.active {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    .interest-tag__icon {
+      font-size: 1.125rem;
+    }
+
+    /* Programs Grid */
+    .programs {
+      padding: var(--space-6) 0 var(--space-12);
+    }
+
+    .programs__grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 640px) {
+      .programs__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .programs__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Program Card */
+    .program-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-md);
+      transition: all var(--duration-normal) var(--ease-default);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .program-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--color-primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--duration-normal) var(--ease-default);
+    }
+
+    .program-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .program-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .program-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+
+    .program-card__title {
+      font-size: var(--text-h3);
+      color: var(--color-primary);
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .program-card__degree {
+      flex-shrink: 0;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: var(--text-caption);
+      font-weight: 600;
+      background: rgba(0, 51, 102, 0.1);
+      color: var(--color-primary);
+    }
+
+    .program-card__school {
+      font-size: var(--text-caption);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    .program-card__desc {
+      font-size: var(--text-body-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-3);
+      line-height: 1.5;
+    }
+
+    .program-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: var(--space-3);
+    }
+
+    .program-card__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      background: var(--color-bg-light);
+      color: var(--color-text-secondary);
+    }
+
+    .program-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: var(--color-primary);
+      transition: gap var(--duration-fast) var(--ease-default);
+    }
+
+    .program-card:hover .program-card__cta {
+      color: var(--color-accent);
+      gap: 0.75rem;
+    }
+
+    /* Featured Badge */
+    .program-card--featured {
+      border: 2px solid var(--color-accent);
+    }
+
+    .program-card--featured::before {
+      background: var(--color-accent);
+      transform: scaleX(1);
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    /* No Results */
+    .no-results {
+      text-align: center;
+      padding: var(--space-10) var(--space-4);
+    }
+
+    .no-results__icon {
+      font-size: 4rem;
+      margin-bottom: var(--space-3);
+      opacity: 0.5;
+    }
+
+    .no-results__title {
+      font-size: var(--text-h3);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .no-results__text {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+    }
+
+    .no-results__btn {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-bg-dark);
+      color: var(--color-text-inverse);
+      padding: var(--space-6) 0 var(--space-4);
+    }
+
+    .footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .footer__logo {
+      font-size: 1.25rem;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+    }
+
+    .footer__links {
+      display: flex;
+      gap: var(--space-3);
+      list-style: none;
+    }
+
+    .footer__link {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: var(--text-caption);
+    }
+
+    .footer__link:hover {
+      color: var(--color-accent);
+    }
+
+    .footer__concept {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--text-caption);
+      opacity: 0.5;
+    }
+
+    .footer__pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* Animations */
+    .fade-in {
+      animation: fadeIn 0.5s var(--ease-out) forwards;
+    }
+
+    .programs__grid > * {
+      opacity: 0;
+      animation: fadeInUp 0.5s var(--ease-out) forwards;
+    }
+
+    .programs__grid > *:nth-child(1) { animation-delay: 0.05s; }
+    .programs__grid > *:nth-child(2) { animation-delay: 0.1s; }
+    .programs__grid > *:nth-child(3) { animation-delay: 0.15s; }
+    .programs__grid > *:nth-child(4) { animation-delay: 0.2s; }
+    .programs__grid > *:nth-child(5) { animation-delay: 0.25s; }
+    .programs__grid > *:nth-child(6) { animation-delay: 0.3s; }
+    .programs__grid > *:nth-child(7) { animation-delay: 0.35s; }
+    .programs__grid > *:nth-child(8) { animation-delay: 0.4s; }
+    .programs__grid > *:nth-child(9) { animation-delay: 0.45s; }
+  </style>
+</head>
+<body>
+  <!-- Page Header -->
+  <header class="page-header">
+    <nav class="nav">
+      <div class="container nav__inner">
+        <a href="index.html" class="nav__logo">SKYRIDGE</a>
+        <ul class="nav__links">
+          <li><a href="#" class="nav__link nav__link--active">Academics</a></li>
+          <li><a href="#" class="nav__link">Admission</a></li>
+          <li><a href="#" class="nav__link">Campus</a></li>
+          <li><a href="#" class="nav__link">About</a></li>
+        </ul>
+        <a href="#" class="nav__cta">Apply Now</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="page-header__content">
+        <span class="page-header__overline">60+ Programs</span>
+        <h1 class="page-header__title">Find Your Path</h1>
+        <p class="page-header__subtitle">
+          From Adventure Education to Business Analytics, discover the program that ignites your passion.
+        </p>
+
+        <div class="search-bar">
+          <span class="search-bar__icon">🔍</span>
+          <input
+            type="text"
+            class="search-bar__input"
+            id="programSearch"
+            placeholder="Search programs, interests, careers..."
+            autocomplete="off"
+          >
+          <button class="search-bar__clear" id="clearSearch" type="button">✕</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Interest Tags -->
+  <section class="interest-tags">
+    <div class="container">
+      <div class="interest-tags__inner">
+        <button class="interest-tag active" data-interest="all">
+          <span class="interest-tag__icon">✨</span>
+          <span>All Programs</span>
+        </button>
+        <button class="interest-tag" data-interest="stem">
+          <span class="interest-tag__icon">🔬</span>
+          <span>Science & Engineering</span>
+        </button>
+        <button class="interest-tag" data-interest="business">
+          <span class="interest-tag__icon">📈</span>
+          <span>Business & Economics</span>
+        </button>
+        <button class="interest-tag" data-interest="arts">
+          <span class="interest-tag__icon">🎨</span>
+          <span>Arts & Humanities</span>
+        </button>
+        <button class="interest-tag" data-interest="health">
+          <span class="interest-tag__icon">💪</span>
+          <span>Health & Wellness</span>
+        </button>
+        <button class="interest-tag" data-interest="outdoor">
+          <span class="interest-tag__icon">🏔️</span>
+          <span>Environment & Outdoors</span>
+        </button>
+        <button class="interest-tag" data-interest="social">
+          <span class="interest-tag__icon">🌍</span>
+          <span>Social Sciences</span>
+        </button>
+        <button class="interest-tag" data-interest="education">
+          <span class="interest-tag__icon">📚</span>
+          <span>Education</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="filters">
+    <div class="container">
+      <div class="filters__inner">
+        <div class="filters__group">
+          <span class="filters__label">School:</span>
+          <button class="filter-btn active" data-school="all">All</button>
+          <button class="filter-btn" data-school="arts-sciences">Arts & Sciences</button>
+          <button class="filter-btn" data-school="business">Business</button>
+          <button class="filter-btn" data-school="education">Education</button>
+        </div>
+        <div class="filters__group">
+          <span class="filters__label">Degree:</span>
+          <button class="filter-btn active" data-degree="all">All</button>
+          <button class="filter-btn" data-degree="bs">B.S.</button>
+          <button class="filter-btn" data-degree="ba">B.A.</button>
+          <button class="filter-btn" data-degree="minor">Minor</button>
+        </div>
+        <span class="filters__count">
+          Showing <strong id="resultCount">0</strong> programs
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs Grid -->
+  <main class="programs">
+    <div class="container">
+      <div class="programs__grid" id="programsGrid">
+        <!-- Programs injected by JavaScript -->
+      </div>
+
+      <div class="no-results" id="noResults" style="display: none;">
+        <div class="no-results__icon">🔍</div>
+        <h3 class="no-results__title">No programs found</h3>
+        <p class="no-results__text">Try adjusting your filters or search terms.</p>
+        <button class="btn no-results__btn" id="resetFilters">Reset All Filters</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__logo">SKYRIDGE</div>
+        <ul class="footer__links">
+          <li><a href="index.html" class="footer__link">Home</a></li>
+          <li><a href="future-student.html" class="footer__link">Future Students</a></li>
+          <li><a href="#" class="footer__link">Visit Campus</a></li>
+          <li><a href="#" class="footer__link">Contact</a></li>
+        </ul>
+        <div class="footer__concept">
+          <span class="footer__pulse"></span>
+          <span>Concept Prototype</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Program Data (representing FLC's ~60 programs)
+    const programs = [
+      {
+        name: "Adventure Education",
+        degree: "B.A.",
+        school: "education",
+        interests: ["outdoor", "education"],
+        description: "One of the nation's premier outdoor leadership programs. Lead expeditions, teach wilderness skills, and transform lives through adventure.",
+        tags: ["🏔️ Outdoor", "🎯 Leadership", "🌲 Wilderness"],
+        featured: true,
+        careers: ["Outdoor Educator", "Park Ranger", "Guide"]
+      },
+      {
+        name: "Biology",
+        degree: "B.S.",
+        school: "arts-sciences",
+        interests: ["stem", "health"],
+        description: "From field research in the San Juans to cutting-edge lab work. Study life sciences in one of the most biodiverse regions in North America.",
+        tags: ["🔬 Research", "🏔️ Field Work", "🏥 Pre-Med"],
+        featured: false,
+        careers: ["Researcher", "Healthcare", "Conservation"]
+      },
+      {
+        name: "Business Administration",
+        degree: "B.S.",
+        school: "business",
+        interests: ["business"],
+        description: "Build the skills to lead in any industry. From Hawk Tank competitions to real-world internships, launch your career here.",
+        tags: ["📈 Finance", "🎯 Leadership", "💼 Management"],
+        featured: false,
+        careers: ["Manager", "Entrepreneur", "Analyst"]
+      },
+      {
+        name: "Psychology",
+        degree: "B.A.",
+        school: "arts-sciences",
+        interests: ["social", "health"],
+        description: "Understand the human mind and behavior. Our small classes mean hands-on research opportunities from your first year.",
+        tags: ["🧠 Research", "💬 Counseling", "📊 Data"],
+        featured: false,
+        careers: ["Counselor", "Researcher", "HR Specialist"]
+      },
+      {
+        name: "Exercise Science",
+        degree: "B.S.",
+        school: "arts-sciences",
+        interests: ["health", "outdoor"],
+        description: "Study human performance at 7,600 feet. Our altitude and outdoor access create unique training opportunities.",
+        tags: ["💪 Fitness", "🏔️ Altitude", "🏥 Pre-PT"],
+        featured: true,
+        careers: ["Athletic Trainer", "Physical Therapist", "Coach"]
+      },
+      {
+        name: "Environmental Studies",
+        degree: "B.A.",
+        school: "arts-sciences",
+        interests: ["outdoor", "social"],
+        description: "The Four Corners is your classroom. Study environmental policy, sustainability, and conservation where it matters most.",
+        tags: ["🌍 Sustainability", "📜 Policy", "🌲 Conservation"],
+        featured: false,
+        careers: ["Environmental Scientist", "Policy Analyst", "Nonprofit"]
+      },
+      {
+        name: "Art & Design",
+        degree: "B.A.",
+        school: "arts-sciences",
+        interests: ["arts"],
+        description: "Create in studios overlooking the mountains. Explore painting, sculpture, ceramics, and digital media in an inspiring setting.",
+        tags: ["🎨 Studio", "💻 Digital", "🖼️ Gallery"],
+        featured: false,
+        careers: ["Artist", "Designer", "Art Director"]
+      },
+      {
+        name: "Computer Information Systems",
+        degree: "B.S.",
+        school: "business",
+        interests: ["stem", "business"],
+        description: "Bridge technology and business. Build the systems that power modern organizations.",
+        tags: ["💻 Tech", "📊 Data", "🔐 Security"],
+        featured: false,
+        careers: ["Developer", "IT Manager", "Data Analyst"]
+      },
+      {
+        name: "Chemistry",
+        degree: "B.S.",
+        school: "arts-sciences",
+        interests: ["stem"],
+        description: "From organic synthesis to environmental analysis. Our labs and research facilities rival much larger universities.",
+        tags: ["🔬 Lab", "⚗️ Research", "🏥 Pre-Med"],
+        featured: false,
+        careers: ["Chemist", "Pharmacist", "Lab Director"]
+      },
+      {
+        name: "Native American & Indigenous Studies",
+        degree: "B.A.",
+        school: "arts-sciences",
+        interests: ["social", "arts"],
+        description: "Study Indigenous history, politics, and culture at a college with deep Native American heritage. Students from 110+ tribes enrich every class.",
+        tags: ["🪶 Heritage", "📜 History", "🌍 Policy"],
+        featured: true,
+        careers: ["Tribal Administrator", "Educator", "Policy Analyst"]
+      },
+      {
+        name: "Ski Resort Operations",
+        degree: "Certificate",
+        school: "business",
+        interests: ["business", "outdoor"],
+        description: "The only program of its kind. Learn resort management with five ski areas as your classroom.",
+        tags: ["🎿 Skiing", "📈 Management", "🏔️ Tourism"],
+        featured: true,
+        careers: ["Resort Manager", "Operations Director", "Tourism"]
+      },
+      {
+        name: "Teacher Education",
+        degree: "B.A.",
+        school: "education",
+        interests: ["education", "social"],
+        description: "Shape the next generation. Our graduates are in high demand across Colorado and the Southwest.",
+        tags: ["📚 Teaching", "👥 K-12", "🎯 Leadership"],
+        featured: false,
+        careers: ["Teacher", "Principal", "Curriculum Developer"]
+      },
+      {
+        name: "English",
+        degree: "B.A.",
+        school: "arts-sciences",
+        interests: ["arts"],
+        description: "Master the power of language. Study literature, creative writing, and rhetoric in workshops and seminars.",
+        tags: ["📝 Writing", "📖 Literature", "💬 Rhetoric"],
+        featured: false,
+        careers: ["Writer", "Editor", "Communications"]
+      },
+      {
+        name: "Geology",
+        degree: "B.S.",
+        school: "arts-sciences",
+        interests: ["stem", "outdoor"],
+        description: "Study Earth's history in one of the most geologically diverse regions anywhere. Field work starts your first semester.",
+        tags: ["🪨 Field Work", "🌋 Research", "🗺️ Mapping"],
+        featured: false,
+        careers: ["Geologist", "Environmental Consultant", "Energy"]
+      },
+      {
+        name: "Anthropology",
+        degree: "B.A.",
+        school: "arts-sciences",
+        interests: ["social", "arts"],
+        description: "Explore human cultures past and present. The Southwest's rich archaeological heritage is at your doorstep.",
+        tags: ["🏺 Archaeology", "🌍 Culture", "📜 History"],
+        featured: false,
+        careers: ["Archaeologist", "Museum Curator", "Researcher"]
+      },
+      {
+        name: "Public Health",
+        degree: "B.S.",
+        school: "arts-sciences",
+        interests: ["health", "social"],
+        description: "Address health challenges in rural and Indigenous communities. Real-world experience through local partnerships.",
+        tags: ["🏥 Healthcare", "🌍 Community", "📊 Policy"],
+        featured: false,
+        careers: ["Health Educator", "Epidemiologist", "Administrator"]
+      },
+      {
+        name: "Accounting",
+        degree: "B.S.",
+        school: "business",
+        interests: ["business"],
+        description: "Build the foundation for CPA certification. Small classes mean personalized attention and strong job placement.",
+        tags: ["📊 Finance", "📋 Auditing", "💼 CPA"],
+        featured: false,
+        careers: ["Accountant", "Auditor", "Financial Analyst"]
+      },
+      {
+        name: "Physics",
+        degree: "B.S.",
+        school: "arts-sciences",
+        interests: ["stem"],
+        description: "From quantum mechanics to astrophysics. Our dark skies and altitude make for exceptional astronomy.",
+        tags: ["🔭 Astronomy", "⚛️ Quantum", "🔬 Research"],
+        featured: false,
+        careers: ["Physicist", "Engineer", "Data Scientist"]
+      },
+      {
+        name: "Sociology",
+        degree: "B.A.",
+        school: "arts-sciences",
+        interests: ["social"],
+        description: "Understand how societies work. Study inequality, social change, and community in a diverse college setting.",
+        tags: ["🌍 Society", "📊 Research", "💬 Policy"],
+        featured: false,
+        careers: ["Social Worker", "Researcher", "Policy Analyst"]
+      },
+      {
+        name: "Political Science",
+        degree: "B.A.",
+        school: "arts-sciences",
+        interests: ["social"],
+        description: "Study power, governance, and policy. Internship opportunities in Durango and across Colorado.",
+        tags: ["🏛️ Government", "📜 Policy", "⚖️ Law"],
+        featured: false,
+        careers: ["Government", "Law", "Nonprofit"]
+      },
+      {
+        name: "Music",
+        degree: "B.A.",
+        school: "arts-sciences",
+        interests: ["arts"],
+        description: "Perform, compose, and study music in intimate ensembles and one-on-one instruction.",
+        tags: ["🎵 Performance", "🎼 Composition", "🎺 Ensemble"],
+        featured: false,
+        careers: ["Musician", "Music Teacher", "Sound Engineer"]
+      },
+      {
+        name: "Theatre",
+        degree: "B.A.",
+        school: "arts-sciences",
+        interests: ["arts"],
+        description: "Act, direct, and design in a vibrant theatre program. Multiple productions each year showcase student talent.",
+        tags: ["🎭 Acting", "🎬 Directing", "🎨 Design"],
+        featured: false,
+        careers: ["Actor", "Director", "Arts Administrator"]
+      },
+      {
+        name: "Mathematics",
+        degree: "B.S.",
+        school: "arts-sciences",
+        interests: ["stem"],
+        description: "From pure mathematics to applied statistics. Our small classes create strong student-faculty connections.",
+        tags: ["📐 Theory", "📊 Statistics", "💻 Applied"],
+        featured: false,
+        careers: ["Mathematician", "Actuary", "Data Scientist"]
+      },
+      {
+        name: "History",
+        degree: "B.A.",
+        school: "arts-sciences",
+        interests: ["arts", "social"],
+        description: "Study the past to understand the present. The Southwest's rich history provides unique learning opportunities.",
+        tags: ["📜 Research", "🏛️ Archives", "✍️ Writing"],
+        featured: false,
+        careers: ["Historian", "Archivist", "Educator"]
+      }
+    ];
+
+    // State
+    let activeInterest = 'all';
+    let activeSchool = 'all';
+    let activeDegree = 'all';
+    let searchQuery = '';
+
+    // DOM Elements
+    const programsGrid = document.getElementById('programsGrid');
+    const resultCount = document.getElementById('resultCount');
+    const noResults = document.getElementById('noResults');
+    const searchInput = document.getElementById('programSearch');
+    const clearSearch = document.getElementById('clearSearch');
+    const interestTags = document.querySelectorAll('.interest-tag');
+    const schoolBtns = document.querySelectorAll('[data-school]');
+    const degreeBtns = document.querySelectorAll('[data-degree]');
+    const resetBtn = document.getElementById('resetFilters');
+
+    // Filter programs
+    function filterPrograms() {
+      return programs.filter(program => {
+        const matchesInterest = activeInterest === 'all' || program.interests.includes(activeInterest);
+        const matchesSchool = activeSchool === 'all' || program.school === activeSchool;
+        const matchesDegree = activeDegree === 'all' || program.degree.toLowerCase().includes(activeDegree);
+        const matchesSearch = searchQuery === '' ||
+          program.name.toLowerCase().includes(searchQuery) ||
+          program.description.toLowerCase().includes(searchQuery) ||
+          program.careers.some(c => c.toLowerCase().includes(searchQuery)) ||
+          program.tags.some(t => t.toLowerCase().includes(searchQuery));
+
+        return matchesInterest && matchesSchool && matchesDegree && matchesSearch;
+      });
+    }
+
+    // Render program card
+    function renderProgramCard(program) {
+      return `
+        <article class="program-card ${program.featured ? 'program-card--featured' : ''}">
+          ${program.featured ? '<span class="featured-badge">Featured</span>' : ''}
+          <div class="program-card__header">
+            <h3 class="program-card__title">${program.name}</h3>
+            <span class="program-card__degree">${program.degree}</span>
+          </div>
+          <p class="program-card__school">${getSchoolName(program.school)}</p>
+          <p class="program-card__desc">${program.description}</p>
+          <div class="program-card__tags">
+            ${program.tags.map(tag => `<span class="program-card__tag">${tag}</span>`).join('')}
+          </div>
+          <a href="#" class="program-card__cta">
+            Explore Program <span>→</span>
+          </a>
+        </article>
+      `;
+    }
+
+    // Get school display name
+    function getSchoolName(school) {
+      const names = {
+        'arts-sciences': 'School of Arts & Sciences',
+        'business': 'Katz School of Business',
+        'education': 'School of Education'
+      };
+      return names[school] || school;
+    }
+
+    // Render all programs
+    function render() {
+      const filtered = filterPrograms();
+
+      if (filtered.length === 0) {
+        programsGrid.innerHTML = '';
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+        // Sort: featured first, then alphabetically
+        filtered.sort((a, b) => {
+          if (a.featured && !b.featured) return -1;
+          if (!a.featured && b.featured) return 1;
+          return a.name.localeCompare(b.name);
+        });
+        programsGrid.innerHTML = filtered.map(renderProgramCard).join('');
+      }
+
+      resultCount.textContent = filtered.length;
+    }
+
+    // Event: Interest tag click
+    interestTags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        interestTags.forEach(t => t.classList.remove('active'));
+        tag.classList.add('active');
+        activeInterest = tag.dataset.interest;
+        render();
+      });
+    });
+
+    // Event: School filter click
+    schoolBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        schoolBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeSchool = btn.dataset.school;
+        render();
+      });
+    });
+
+    // Event: Degree filter click
+    degreeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        degreeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeDegree = btn.dataset.degree;
+        render();
+      });
+    });
+
+    // Event: Search input
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      clearSearch.classList.toggle('visible', searchQuery.length > 0);
+      render();
+    });
+
+    // Event: Clear search
+    clearSearch.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      clearSearch.classList.remove('visible');
+      render();
+      searchInput.focus();
+    });
+
+    // Event: Reset all filters
+    resetBtn.addEventListener('click', () => {
+      activeInterest = 'all';
+      activeSchool = 'all';
+      activeDegree = 'all';
+      searchQuery = '';
+      searchInput.value = '';
+      clearSearch.classList.remove('visible');
+
+      interestTags.forEach(t => t.classList.toggle('active', t.dataset.interest === 'all'));
+      schoolBtns.forEach(b => b.classList.toggle('active', b.dataset.school === 'all'));
+      degreeBtns.forEach(b => b.classList.toggle('active', b.dataset.degree === 'all'));
+
+      render();
+    });
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
