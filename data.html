@@ -809,47 +809,71 @@
     .field {
       display: flex;
       align-items: center;
-      gap: var(--space-2);
-      padding: var(--space-2);
-      background: var(--color-bg-light);
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--color-surface);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
-      margin-bottom: var(--space-1);
+      border-radius: var(--radius-md);
+      margin-bottom: 6px;
       cursor: grab;
-      transition: all var(--duration-fast);
-      font-size: var(--text-caption);
+      transition: all 0.15s ease;
+      font-size: 13px;
       font-weight: 500;
-      color: var(--color-text-primary);
+      color: var(--color-text);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
 
     .field:hover {
       border-color: var(--color-primary);
-      background: rgba(0, 51, 102, 0.05);
+      background: var(--color-surface);
+      box-shadow: 0 2px 8px rgba(0, 51, 102, 0.12);
+      transform: translateY(-1px);
     }
 
     .field:active {
       cursor: grabbing;
+      transform: scale(0.98);
     }
 
     .field.dragging {
       opacity: 0.5;
       transform: scale(0.95);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .field.selected {
+      border-color: var(--color-primary);
+      background: rgba(0, 51, 102, 0.08);
+      box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
     }
 
     .field__icon {
       font-size: 1rem;
+      opacity: 0.8;
     }
 
     .field--dimension {
       border-left: 3px solid #3B82F6;
     }
 
+    .field--dimension:hover {
+      border-left-color: #2563EB;
+    }
+
     .field--measure {
       border-left: 3px solid #10B981;
     }
 
+    .field--measure:hover {
+      border-left-color: #059669;
+    }
+
     .field--demographic {
       border-left: 3px solid #8B5CF6;
+    }
+
+    .field--demographic:hover {
+      border-left-color: #7C3AED;
     }
 
     /* Drop Zones */
@@ -897,49 +921,78 @@
       background: var(--color-surface);
       border: 2px dashed var(--color-border);
       border-radius: var(--radius-lg);
-      padding: var(--space-4);
-      min-height: 100px;
-      transition: all var(--duration-fast);
+      padding: var(--space-3);
+      min-height: 90px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .drop-zone::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      opacity: 0.8;
     }
 
     .drop-zone--measures {
-      border-color: #10B981;
-      background: rgba(16, 185, 129, 0.03);
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.02);
+    }
+
+    .drop-zone--measures::before {
+      background: linear-gradient(90deg, #10B981 0%, #34D399 100%);
     }
 
     .drop-zone--group {
-      border-color: #8B5CF6;
-      background: rgba(139, 92, 246, 0.03);
+      border-color: rgba(139, 92, 246, 0.4);
+      background: rgba(139, 92, 246, 0.02);
+    }
+
+    .drop-zone--group::before {
+      background: linear-gradient(90deg, #8B5CF6 0%, #A78BFA 100%);
+    }
+
+    .drop-zone--filter {
+      border-color: rgba(245, 158, 11, 0.4);
+      background: rgba(245, 158, 11, 0.02);
+    }
+
+    .drop-zone--filter::before {
+      background: linear-gradient(90deg, #F59E0B 0%, #FBBF24 100%);
+    }
+
+    .drop-zone:not(.drop-zone--measures):not(.drop-zone--group):not(.drop-zone--filter)::before {
+      background: linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%);
     }
 
     .drop-zone.drag-over {
+      border-style: solid;
       border-color: var(--color-primary);
-      background: rgba(0, 51, 102, 0.08);
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(0, 51, 102, 0.15);
+      background: rgba(0, 51, 102, 0.06);
+      transform: scale(1.01);
+      box-shadow: 0 4px 20px rgba(0, 51, 102, 0.12);
     }
 
     .drop-zone--measures.drag-over {
       border-color: #10B981;
-      background: rgba(16, 185, 129, 0.1);
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+      background: rgba(16, 185, 129, 0.08);
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
     }
 
     .drop-zone--group.drag-over {
       border-color: #8B5CF6;
-      background: rgba(139, 92, 246, 0.1);
-      box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
-    }
-
-    .drop-zone--filter {
-      border-color: #F59E0B;
-      background: rgba(245, 158, 11, 0.03);
+      background: rgba(139, 92, 246, 0.08);
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.15);
     }
 
     .drop-zone--filter.drag-over {
       border-color: #F59E0B;
-      background: rgba(245, 158, 11, 0.1);
-      box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+      background: rgba(245, 158, 11, 0.08);
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
     }
 
     /* Filter Popup */
@@ -949,13 +1002,26 @@
       top: 100%;
       left: 0;
       right: 0;
+      min-width: 280px;
       margin-top: var(--space-2);
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
-      padding: var(--space-3);
+      padding: var(--space-4);
       box-shadow: var(--shadow-xl);
       z-index: 100;
+      animation: filterPopupIn 0.2s ease-out;
+    }
+
+    @keyframes filterPopupIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .filter-popup.active {
@@ -1038,54 +1104,60 @@
       padding: var(--space-2) 0;
     }
 
-    .filter-slider__labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: var(--text-caption);
-      color: var(--color-text-secondary);
-      margin-bottom: var(--space-2);
-    }
-
-    .filter-slider__track {
-      position: relative;
-      height: 6px;
-      background: var(--color-border);
-      border-radius: 3px;
-      margin: var(--space-3) 0;
-    }
-
-    .filter-slider__range {
-      position: absolute;
-      height: 100%;
-      background: var(--color-primary);
-      border-radius: 3px;
-    }
-
     .filter-slider__inputs {
       display: flex;
-      gap: var(--space-3);
+      gap: var(--space-2);
       align-items: center;
     }
 
     .filter-slider__input-group {
       flex: 1;
+      min-width: 0;
     }
 
     .filter-slider__input-label {
       display: block;
-      font-size: var(--text-caption);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       color: var(--color-text-secondary);
       margin-bottom: var(--space-1);
     }
 
     .filter-slider__select {
       width: 100%;
-      padding: var(--space-2);
+      min-width: 100px;
+      padding: 10px 12px;
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-md);
       background: var(--color-surface);
       color: var(--color-text);
-      font-size: var(--text-body-sm);
+      font-size: var(--text-body);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--duration-fast);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7280' d='M3 4.5L6 7.5L9 4.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+
+    .filter-slider__select:hover {
+      border-color: var(--color-primary);
+    }
+
+    .filter-slider__select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+    }
+
+    .filter-slider__arrow {
+      font-size: 1.25rem;
+      color: var(--color-text-secondary);
+      flex-shrink: 0;
     }
 
     .filter-popup__actions {
@@ -1131,9 +1203,9 @@
     .filter-active-badge {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      background: rgba(245, 158, 11, 0.15);
-      color: #D97706;
+      gap: 3px;
+      background: rgba(255, 255, 255, 0.25);
+      color: white;
       padding: 2px 8px;
       border-radius: var(--radius-full);
       font-size: 11px;
@@ -1170,61 +1242,116 @@
     .dropped-field {
       display: inline-flex;
       align-items: center;
-      gap: var(--space-1);
-      padding: 0.25rem 0.5rem;
-      background: var(--color-primary);
+      gap: 6px;
+      padding: 6px 10px;
+      background: linear-gradient(135deg, var(--color-primary) 0%, #004080 100%);
       color: white;
-      border-radius: var(--radius-sm);
-      font-size: var(--text-caption);
-      font-weight: 500;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 2px 4px rgba(0, 51, 102, 0.2);
+      transition: all var(--duration-fast);
+    }
+
+    .dropped-field:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 51, 102, 0.25);
+    }
+
+    /* Clickable filter field */
+    .dropped-field--filter {
+      cursor: pointer;
+      padding-right: 6px;
+    }
+
+    .dropped-field--filter:hover {
+      background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+    }
+
+    .dropped-field__edit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      font-size: 10px;
+      margin-left: 2px;
     }
 
     .dropped-field__remove {
-      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.15);
       border: none;
+      border-radius: 50%;
       color: white;
       cursor: pointer;
       padding: 0;
-      font-size: 1rem;
+      font-size: 14px;
       line-height: 1;
-      opacity: 0.7;
-      transition: opacity var(--duration-fast);
+      transition: all var(--duration-fast);
     }
 
     .dropped-field__remove:hover {
-      opacity: 1;
+      background: rgba(255, 255, 255, 0.3);
     }
 
     /* Chart Type Selector */
     .chart-type-selector {
       display: flex;
-      gap: var(--space-1);
-      padding: var(--space-2);
-      background: var(--color-surface);
+      gap: 4px;
+      padding: 4px;
+      background: var(--color-bg-light);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
       width: fit-content;
     }
 
     .chart-type-btn {
-      padding: var(--space-2);
-      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 36px;
+      background: transparent;
       border: none;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-md);
       cursor: pointer;
       font-size: 1.25rem;
-      transition: all var(--duration-fast);
+      transition: all 0.15s ease;
       color: var(--color-text-secondary);
     }
 
     .chart-type-btn:hover {
-      background: var(--color-bg-light);
+      background: var(--color-surface);
       color: var(--color-primary);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     }
 
     .chart-type-btn.active {
       background: var(--color-primary);
       color: white;
+      box-shadow: 0 2px 4px rgba(0, 51, 102, 0.2);
+    }
+
+    /* Control bar styling */
+    .explorer__controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      padding: var(--space-2) 0;
+    }
+
+    .explorer__actions {
+      display: flex;
+      gap: var(--space-2);
     }
 
     /* Chart Preview */
@@ -1285,26 +1412,37 @@
     /* Reset & Export Buttons */
     .explorer__reset,
     .explorer__export {
-      background: var(--color-bg-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-md);
-      padding: 0.5rem 1rem;
-      font-size: var(--text-caption);
+      padding: 8px 14px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--color-text-secondary);
       cursor: pointer;
-      transition: all var(--duration-fast);
+      transition: all 0.15s ease;
     }
 
     .explorer__reset:hover {
       border-color: var(--color-error);
       color: var(--color-error);
+      background: rgba(220, 38, 38, 0.05);
+    }
+
+    .explorer__export {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
     }
 
     .explorer__export:hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
-      background: rgba(0, 51, 102, 0.05);
+      background: #004080;
+      border-color: #004080;
+      color: white;
+      box-shadow: 0 2px 4px rgba(0, 51, 102, 0.2);
     }
 
     /* Export Modal */
@@ -2359,16 +2497,33 @@
             explorerState.filterValues = null;
           }
         } else {
-          const hasActiveFilter = stateKey === 'filter' && explorerState.filterValues;
-          const badge = hasActiveFilter ? '<span class="filter-active-badge">Active</span>' : '';
+          const isFilter = stateKey === 'filter';
+          const hasActiveFilter = isFilter && explorerState.filterValues;
+          const badge = hasActiveFilter ? '<span class="filter-active-badge">✓ Active</span>' : '';
+          const editIcon = isFilter ? '<span class="dropped-field__edit">✎</span>' : '';
+          const filterClass = isFilter ? ' dropped-field--filter' : '';
+
           container.innerHTML = `
-            <div class="dropped-field" data-field="${item.field}">
+            <div class="dropped-field${filterClass}" data-field="${item.field}">
               <span>${item.label}${badge}</span>
+              ${editIcon}
               <button class="dropped-field__remove" data-key="${stateKey}">&times;</button>
             </div>`;
-          container.querySelector('.dropped-field__remove').addEventListener('click', () => {
+
+          // Make filter field clickable to edit
+          if (isFilter) {
+            const fieldEl = container.querySelector('.dropped-field');
+            fieldEl.addEventListener('click', (e) => {
+              // Don't trigger if clicking remove button
+              if (e.target.classList.contains('dropped-field__remove')) return;
+              showFilterPopup(item);
+            });
+          }
+
+          container.querySelector('.dropped-field__remove').addEventListener('click', (e) => {
+            e.stopPropagation();
             explorerState[stateKey] = null;
-            if (stateKey === 'filter') {
+            if (isFilter) {
               explorerState.filterValues = null;
               filterPopup.classList.remove('active');
             }
@@ -2376,8 +2531,8 @@
             updateExplorerChart();
           });
 
-          // Show filter popup when a filter dimension is dropped
-          if (stateKey === 'filter') {
+          // Show filter popup when a filter dimension is first dropped
+          if (isFilter && !explorerState.filterValues) {
             showFilterPopup(item);
           }
         }
@@ -2395,20 +2550,18 @@
 
           filterPopupBody.innerHTML = `
             <div class="filter-slider">
-              <div class="filter-slider__labels">
-                <span>From</span>
-                <span>To</span>
-              </div>
               <div class="filter-slider__inputs">
                 <div class="filter-slider__input-group">
+                  <label class="filter-slider__input-label">From Year</label>
                   <select class="filter-slider__select" id="filterYearMin">
-                    ${years.map((y, i) => `<option value="${i}" ${i === currentFilter.minIdx ? 'selected' : ''}>${y.split('-')[0]}</option>`).join('')}
+                    ${years.map((y, i) => `<option value="${i}" ${i === currentFilter.minIdx ? 'selected' : ''}>${y}</option>`).join('')}
                   </select>
                 </div>
-                <span style="color: var(--color-text-secondary);">→</span>
+                <span class="filter-slider__arrow">→</span>
                 <div class="filter-slider__input-group">
+                  <label class="filter-slider__input-label">To Year</label>
                   <select class="filter-slider__select" id="filterYearMax">
-                    ${years.map((y, i) => `<option value="${i}" ${i === currentFilter.maxIdx ? 'selected' : ''}>${y.split('-')[0]}</option>`).join('')}
+                    ${years.map((y, i) => `<option value="${i}" ${i === currentFilter.maxIdx ? 'selected' : ''}>${y}</option>`).join('')}
                   </select>
                 </div>
               </div>
