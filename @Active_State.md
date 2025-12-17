@@ -227,20 +227,8 @@ https://winncook.github.io/future-flc-website/
 
 **Branch:** main
 **Remote:** origin (https://github.com/WinnCook/future-flc-website)
-**Last Commit:** (pending - Phase 5 changes uncommitted)
-**Status:** Modified - ready to commit Phase 5 changes
-
-**Files to commit:**
-- design/architecture/information-architecture.md (new)
-- programs.html (new)
-- index.html (modified)
-- future-student.html (modified)
-- parent.html (modified)
-- current-student.html (modified)
-- alumni.html (modified)
-- faculty.html (modified)
-- staff.html (modified)
-- community.html (modified)
+**Last Commit:** abc31ed - Complete Phase 5: Information Architecture
+**Status:** Clean - all changes committed and pushed
 
 **Live URL:** https://winncook.github.io/future-flc-website/
 
