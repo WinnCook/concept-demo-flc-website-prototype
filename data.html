@@ -869,6 +869,16 @@
       grid-template-columns: 1fr 1fr 1fr;
     }
 
+    .drop-zones--four {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    @media (max-width: 1100px) {
+      .drop-zones--four {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
     @media (max-width: 900px) {
       .drop-zones--three {
         grid-template-columns: 1fr 1fr;
@@ -877,7 +887,8 @@
 
     @media (max-width: 768px) {
       .drop-zones,
-      .drop-zones--three {
+      .drop-zones--three,
+      .drop-zones--four {
         grid-template-columns: 1fr;
       }
     }
@@ -918,6 +929,17 @@
       border-color: #8B5CF6;
       background: rgba(139, 92, 246, 0.1);
       box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+    }
+
+    .drop-zone--filter {
+      border-color: #F59E0B;
+      background: rgba(245, 158, 11, 0.03);
+    }
+
+    .drop-zone--filter.drag-over {
+      border-color: #F59E0B;
+      background: rgba(245, 158, 11, 0.1);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
     }
 
     .drop-zone__label {
@@ -1057,8 +1079,9 @@
       margin-top: var(--space-1);
     }
 
-    /* Reset Button */
-    .explorer__reset {
+    /* Reset & Export Buttons */
+    .explorer__reset,
+    .explorer__export {
       background: var(--color-bg-light);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-md);
@@ -1073,6 +1096,77 @@
     .explorer__reset:hover {
       border-color: var(--color-error);
       color: var(--color-error);
+    }
+
+    .explorer__export:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: rgba(0, 51, 102, 0.05);
+    }
+
+    /* Export Modal */
+    .export-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .export-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .export-modal__content {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      max-width: 400px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .export-modal.active .export-modal__content {
+      transform: scale(1);
+    }
+
+    .export-modal__icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-3);
+    }
+
+    .export-modal__title {
+      font-size: var(--text-h4);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+
+    .export-modal__text {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+    }
+
+    .export-modal__close {
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .export-modal__close:hover {
+      background: var(--color-primary-dark);
     }
 
     /* Explorer SVG Chart */
@@ -1389,7 +1483,7 @@
           <!-- Workspace -->
           <div class="explorer__workspace">
             <!-- Drop Zones -->
-            <div class="drop-zones drop-zones--three">
+            <div class="drop-zones drop-zones--four">
               <div class="drop-zone" id="dropRows" data-zone="rows">
                 <div class="drop-zone__label">📊 Rows (Primary)</div>
                 <div class="drop-zone__content" id="dropRowsContent">
@@ -1408,17 +1502,26 @@
                   <span class="drop-zone__placeholder">Drop a measure here</span>
                 </div>
               </div>
+              <div class="drop-zone drop-zone--filter" id="dropFilter" data-zone="filter">
+                <div class="drop-zone__label">🔍 Filter</div>
+                <div class="drop-zone__content" id="dropFilterContent">
+                  <span class="drop-zone__placeholder">Optional: filter by</span>
+                </div>
+              </div>
             </div>
 
             <!-- Chart Type Selector -->
-            <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-2);">
               <div class="chart-type-selector">
                 <button class="chart-type-btn active" data-chart-type="line" title="Line Chart">📈</button>
                 <button class="chart-type-btn" data-chart-type="bar" title="Bar Chart">📊</button>
                 <button class="chart-type-btn" data-chart-type="area" title="Area Chart">📉</button>
                 <button class="chart-type-btn" data-chart-type="donut" title="Donut Chart">🍩</button>
               </div>
-              <button class="explorer__reset" id="explorerReset">Reset All</button>
+              <div style="display: flex; gap: var(--space-2);">
+                <button class="explorer__export" id="explorerExport">📤 Export</button>
+                <button class="explorer__reset" id="explorerReset">Reset All</button>
+              </div>
             </div>
 
             <!-- Mobile instructions -->
@@ -1885,12 +1988,13 @@
 
     // Data Explorer - Enhanced with multi-dimension support
     function setupDataExplorer() {
-      // Explorer state with 3 zones: rows (primary dim), columns (group by), values (measure)
+      // Explorer state with 4 zones: rows, columns (group by), values, filter
       const explorerState = {
         rows: null,      // Primary dimension
         columns: null,   // Secondary dimension (group by)
         values: null,    // Measure
-        chartType: 'bar'
+        filter: null,    // Filter dimension
+        chartType: 'line'
       };
 
       // Color palettes
@@ -1929,11 +2033,16 @@
       const dropRows = document.getElementById('dropRows');
       const dropCols = document.getElementById('dropCols');
       const dropValues = document.getElementById('dropValues');
+      const dropFilter = document.getElementById('dropFilter');
       const dropRowsContent = document.getElementById('dropRowsContent');
       const dropColsContent = document.getElementById('dropColsContent');
       const dropValuesContent = document.getElementById('dropValuesContent');
+      const dropFilterContent = document.getElementById('dropFilterContent');
       const chartTypeButtons = document.querySelectorAll('.chart-type-btn');
       const resetButton = document.getElementById('explorerReset');
+      const exportButton = document.getElementById('explorerExport');
+      const exportModal = document.getElementById('exportModal');
+      const exportModalClose = document.getElementById('exportModalClose');
       const chartContent = document.getElementById('explorerChartContent');
       const chartTitle = document.getElementById('explorerChartTitle');
 
@@ -1976,7 +2085,8 @@
       const zones = [
         { el: dropRows, content: dropRowsContent, key: 'rows', accepts: 'dimension', placeholder: 'Drop a dimension here' },
         { el: dropCols, content: dropColsContent, key: 'columns', accepts: 'dimension', placeholder: 'Optional: group/color by' },
-        { el: dropValues, content: dropValuesContent, key: 'values', accepts: 'measure', placeholder: 'Drop a measure here' }
+        { el: dropValues, content: dropValuesContent, key: 'values', accepts: 'measure', placeholder: 'Drop a measure here' },
+        { el: dropFilter, content: dropFilterContent, key: 'filter', accepts: 'dimension', placeholder: 'Optional: filter by' }
       ];
 
       zones.forEach(zone => {
@@ -2040,21 +2150,55 @@
           updateExplorerChart();
         });
       });
-      // Set bar as default active
-      chartTypeButtons.forEach(b => b.classList.remove('active'));
-      document.querySelector('[data-chart-type="bar"]').classList.add('active');
-
-      // Reset
+      // Reset button
       resetButton.addEventListener('click', () => {
         explorerState.rows = null;
         explorerState.columns = null;
         explorerState.values = null;
-        explorerState.chartType = 'bar';
+        explorerState.filter = null;
+        explorerState.chartType = 'line';
         zones.forEach(z => updateDropZoneDisplay(z.content, null, z.key, z.placeholder));
         chartTypeButtons.forEach(b => b.classList.remove('active'));
-        document.querySelector('[data-chart-type="bar"]').classList.add('active');
+        document.querySelector('[data-chart-type="line"]').classList.add('active');
         updateExplorerChart();
       });
+
+      // Export button - demo only
+      exportButton.addEventListener('click', () => {
+        exportModal.classList.add('active');
+      });
+
+      exportModalClose.addEventListener('click', () => {
+        exportModal.classList.remove('active');
+      });
+
+      exportModal.addEventListener('click', (e) => {
+        if (e.target === exportModal) {
+          exportModal.classList.remove('active');
+        }
+      });
+
+      // Set default state: Year + Enrollment Status breakdown on line chart
+      function setDefaultState() {
+        explorerState.rows = { field: 'year', type: 'dimension', label: 'Year' };
+        explorerState.columns = { field: 'statusBreakdown', type: 'dimension', label: 'Enrollment Status' };
+        explorerState.values = { field: 'total', type: 'measure', label: 'Total Enrollment' };
+        explorerState.chartType = 'line';
+
+        // Update drop zone displays
+        updateDropZoneDisplay(dropRowsContent, explorerState.rows, 'rows', 'Drop a dimension here');
+        updateDropZoneDisplay(dropColsContent, explorerState.columns, 'columns', 'Optional: group/color by');
+        updateDropZoneDisplay(dropValuesContent, explorerState.values, 'values', 'Drop a measure here');
+
+        // Set line chart as active
+        chartTypeButtons.forEach(b => b.classList.remove('active'));
+        document.querySelector('[data-chart-type="line"]').classList.add('active');
+
+        updateExplorerChart();
+      }
+
+      // Initialize with default state
+      setDefaultState();
 
       // Main chart update function
       function updateExplorerChart() {
@@ -2238,7 +2382,7 @@
       function renderChart(chartData) {
         const { labels, series, type } = chartData;
         const width = 700, height = 320;
-        const padding = { top: 30, right: 30, bottom: 60, left: 70 };
+        const padding = { top: 30, right: 40, bottom: 60, left: 70 };
         const chartWidth = width - padding.left - padding.right;
         const chartHeight = height - padding.top - padding.bottom;
 
@@ -2247,21 +2391,22 @@
         const maxVal = Math.ceil(Math.max(...allValues) * 1.1);
         const minVal = type === 'categorical' ? 0 : Math.floor(Math.min(...allValues) * 0.9);
 
+        // Calculate nice tick values FIRST
+        const tickCount = 5;
+        const range = maxVal - minVal;
+        const tickStep = Math.ceil(range / tickCount / 100) * 100 || 100;
+        const niceMax = Math.ceil(maxVal / tickStep) * tickStep;
+        const niceMin = type === 'categorical' ? 0 : Math.floor(minVal / tickStep) * tickStep;
+
+        // Use nice values for scaling to prevent axis overlap
         const xStep = type === 'categorical'
           ? chartWidth / labels.length
           : chartWidth / (labels.length - 1);
 
         const scaleY = (val) => {
-          const ratio = (val - minVal) / (maxVal - minVal);
-          return height - padding.bottom - (ratio * chartHeight);
+          const ratio = (val - niceMin) / (niceMax - niceMin);
+          return padding.top + chartHeight - (ratio * chartHeight);
         };
-
-        // Calculate nice tick values
-        const tickCount = 5;
-        const range = maxVal - minVal;
-        const tickStep = Math.ceil(range / tickCount / 100) * 100;
-        const niceMax = Math.ceil(maxVal / tickStep) * tickStep;
-        const niceMin = type === 'categorical' ? 0 : Math.floor(minVal / tickStep) * tickStep;
 
         let svg = `<svg class="explorer-chart-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet">`;
 
@@ -2296,6 +2441,8 @@
         series.forEach((s, seriesIdx) => {
           const seriesColors = Array.isArray(s.color) ? s.color : [s.color];
 
+          const baseline = padding.top + chartHeight; // Y position for value 0
+
           if (explorerState.chartType === 'bar' || type === 'categorical') {
             // Bar chart
             const barWidth = (xStep * 0.7) / series.length;
@@ -2305,14 +2452,15 @@
               const x = type === 'categorical'
                 ? padding.left + i * xStep + xStep / 2 + barOffset - barWidth / 2
                 : padding.left + i * xStep + barOffset - barWidth / 2;
-              const barHeight = scaleY(niceMin) - scaleY(val);
+              const yTop = scaleY(val);
+              const barHeight = baseline - yTop;
               const color = seriesColors[i % seriesColors.length] || seriesColors[0];
-              svg += `<rect x="${x}" y="${scaleY(val)}" width="${barWidth}" height="${barHeight}" fill="${color}" rx="3"/>`;
+              svg += `<rect x="${x}" y="${yTop}" width="${barWidth}" height="${barHeight}" fill="${color}" rx="3"/>`;
             });
           } else if (explorerState.chartType === 'area') {
             // Area chart
             const points = s.data.map((val, i) => `${padding.left + i * xStep},${scaleY(val)}`);
-            const areaPath = `M${points.join(' L')} L${padding.left + (labels.length - 1) * xStep},${scaleY(niceMin)} L${padding.left},${scaleY(niceMin)} Z`;
+            const areaPath = `M${points.join(' L')} L${padding.left + (labels.length - 1) * xStep},${baseline} L${padding.left},${baseline} Z`;
             svg += `<path d="${areaPath}" fill="${seriesColors[0]}" opacity="0.2"/>`;
             svg += `<path d="M${points.join(' L')}" fill="none" stroke="${seriesColors[0]}" stroke-width="3"/>`;
             s.data.forEach((val, i) => {
@@ -2457,5 +2605,15 @@
     // Initialize on load
     document.addEventListener('DOMContentLoaded', init);
   </script>
+
+  <!-- Export Modal -->
+  <div class="export-modal" id="exportModal">
+    <div class="export-modal__content">
+      <div class="export-modal__icon">📤</div>
+      <h3 class="export-modal__title">Export Feature</h3>
+      <p class="export-modal__text">This export functionality is for demonstration purposes only. In a production environment, this would export your visualization as PNG, PDF, or CSV.</p>
+      <button class="export-modal__close" id="exportModalClose">Got it</button>
+    </div>
+  </div>
 </body>
 </html>
