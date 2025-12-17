@@ -792,8 +792,19 @@
       gap: var(--space-3);
     }
 
+    .drop-zones--three {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media (max-width: 900px) {
+      .drop-zones--three {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
     @media (max-width: 768px) {
-      .drop-zones {
+      .drop-zones,
+      .drop-zones--three {
         grid-template-columns: 1fr;
       }
     }
@@ -812,6 +823,11 @@
       background: rgba(16, 185, 129, 0.03);
     }
 
+    .drop-zone--group {
+      border-color: #8B5CF6;
+      background: rgba(139, 92, 246, 0.03);
+    }
+
     .drop-zone.drag-over {
       border-color: var(--color-primary);
       background: rgba(0, 51, 102, 0.08);
@@ -823,6 +839,12 @@
       border-color: #10B981;
       background: rgba(16, 185, 129, 0.1);
       box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+    }
+
+    .drop-zone--group.drag-over {
+      border-color: #8B5CF6;
+      background: rgba(139, 92, 246, 0.1);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
     }
 
     .drop-zone__label {
@@ -1264,6 +1286,18 @@
                 <span class="field__icon">📅</span>
                 <span>Year</span>
               </div>
+              <div class="field field--dimension" draggable="true" data-field="genderBreakdown" data-type="dimension">
+                <span class="field__icon">⚤</span>
+                <span>Gender</span>
+              </div>
+              <div class="field field--dimension" draggable="true" data-field="statusBreakdown" data-type="dimension">
+                <span class="field__icon">📋</span>
+                <span>Enrollment Status</span>
+              </div>
+              <div class="field field--dimension" draggable="true" data-field="ethnicityBreakdown" data-type="dimension">
+                <span class="field__icon">🌍</span>
+                <span>Race/Ethnicity</span>
+              </div>
             </div>
 
             <div class="field-panel__section">
@@ -1272,33 +1306,9 @@
                 <span class="field__icon">📊</span>
                 <span>Total Enrollment</span>
               </div>
-              <div class="field field--measure" draggable="true" data-field="male" data-type="measure">
-                <span class="field__icon">👨</span>
-                <span>Men</span>
-              </div>
-              <div class="field field--measure" draggable="true" data-field="female" data-type="measure">
-                <span class="field__icon">👩</span>
-                <span>Women</span>
-              </div>
-              <div class="field field--measure" draggable="true" data-field="fullTime" data-type="measure">
-                <span class="field__icon">🎓</span>
-                <span>Full-Time</span>
-              </div>
-              <div class="field field--measure" draggable="true" data-field="partTime" data-type="measure">
-                <span class="field__icon">📚</span>
-                <span>Part-Time</span>
-              </div>
-            </div>
-
-            <div class="field-panel__section">
-              <div class="field-panel__title">Demographics</div>
-              <div class="field field--demographic" draggable="true" data-field="ethnicity" data-type="demographic">
-                <span class="field__icon">🌍</span>
-                <span>Race/Ethnicity</span>
-              </div>
-              <div class="field field--demographic" draggable="true" data-field="gender" data-type="demographic">
-                <span class="field__icon">⚤</span>
-                <span>Gender Distribution</span>
+              <div class="field field--measure" draggable="true" data-field="count" data-type="measure">
+                <span class="field__icon">#</span>
+                <span>Count</span>
               </div>
             </div>
           </div>
@@ -1306,17 +1316,23 @@
           <!-- Workspace -->
           <div class="explorer__workspace">
             <!-- Drop Zones -->
-            <div class="drop-zones">
-              <div class="drop-zone" id="dropX" data-zone="x-axis">
-                <div class="drop-zone__label">📅 Dimension (X-Axis)</div>
-                <div class="drop-zone__content" id="dropXContent">
-                  <span class="drop-zone__placeholder">Drop "Year" here</span>
+            <div class="drop-zones drop-zones--three">
+              <div class="drop-zone" id="dropRows" data-zone="rows">
+                <div class="drop-zone__label">📊 Rows (Primary)</div>
+                <div class="drop-zone__content" id="dropRowsContent">
+                  <span class="drop-zone__placeholder">Drop a dimension here</span>
                 </div>
               </div>
-              <div class="drop-zone drop-zone--measures" id="dropY" data-zone="y-axis">
-                <div class="drop-zone__label">📊 Measures (Values)</div>
-                <div class="drop-zone__content" id="dropYContent">
-                  <span class="drop-zone__placeholder">Drop measures here (e.g., Total, Men, Women)</span>
+              <div class="drop-zone drop-zone--group" id="dropCols" data-zone="columns">
+                <div class="drop-zone__label">🎨 Columns (Group By)</div>
+                <div class="drop-zone__content" id="dropColsContent">
+                  <span class="drop-zone__placeholder">Optional: group/color by</span>
+                </div>
+              </div>
+              <div class="drop-zone drop-zone--measures" id="dropValues" data-zone="values">
+                <div class="drop-zone__label">📈 Values (Measure)</div>
+                <div class="drop-zone__content" id="dropValuesContent">
+                  <span class="drop-zone__placeholder">Drop a measure here</span>
                 </div>
               </div>
             </div>
@@ -1341,7 +1357,11 @@
                 <div class="chart-preview__empty">
                   <div class="chart-preview__empty-icon">📊</div>
                   <div class="chart-preview__empty-text">Build your visualization</div>
-                  <div class="chart-preview__empty-hint">1. Drop "Year" on Dimension zone<br>2. Drop one or more measures on Values zone</div>
+                  <div class="chart-preview__empty-hint">
+                    1. Drop a dimension on <strong>Rows</strong><br>
+                    2. Optionally add a <strong>Group By</strong> dimension<br>
+                    3. Drop a measure on <strong>Values</strong>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1784,25 +1804,61 @@
       });
     }
 
-    // Data Explorer - Drag and Drop functionality
+    // Data Explorer - Enhanced with multi-dimension support
     function setupDataExplorer() {
+      // Explorer state with 3 zones: rows (primary dim), columns (group by), values (measure)
       const explorerState = {
-        xAxis: null,
-        yAxis: [],
-        chartType: 'line'
+        rows: null,      // Primary dimension
+        columns: null,   // Secondary dimension (group by)
+        values: null,    // Measure
+        chartType: 'bar'
       };
 
+      // Color palettes
+      const colors = {
+        primary: ['#2563EB', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE'],
+        gender: { male: '#3B82F6', female: '#EC4899' },
+        status: { fullTime: '#2563EB', partTime: '#10B981' },
+        ethnicity: ['#3B82F6', '#FFB81C', '#10B981', '#8B5CF6', '#6B7280']
+      };
+
+      // Data mappings for dimensions
+      const dimensionData = {
+        year: {
+          labels: enrollmentData.years.map(y => y.split('-')[0]),
+          fullLabels: enrollmentData.years
+        },
+        genderBreakdown: {
+          labels: ['Men', 'Women'],
+          keys: ['male', 'female'],
+          colors: [colors.gender.male, colors.gender.female]
+        },
+        statusBreakdown: {
+          labels: ['Full-Time', 'Part-Time'],
+          keys: ['fullTime', 'partTime'],
+          colors: [colors.status.fullTime, colors.status.partTime]
+        },
+        ethnicityBreakdown: {
+          labels: ethnicityData.map(e => e.label),
+          values: ethnicityData.map(e => e.value),
+          colors: ethnicityData.map(e => e.color)
+        }
+      };
+
+      // DOM references
       const fields = document.querySelectorAll('.field[draggable="true"]');
-      const dropX = document.getElementById('dropX');
-      const dropY = document.getElementById('dropY');
-      const dropXContent = document.getElementById('dropXContent');
-      const dropYContent = document.getElementById('dropYContent');
+      const dropRows = document.getElementById('dropRows');
+      const dropCols = document.getElementById('dropCols');
+      const dropValues = document.getElementById('dropValues');
+      const dropRowsContent = document.getElementById('dropRowsContent');
+      const dropColsContent = document.getElementById('dropColsContent');
+      const dropValuesContent = document.getElementById('dropValuesContent');
       const chartTypeButtons = document.querySelectorAll('.chart-type-btn');
       const resetButton = document.getElementById('explorerReset');
       const chartContent = document.getElementById('explorerChartContent');
       const chartTitle = document.getElementById('explorerChartTitle');
 
-      // Drag start
+      // Initialize drag events
       fields.forEach(field => {
         field.addEventListener('dragstart', (e) => {
           e.dataTransfer.setData('text/plain', JSON.stringify({
@@ -1812,79 +1868,47 @@
           }));
           field.classList.add('dragging');
         });
-
-        field.addEventListener('dragend', () => {
-          field.classList.remove('dragging');
-        });
+        field.addEventListener('dragend', () => field.classList.remove('dragging'));
       });
 
-      // Drop zones
-      [dropX, dropY].forEach(zone => {
-        zone.addEventListener('dragover', (e) => {
+      // Setup drop zones
+      const zones = [
+        { el: dropRows, content: dropRowsContent, key: 'rows', accepts: 'dimension', placeholder: 'Drop a dimension here' },
+        { el: dropCols, content: dropColsContent, key: 'columns', accepts: 'dimension', placeholder: 'Optional: group/color by' },
+        { el: dropValues, content: dropValuesContent, key: 'values', accepts: 'measure', placeholder: 'Drop a measure here' }
+      ];
+
+      zones.forEach(zone => {
+        zone.el.addEventListener('dragover', (e) => { e.preventDefault(); zone.el.classList.add('drag-over'); });
+        zone.el.addEventListener('dragleave', () => zone.el.classList.remove('drag-over'));
+        zone.el.addEventListener('drop', (e) => {
           e.preventDefault();
-          zone.classList.add('drag-over');
-        });
-
-        zone.addEventListener('dragleave', () => {
-          zone.classList.remove('drag-over');
-        });
-
-        zone.addEventListener('drop', (e) => {
-          e.preventDefault();
-          zone.classList.remove('drag-over');
-
+          zone.el.classList.remove('drag-over');
           try {
             const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-
-            if (zone === dropX) {
-              // X-axis accepts only dimensions
-              if (data.type === 'dimension') {
-                explorerState.xAxis = data;
-                updateDropZone(dropXContent, [data]);
-              }
-            } else if (zone === dropY) {
-              // Y-axis accepts measures (allow multiple)
-              if (data.type === 'measure' || data.type === 'demographic') {
-                // Check if already added
-                if (!explorerState.yAxis.find(y => y.field === data.field)) {
-                  explorerState.yAxis.push(data);
-                  updateDropZone(dropYContent, explorerState.yAxis);
-                }
-              }
+            if (data.type === zone.accepts) {
+              explorerState[zone.key] = data;
+              updateDropZoneDisplay(zone.content, data, zone.key, zone.placeholder);
+              updateExplorerChart();
             }
-
-            updateExplorerChart();
-          } catch (err) {
-            console.error('Drop error:', err);
-          }
+          } catch (err) { console.error('Drop error:', err); }
         });
       });
 
-      // Update drop zone display
-      function updateDropZone(container, items) {
-        if (items.length === 0) {
-          container.innerHTML = `<span class="drop-zone__placeholder">${container === dropXContent ? 'Drop "Year" here' : 'Drop measures here (e.g., Total, Men, Women)'}</span>`;
+      // Update drop zone UI
+      function updateDropZoneDisplay(container, item, stateKey, placeholder) {
+        if (!item) {
+          container.innerHTML = `<span class="drop-zone__placeholder">${placeholder}</span>`;
         } else {
-          container.innerHTML = items.map(item => `
+          container.innerHTML = `
             <div class="dropped-field" data-field="${item.field}">
               <span>${item.label}</span>
-              <button class="dropped-field__remove" data-field="${item.field}">&times;</button>
-            </div>
-          `).join('');
-
-          // Add remove handlers
-          container.querySelectorAll('.dropped-field__remove').forEach(btn => {
-            btn.addEventListener('click', () => {
-              const fieldToRemove = btn.dataset.field;
-              if (container === dropXContent) {
-                explorerState.xAxis = null;
-                updateDropZone(dropXContent, []);
-              } else {
-                explorerState.yAxis = explorerState.yAxis.filter(y => y.field !== fieldToRemove);
-                updateDropZone(dropYContent, explorerState.yAxis);
-              }
-              updateExplorerChart();
-            });
+              <button class="dropped-field__remove" data-key="${stateKey}">&times;</button>
+            </div>`;
+          container.querySelector('.dropped-field__remove').addEventListener('click', () => {
+            explorerState[stateKey] = null;
+            updateDropZoneDisplay(container, null, stateKey, placeholder);
+            updateExplorerChart();
           });
         }
       }
@@ -1898,217 +1922,289 @@
           updateExplorerChart();
         });
       });
+      // Set bar as default active
+      chartTypeButtons.forEach(b => b.classList.remove('active'));
+      document.querySelector('[data-chart-type="bar"]').classList.add('active');
 
-      // Reset button
+      // Reset
       resetButton.addEventListener('click', () => {
-        explorerState.xAxis = null;
-        explorerState.yAxis = [];
-        explorerState.chartType = 'line';
-        updateDropZone(dropXContent, []);
-        updateDropZone(dropYContent, []);
+        explorerState.rows = null;
+        explorerState.columns = null;
+        explorerState.values = null;
+        explorerState.chartType = 'bar';
+        zones.forEach(z => updateDropZoneDisplay(z.content, null, z.key, z.placeholder));
         chartTypeButtons.forEach(b => b.classList.remove('active'));
-        chartTypeButtons[0].classList.add('active');
+        document.querySelector('[data-chart-type="bar"]').classList.add('active');
         updateExplorerChart();
       });
 
-      // Update chart based on state
+      // Main chart update function
       function updateExplorerChart() {
-        if (!explorerState.xAxis || explorerState.yAxis.length === 0) {
-          const missingX = !explorerState.xAxis;
-          const missingY = explorerState.yAxis.length === 0;
-          let hint = '';
-          if (missingX && missingY) {
-            hint = '1. Drop "Year" on Dimension zone<br>2. Drop one or more measures on Values zone';
-          } else if (missingX) {
-            hint = 'Drop "Year" on the Dimension zone to complete';
-          } else {
-            hint = 'Drop a measure (Total, Men, Women, etc.) on the Values zone';
-          }
+        const { rows, columns, values } = explorerState;
+
+        // Need at least rows and values
+        if (!rows || !values) {
+          let hints = [];
+          if (!rows) hints.push('Drop a dimension on <strong>Rows</strong>');
+          if (!values) hints.push('Drop a measure on <strong>Values</strong>');
           chartContent.innerHTML = `
             <div class="chart-preview__empty">
               <div class="chart-preview__empty-icon">📊</div>
               <div class="chart-preview__empty-text">Build your visualization</div>
-              <div class="chart-preview__empty-hint">${hint}</div>
-            </div>
-          `;
+              <div class="chart-preview__empty-hint">${hints.join('<br>')}</div>
+            </div>`;
           chartTitle.textContent = 'Chart Preview';
           return;
         }
 
-        // Build chart title
-        const measureNames = explorerState.yAxis.map(y => y.label).join(', ');
-        chartTitle.textContent = `${measureNames} by ${explorerState.xAxis.label}`;
+        // Build title
+        let title = values.label;
+        if (columns) title += ` by ${columns.label}`;
+        title += ` over ${rows.label}`;
+        chartTitle.textContent = title;
 
-        // Render chart based on type
+        // Get chart data based on dimension combinations
+        const chartData = buildChartData(rows, columns, values);
+
+        // Render based on chart type
         if (explorerState.chartType === 'donut') {
-          renderExplorerDonut();
+          renderDonut(chartData);
         } else {
-          renderExplorerLineBarArea();
+          renderChart(chartData);
         }
       }
 
-      // Render line/bar/area chart
-      function renderExplorerLineBarArea() {
-        const { years, total, male, female, fullTime, partTime } = enrollmentData;
-        const width = 700;
-        const height = 300;
-        const padding = { top: 30, right: 30, bottom: 50, left: 60 };
+      // Build data structure for charts
+      function buildChartData(rows, columns, values) {
+        const rowDim = dimensionData[rows.field];
+        const colDim = columns ? dimensionData[columns.field] : null;
+
+        // Case 1: Year on rows (time series)
+        if (rows.field === 'year') {
+          const labels = rowDim.labels;
+          let series = [];
+
+          if (!columns) {
+            // Single series - total enrollment
+            series.push({
+              label: 'Total',
+              data: enrollmentData.total,
+              color: colors.primary[0]
+            });
+          } else if (columns.field === 'genderBreakdown') {
+            // Gender breakdown over time
+            series = [
+              { label: 'Men', data: enrollmentData.male, color: colors.gender.male },
+              { label: 'Women', data: enrollmentData.female, color: colors.gender.female }
+            ];
+          } else if (columns.field === 'statusBreakdown') {
+            // Status breakdown over time
+            series = [
+              { label: 'Full-Time', data: enrollmentData.fullTime, color: colors.status.fullTime },
+              { label: 'Part-Time', data: enrollmentData.partTime, color: colors.status.partTime }
+            ];
+          }
+          return { labels, series, type: 'timeseries' };
+        }
+
+        // Case 2: Gender on rows
+        if (rows.field === 'genderBreakdown') {
+          const latestIdx = enrollmentData.years.length - 1;
+          return {
+            labels: ['Men', 'Women'],
+            series: [{
+              label: 'Count',
+              data: [enrollmentData.male[latestIdx], enrollmentData.female[latestIdx]],
+              color: [colors.gender.male, colors.gender.female]
+            }],
+            type: 'categorical'
+          };
+        }
+
+        // Case 3: Status on rows
+        if (rows.field === 'statusBreakdown') {
+          const latestIdx = enrollmentData.years.length - 1;
+          return {
+            labels: ['Full-Time', 'Part-Time'],
+            series: [{
+              label: 'Count',
+              data: [enrollmentData.fullTime[latestIdx], enrollmentData.partTime[latestIdx]],
+              color: [colors.status.fullTime, colors.status.partTime]
+            }],
+            type: 'categorical'
+          };
+        }
+
+        // Case 4: Ethnicity on rows
+        if (rows.field === 'ethnicityBreakdown') {
+          return {
+            labels: ethnicityData.map(e => e.label),
+            series: [{
+              label: 'Count',
+              data: ethnicityData.map(e => e.value),
+              color: ethnicityData.map(e => e.color)
+            }],
+            type: 'categorical'
+          };
+        }
+
+        return { labels: [], series: [], type: 'unknown' };
+      }
+
+      // Render line/bar/area charts
+      function renderChart(chartData) {
+        const { labels, series, type } = chartData;
+        const width = 700, height = 320;
+        const padding = { top: 30, right: 30, bottom: 60, left: 70 };
         const chartWidth = width - padding.left - padding.right;
         const chartHeight = height - padding.top - padding.bottom;
 
-        // Get data for selected measures
-        const datasets = explorerState.yAxis.map((y, i) => {
-          const colors = ['#2563EB', '#3B82F6', '#EC4899', '#10B981', '#8B5CF6'];
-          return {
-            field: y.field,
-            label: y.label,
-            data: enrollmentData[y.field] || [],
-            color: colors[i % colors.length]
-          };
-        });
+        // Calculate scales
+        const allValues = series.flatMap(s => s.data);
+        const maxVal = Math.ceil(Math.max(...allValues) * 1.1);
+        const minVal = type === 'categorical' ? 0 : Math.floor(Math.min(...allValues) * 0.9);
 
-        // Calculate Y scale
-        const allValues = datasets.flatMap(d => d.data);
-        const minY = Math.floor(Math.min(...allValues) * 0.95);
-        const maxY = Math.ceil(Math.max(...allValues) * 1.05);
+        const xStep = type === 'categorical'
+          ? chartWidth / labels.length
+          : chartWidth / (labels.length - 1);
 
-        // X positions
-        const xStep = chartWidth / (years.length - 1);
-        const xPositions = years.map((_, i) => padding.left + i * xStep);
-
-        // Y scale
         const scaleY = (val) => {
-          const ratio = (val - minY) / (maxY - minY);
+          const ratio = (val - minVal) / (maxVal - minVal);
           return height - padding.bottom - (ratio * chartHeight);
         };
 
-        // Build SVG
+        // Calculate nice tick values
+        const tickCount = 5;
+        const range = maxVal - minVal;
+        const tickStep = Math.ceil(range / tickCount / 100) * 100;
+        const niceMax = Math.ceil(maxVal / tickStep) * tickStep;
+        const niceMin = type === 'categorical' ? 0 : Math.floor(minVal / tickStep) * tickStep;
+
         let svg = `<svg class="explorer-chart-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet">`;
 
         // Grid lines
         svg += '<g class="chart-grid">';
-        for (let i = 0; i <= 4; i++) {
-          const y = padding.top + (chartHeight / 4) * i;
+        for (let i = 0; i <= tickCount; i++) {
+          const y = padding.top + (chartHeight / tickCount) * i;
           svg += `<line class="chart-grid-line" x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}"/>`;
         }
         svg += '</g>';
 
         // Y-axis labels
         svg += '<g class="chart-y-axis">';
-        for (let i = 0; i <= 4; i++) {
-          const value = maxY - ((maxY - minY) / 4) * i;
-          const y = padding.top + (chartHeight / 4) * i;
+        for (let i = 0; i <= tickCount; i++) {
+          const value = niceMax - ((niceMax - niceMin) / tickCount) * i;
+          const y = padding.top + (chartHeight / tickCount) * i;
           svg += `<text class="chart-axis-label" x="${padding.left - 10}" y="${y + 4}" text-anchor="end">${Math.round(value).toLocaleString()}</text>`;
         }
         svg += '</g>';
 
         // X-axis labels
         svg += '<g class="chart-x-axis">';
-        years.forEach((year, i) => {
-          svg += `<text class="chart-axis-label" x="${xPositions[i]}" y="${height - 15}" text-anchor="middle">${year.split('-')[0]}</text>`;
+        labels.forEach((label, i) => {
+          const x = type === 'categorical'
+            ? padding.left + i * xStep + xStep / 2
+            : padding.left + i * xStep;
+          svg += `<text class="chart-axis-label" x="${x}" y="${height - 25}" text-anchor="middle" style="font-size: 10px;">${label}</text>`;
         });
         svg += '</g>';
 
-        // Draw datasets
-        datasets.forEach(dataset => {
-          const points = dataset.data.map((val, i) => `${xPositions[i]},${scaleY(val)}`);
+        // Draw series
+        series.forEach((s, seriesIdx) => {
+          const seriesColors = Array.isArray(s.color) ? s.color : [s.color];
 
-          if (explorerState.chartType === 'area') {
-            // Area chart
-            const areaPath = `M${points.join(' L')} L${xPositions[xPositions.length - 1]},${height - padding.bottom} L${xPositions[0]},${height - padding.bottom} Z`;
-            svg += `<path d="${areaPath}" fill="${dataset.color}" opacity="0.2"/>`;
-          }
-
-          if (explorerState.chartType === 'bar') {
+          if (explorerState.chartType === 'bar' || type === 'categorical') {
             // Bar chart
-            const barWidth = (chartWidth / years.length) * 0.6 / datasets.length;
-            const offset = datasets.indexOf(dataset) * barWidth - (datasets.length * barWidth / 2);
-            dataset.data.forEach((val, i) => {
-              const barHeight = (height - padding.bottom) - scaleY(val);
-              svg += `<rect x="${xPositions[i] + offset}" y="${scaleY(val)}" width="${barWidth}" height="${barHeight}" fill="${dataset.color}" rx="2"/>`;
+            const barWidth = (xStep * 0.7) / series.length;
+            const barOffset = seriesIdx * barWidth - (series.length * barWidth / 2) + barWidth / 2;
+
+            s.data.forEach((val, i) => {
+              const x = type === 'categorical'
+                ? padding.left + i * xStep + xStep / 2 + barOffset - barWidth / 2
+                : padding.left + i * xStep + barOffset - barWidth / 2;
+              const barHeight = scaleY(niceMin) - scaleY(val);
+              const color = seriesColors[i % seriesColors.length] || seriesColors[0];
+              svg += `<rect x="${x}" y="${scaleY(val)}" width="${barWidth}" height="${barHeight}" fill="${color}" rx="3"/>`;
+            });
+          } else if (explorerState.chartType === 'area') {
+            // Area chart
+            const points = s.data.map((val, i) => `${padding.left + i * xStep},${scaleY(val)}`);
+            const areaPath = `M${points.join(' L')} L${padding.left + (labels.length - 1) * xStep},${scaleY(niceMin)} L${padding.left},${scaleY(niceMin)} Z`;
+            svg += `<path d="${areaPath}" fill="${seriesColors[0]}" opacity="0.2"/>`;
+            svg += `<path d="M${points.join(' L')}" fill="none" stroke="${seriesColors[0]}" stroke-width="3"/>`;
+            s.data.forEach((val, i) => {
+              svg += `<circle cx="${padding.left + i * xStep}" cy="${scaleY(val)}" r="5" fill="white" stroke="${seriesColors[0]}" stroke-width="3"/>`;
             });
           } else {
-            // Line chart (or area outline)
-            svg += `<path d="M${points.join(' L')}" fill="none" stroke="${dataset.color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
-
-            // Points
-            dataset.data.forEach((val, i) => {
-              svg += `<circle cx="${xPositions[i]}" cy="${scaleY(val)}" r="5" fill="white" stroke="${dataset.color}" stroke-width="3"/>`;
+            // Line chart
+            const points = s.data.map((val, i) => `${padding.left + i * xStep},${scaleY(val)}`);
+            svg += `<path d="M${points.join(' L')}" fill="none" stroke="${seriesColors[0]}" stroke-width="3" stroke-linecap="round"/>`;
+            s.data.forEach((val, i) => {
+              svg += `<circle cx="${padding.left + i * xStep}" cy="${scaleY(val)}" r="5" fill="white" stroke="${seriesColors[0]}" stroke-width="3"/>`;
             });
           }
         });
 
         svg += '</svg>';
 
-        // Legend
-        let legend = '<div class="chart-legend" style="margin-top: var(--space-3); justify-content: center;">';
-        datasets.forEach(dataset => {
-          legend += `<div class="legend-item"><span class="legend-dot" style="background: ${dataset.color};"></span><span>${dataset.label}</span></div>`;
-        });
-        legend += '</div>';
+        // Legend (only for multi-series)
+        let legend = '';
+        if (series.length > 1 || (series[0] && Array.isArray(series[0].color))) {
+          legend = '<div class="chart-legend" style="margin-top: var(--space-3); justify-content: center; flex-wrap: wrap;">';
+          if (series.length > 1) {
+            series.forEach(s => {
+              const color = Array.isArray(s.color) ? s.color[0] : s.color;
+              legend += `<div class="legend-item"><span class="legend-dot" style="background: ${color};"></span><span>${s.label}</span></div>`;
+            });
+          } else if (type === 'categorical') {
+            labels.forEach((label, i) => {
+              const color = series[0].color[i];
+              legend += `<div class="legend-item"><span class="legend-dot" style="background: ${color};"></span><span>${label}</span></div>`;
+            });
+          }
+          legend += '</div>';
+        }
 
         chartContent.innerHTML = svg + legend;
       }
 
       // Render donut chart
-      function renderExplorerDonut() {
-        // Use the first measure's latest value distribution
-        const field = explorerState.yAxis[0].field;
+      function renderDonut(chartData) {
+        const { labels, series } = chartData;
+        const data = labels.map((label, i) => ({
+          label,
+          value: series[0].data[i],
+          color: Array.isArray(series[0].color) ? series[0].color[i] : colors.primary[i]
+        }));
 
-        // If it's a demographic field, use that data
-        if (field === 'ethnicity') {
-          renderExplorerDonutFromData(ethnicityData);
-        } else if (field === 'gender') {
-          renderExplorerDonutFromData(genderData);
-        } else {
-          // Create donut from enrollment data comparison (latest year)
-          const latestIdx = enrollmentData.years.length - 1;
-          const data = explorerState.yAxis.map((y, i) => {
-            const colors = ['#2563EB', '#3B82F6', '#EC4899', '#10B981', '#8B5CF6'];
-            return {
-              label: y.label,
-              value: enrollmentData[y.field][latestIdx],
-              color: colors[i % colors.length]
-            };
-          });
-          renderExplorerDonutFromData(data);
-        }
-      }
-
-      function renderExplorerDonutFromData(data) {
         const total = data.reduce((sum, d) => sum + d.value, 0);
         const centerX = 120, centerY = 120, radius = 90, innerRadius = 55;
 
         let svg = `<svg viewBox="0 0 240 240" style="width: 240px; height: 240px;">`;
-
         let currentAngle = -90;
+
         data.forEach(item => {
           const angle = (item.value / total) * 360;
-          const startAngle = currentAngle;
-          const endAngle = currentAngle + angle;
-
-          const path = describeArc(centerX, centerY, radius, innerRadius, startAngle, endAngle);
+          const path = describeArc(centerX, centerY, radius, innerRadius, currentAngle, currentAngle + angle);
           svg += `<path d="${path}" fill="${item.color}" class="donut-segment"/>`;
-          currentAngle = endAngle;
+          currentAngle += angle;
         });
 
         svg += `<text x="${centerX}" y="${centerY}" text-anchor="middle" dominant-baseline="middle" class="donut-center-text">${total.toLocaleString()}</text>`;
         svg += `<text x="${centerX}" y="${centerY + 18}" text-anchor="middle" class="donut-center-label">Total</text>`;
         svg += '</svg>';
 
-        // Legend
-        let legend = '<div class="demographics-legend" style="display: flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; margin-top: var(--space-3);">';
+        let legend = '<div class="demographics-legend" style="display: flex; gap: var(--space-2); flex-wrap: wrap; justify-content: center; margin-top: var(--space-3);">';
         data.forEach(item => {
           const percent = ((item.value / total) * 100).toFixed(1);
           legend += `
-            <div class="demo-legend-item" style="background: var(--color-bg-light); padding: 0.5rem 1rem; border-radius: var(--radius-sm);">
+            <div class="demo-legend-item" style="background: var(--color-bg-light); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm);">
               <div class="demo-legend-left">
-                <div class="demo-legend-color" style="background: ${item.color};"></div>
-                <span class="demo-legend-label">${item.label}</span>
+                <div class="demo-legend-color" style="background: ${item.color}; width: 12px; height: 12px;"></div>
+                <span class="demo-legend-label" style="font-size: 12px;">${item.label}</span>
               </div>
-              <span class="demo-legend-value" style="margin-left: var(--space-2);">${item.value.toLocaleString()} (${percent}%)</span>
-            </div>
-          `;
+              <span class="demo-legend-value" style="margin-left: var(--space-1); font-size: 12px;">${item.value.toLocaleString()} (${percent}%)</span>
+            </div>`;
         });
         legend += '</div>';
 
