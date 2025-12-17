@@ -1263,6 +1263,7 @@
         <li><a href="campus.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">🏔️</span>Campus</a></li>
         <li><a href="about.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">ℹ️</span>About</a></li>
         <li><a href="data.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">📊</span>Data</a></li>
+        <li><button class="mobile-nav__link mobile-nav__search-btn" id="mobileSearchTrigger"><span class="mobile-nav__link-icon">🔍</span>Search</button></li>
       </ul>
       <div class="mobile-nav__divider"></div>
       <a href="admission.html" class="mobile-nav__cta">Apply Now</a>
@@ -1821,6 +1822,23 @@
 
     // Open search on button click
     searchTrigger.addEventListener('click', openSearch);
+
+    // Mobile search button
+    const mobileSearchTrigger = document.getElementById('mobileSearchTrigger');
+    if (mobileSearchTrigger) {
+      mobileSearchTrigger.addEventListener('click', () => {
+        // Close mobile nav first
+        const mobileNav = document.querySelector('.mobile-nav');
+        const hamburger = document.querySelector('.nav__hamburger');
+        const backdrop = document.querySelector('.mobile-nav__backdrop');
+        if (mobileNav) mobileNav.classList.remove('active');
+        if (hamburger) hamburger.classList.remove('active');
+        if (backdrop) backdrop.classList.remove('active');
+        document.body.style.overflow = '';
+        // Then open search
+        setTimeout(openSearch, 100);
+      });
+    }
 
     // Search input handler
     omnisearchInput.addEventListener('input', (e) => {

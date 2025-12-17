@@ -690,6 +690,18 @@ textarea {
   box-shadow: 0 8px 25px rgba(255, 184, 28, 0.4);
 }
 
+.mobile-nav__search-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  padding: 0;
+}
+
 /* Dark mode mobile nav */
 [data-theme="dark"] .mobile-nav {
   background: linear-gradient(180deg, rgba(13, 17, 23, 0.98) 0%, rgba(0, 0, 0, 0.98) 100%);
@@ -697,27 +709,86 @@ textarea {
 
 /* Show hamburger on mobile, hide everything else */
 @media (max-width: 767px) {
-  .nav__hamburger {
-    display: flex;
-  }
-
-  .nav__links {
-    display: none !important;
-  }
-
-  /* Hide all nav links and buttons on mobile - only show logo and hamburger */
+  /* Hide ALL nav elements on mobile except logo and hamburger */
+  .nav__links,
   .nav__link,
   .nav__cta,
+  .nav__search,
+  .nav__actions > *:not(.nav__hamburger),
   .page-header__link,
-  .page-header__nav > a,
+  .page-header__nav > a:not(.page-header__logo),
+  .persona-nav__back,
+  .persona-nav__cta,
   .persona-nav__link,
-  .theme-toggle {
+  .persona-nav__links > a,
+  .persona-nav__links > .nav__actions > *:not(.nav__hamburger),
+  .theme-toggle,
+  .search-trigger,
+  .omnisearch-trigger {
     display: none !important;
   }
 
-  /* Ensure hamburger stays visible */
-  .nav__hamburger,
-  .page-header__nav .nav__hamburger {
+  /* Ensure hamburger stays visible everywhere */
+  .nav__hamburger {
     display: flex !important;
+  }
+
+  /* Fix persona-nav layout for mobile - just logo and hamburger */
+  .persona-nav__inner {
+    justify-content: space-between;
+  }
+
+  .persona-nav__links {
+    display: flex !important;
+    align-items: center;
+  }
+
+  .persona-nav__links .nav__actions {
+    display: flex !important;
+  }
+
+  /* Fix nav layout for mobile (index.html) */
+  .nav__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .nav__actions {
+    display: flex !important;
+    align-items: center;
+  }
+
+  /* Fix page-header layout for mobile */
+  .page-header__inner,
+  .page-header__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .page-header__nav {
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  /* Prevent toolbar overflow */
+  .nav,
+  .page-header,
+  .persona-nav {
+    overflow: hidden;
+    max-width: 100vw;
+  }
+
+  .container {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  /* Ensure body doesn't overflow */
+  body {
+    overflow-x: hidden;
   }
 }
