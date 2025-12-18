@@ -896,6 +896,45 @@
       background: var(--color-primary-dark);
     }
 
+    .ai-chat-modal__subtitle {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .ai-chat-modal__examples {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      margin-bottom: var(--space-4);
+      width: 100%;
+    }
+
+    .ai-example {
+      background: linear-gradient(135deg, rgba(0, 51, 102, 0.08), rgba(255, 184, 28, 0.08));
+      border-left: 3px solid var(--color-accent);
+      padding: var(--space-3);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      color: var(--color-text-primary);
+      font-style: italic;
+      text-align: left;
+    }
+
+    [data-theme="dark"] .ai-example {
+      background: linear-gradient(135deg, rgba(0, 51, 102, 0.25), rgba(255, 184, 28, 0.15));
+    }
+
+    .ai-chat-modal__vision {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      text-align: center;
+      margin-bottom: var(--space-4);
+      font-weight: 500;
+    }
+
     /* Realistic snow at night, stars visible */
     [data-theme="dark"] .hero__particles {
       opacity: 1;
@@ -1845,13 +1884,19 @@
   <!-- AI Chat Modal -->
   <div class="ai-chat-modal" id="aiChatModal" role="dialog" aria-modal="true" aria-label="AI Assistant">
     <div class="ai-chat-modal__content">
-      <div class="ai-chat-modal__icon">🚀</div>
-      <h3 class="ai-chat-modal__title">AI Assistant Coming Soon</h3>
-      <p class="ai-chat-modal__text">
-        Imagine asking "What scholarships am I eligible for?" or "Show me outdoor programs"
-        and getting instant, personalized answers. That's where we're headed.
+      <div class="ai-chat-modal__icon">🤖</div>
+      <h3 class="ai-chat-modal__title">Intelligent Campus Assistant</h3>
+      <p class="ai-chat-modal__subtitle">Powered by AI — Coming Soon</p>
+      <div class="ai-chat-modal__examples">
+        <div class="ai-example">"What scholarships am I eligible for as a first-gen student?"</div>
+        <div class="ai-example">"Show me outdoor recreation programs near Durango"</div>
+        <div class="ai-example">"Compare tuition costs for in-state vs out-of-state"</div>
+        <div class="ai-example">"What's the acceptance rate trend over the past 5 years?"</div>
+      </div>
+      <p class="ai-chat-modal__vision">
+        Natural language queries. Personalized answers. Instant insights from institutional data.
       </p>
-      <button class="ai-chat-modal__close" id="aiChatClose">Got It</button>
+      <button class="ai-chat-modal__close" id="aiChatClose">Explore the Demo</button>
     </div>
   </div>
 
