@@ -1,6 +1,6 @@
 # HORIZON - Active State
 **Mission Card | Session Continuity Document**
-**Last Updated:** 2025-12-17 | Session 11
+**Last Updated:** 2025-12-17 | Session 12
 
 ---
 
@@ -8,143 +8,96 @@
 
 | Field | Value |
 |-------|-------|
-| **Phase** | 11 - Elite Visual & Data Experience Overhaul |
-| **Status** | COMPLETE + POLISHED |
-| **Active Task** | None - Ready for executive presentation |
+| **Phase** | 12 - Production Polish & Stability |
+| **Status** | COMPLETE - SMOOTH & STABLE |
+| **Active Task** | None - Site is executive-ready |
 | **Blockers** | None |
-| **Next Milestone** | Executive demo TOMORROW |
+| **Next Milestone** | Executive presentation |
 
 ---
 
-## SESSION 11 POLISH (Current)
+## SESSION 12 COMPLETION (Current)
 
-**Critical Fixes for Executive Presentation:**
+**Major Theme: Strip glitchy effects, achieve smooth performance**
 
-- [x] Fixed z-index stacking (content sections z-index: 1)
-- [x] Adjusted content transparency for better background visibility
-- [x] Reduced backdrop blur (12px → 8px) for cleaner look
-- [x] Simplified data page - removed overdesigned elements
-- [x] Verified all buttons and controls are accessible
-- [x] Audited entire site for smooth performance
-- [x] Committed and deployed clean version
+User reported data page was "glitchy as fuck" with overlapping elements. This session focused on radical simplification for executive presentation readiness.
 
-**Site Status:** EXECUTIVE-READY
+### Completed Work:
 
----
+**1. MAJOR DATA PAGE CLEANUP**
+- [x] Removed neural constellation canvas animation entirely (290+ lines)
+- [x] Removed holographic rainbow gradient card borders
+- [x] Removed parallax tilt effects on cards
+- [x] Removed pulse indicators from stat cards
+- [x] Simplified to clean, simple stat cards with subtle hover
 
-## SESSION 10 COMPLETION
+**2. BETTER BACKGROUND**
+- [x] Changed to same mountain image as homepage (clearer, more recognizable)
+- [x] Made background more visible through content (0.75 opacity light, 0.7 dark)
+- [x] Reduced backdrop blur (8px → 6px)
 
-**Major Enhancements: Neural Constellation, Holographic Cards, Theme System Overhaul**
+**3. LAYOUT FIXES**
+- [x] Fixed stats cards overlapping banner (removed negative margin)
+- [x] Extended semi-transparent content section up to hero (no gap/stripe)
+- [x] Fixed legend text overlap in race/ethnicity charts
 
-All enhancements complete:
-- [x] Removed sun element from homepage (user found it terrible)
-- [x] Dark mode is now the DEFAULT theme
-- [x] Light mode overhauled: brighter backgrounds (0.95 opacity), no snow
-- [x] Data page: Neural Constellation background (replaces gold matrix rain)
-- [x] Data page: Flowing data river particles (Animas River theme)
-- [x] Data page: Neural network nodes with connections
-- [x] Data page: Central AI pulse node (gold, glowing)
-- [x] Data page: Floating mathematical symbols
-- [x] Data page: Mountain silhouette layer
-- [x] Holographic metric cards with animated gradient borders
-- [x] Live data pulse indicators (green for healthy, gold for warning)
-- [x] Parallax tilt effect on stat cards
+**4. COLOR UPDATES**
+- [x] Gender pie chart now uses FLC Blue (#003366) and Gold (#FFB81C)
 
----
+**5. DATA EXPLORER FIXES**
+- [x] All drop zones (Rows, Columns, Values, Filter) now have white backgrounds
+- [x] Filter popup wider with dynamic width (max-content)
+- [x] Filter options bigger with more padding
+- [x] Full year values now visible (e.g., "2018-19", "2023-24")
+- [x] Export preview now works when data is configured (fixed buildChartData bug)
 
-## KEY DELIVERABLES
-
-### Neural Constellation Background (Data Page)
-
-Multi-layer canvas-based visualization incorporating all themes:
-
-#### Layer 1: Mountain Silhouette
-- SVG-based San Juan Mountains at bottom
-- Subtle opacity (0.15 light, 0.08 dark)
-
-#### Layer 2: Flowing Data Rivers
-- 60 cyan particles flowing horizontally
-- Evokes Animas River through Durango
-- Trail effects for motion blur
-- Speed variation for depth
-
-#### Layer 3: Neural Network Nodes
-- 40-50 floating nodes (responsive count)
-- Connected by glowing lines when nearby
-- Some nodes are "data nodes" with enhanced glow
-- Slow drift animation
-
-#### Layer 4: Central AI Pulse Node
-- Gold (#FFB81C) central node
-- Multi-layer glow rings
-- Rhythmic pulsing animation
-- Connections to nearby data nodes (gold lines)
-
-#### Layer 5: Mathematical Symbols
-- 15 floating symbols (%, Σ, μ, σ, π, ∞, ∂, ∫, Δ, ≈)
-- Slow upward drift
-- Subtle opacity for background texture
-
-### Holographic Metric Cards
-
-Elite card design with futuristic aesthetics:
-
-```css
-/* Animated gradient border */
-background: linear-gradient(var(--card-angle), #00bfff, #FFB81C, #ff00ff, #00bfff);
-animation: borderRotate 6s linear infinite;
-
-/* Holographic shimmer on hover */
-.stat-card:hover::after {
-  left: 100%; /* Shimmer sweeps across */
-}
-
-/* Parallax tilt on mouse move */
-transform: perspective(1000px) rotateX(var(--rotateX)) rotateY(var(--rotateY));
+### Git Commits This Session:
+```
+92194b8 Make filter popup dynamic width to show full values
+bf8d208 Fix data explorer: filters, drop zones, and export preview
+2b4e196 Extend semi-transparent background up to hero section
+e512120 Fix stats cards overlap and legend text layout
+3385d27 Better mountain background + more visible through content
+a7247a2 MAJOR CLEANUP: Strip all glitchy effects for smooth presentation
 ```
 
-### Live Data Pulse Indicators
-
-Visual indicators showing data status:
-- **Green pulse**: Healthy/on track metrics
-- **Gold pulse**: Below target, needs attention
-- **Red pulse**: Critical (available but not used)
-
 ---
 
-## THEME SYSTEM CHANGES (Session 10)
-
-### Dark Mode (DEFAULT)
-- First visit defaults to dark mode
-- Snow particles active (heavy)
-- Stars + shooting stars visible
-- Neural constellation: bright cyan nodes
-- Enhanced glows and shadows
-
-### Light Mode
-- User must toggle to access
-- No snow particles (clean daytime feel)
-- Brighter backgrounds (0.95 opacity)
-- Neural constellation: darker blue nodes
-- Reduced glow effects
-
-### Theme Persistence
-- localStorage key: `horizon-theme`
-- Default (no saved preference): `dark`
-
----
-
-## DECISIONS LOG (Session 10)
+## DECISIONS LOG (Session 12)
 
 | Date | Decision | Status | Rationale |
 |------|----------|--------|-----------|
-| 2025-12-17 | Replace gold matrix rain | FINAL | User wanted more complex AI/data themed background |
-| 2025-12-17 | Neural Constellation design | FINAL | Multi-layer: mountains, rivers, nodes, AI pulse, math symbols |
-| 2025-12-17 | Remove sun element | FINAL | User called it "terrible" |
-| 2025-12-17 | Dark mode as default | FINAL | User preference for nighttime atmosphere |
-| 2025-12-17 | Light mode: no snow | FINAL | Clean daytime feel without precipitation |
-| 2025-12-17 | Holographic cards | FINAL | Animated gradient borders, parallax tilt, shimmer effect |
-| 2025-12-17 | Pulse indicators | FINAL | Green (healthy), gold (warning), red (critical) |
+| 2025-12-17 | Remove neural constellation | FINAL | User said page was glitchy, needed smooth performance |
+| 2025-12-17 | Remove holographic card effects | FINAL | Rainbow borders were glitchy and distracting |
+| 2025-12-17 | Use same mountain as homepage | FINAL | Previous image was too vague to recognize |
+| 2025-12-17 | White backgrounds for all drop zones | FINAL | User wanted consistent styling |
+| 2025-12-17 | FLC Blue/Gold for gender chart | FINAL | User requested Fort Lewis College brand colors |
+| 2025-12-17 | Dynamic filter popup width | FINAL | User needed to see full year values |
+
+---
+
+## CURRENT DATA PAGE DESIGN
+
+### Background Layers (Simplified)
+1. **Fixed mountain background** - Same as homepage, clear snowy peaks
+2. **Stars** - Dark mode only, CSS-based twinkling
+3. **Snow** - Dark mode only, CSS-based particles
+
+### Stat Cards (Clean Design)
+```css
+.stat-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 51, 102, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 51, 102, 0.1);
+  /* Simple hover: translateY(-4px) */
+}
+```
+
+### Content Sections
+- Light mode: rgba(255, 255, 255, 0.75)
+- Dark mode: rgba(13, 17, 23, 0.7)
+- Backdrop blur: 6px
+- Overlaps hero by 2rem (no visible gap)
 
 ---
 
@@ -152,13 +105,8 @@ Visual indicators showing data status:
 
 **Branch:** main
 **Remote:** origin (https://github.com/WinnCook/future-flc-website)
-**Last Commit:** Pending - Session 10 changes ready to commit
-**Status:** Modified files ready for commit
-
-### Files Modified in Session 10:
-1. `index.html` - Removed sun, fixed light mode, dark mode default
-2. `data.html` - Neural Constellation, holographic cards, pulse indicators
-3. `src/js/theme.js` - Dark mode default
+**Last Commit:** 92194b8 - Make filter popup dynamic width
+**Status:** Clean - all changes committed and pushed
 
 **Live URL:** https://winncook.github.io/future-flc-website/
 **IR Dashboard:** https://winncook.github.io/future-flc-website/data.html
@@ -170,7 +118,7 @@ Visual indicators showing data status:
 ```
 HORIZON Site Structure
 ├── index.html (Landing - stars, snow, mountain background)
-├── data.html (IR Dashboard - Neural Constellation, holographic cards)
+├── data.html (IR Dashboard - SIMPLIFIED, clean cards, data explorer)
 ├── programs.html (Program explorer with filtering)
 ├── events.html (Events discovery + calendar view)
 ├── careers.html (Career marketplace)
@@ -205,8 +153,9 @@ HORIZON Site Structure
 | 7 | Enhanced Functionality | COMPLETE | Full nav, calendar, dark mode |
 | 8 | Executive Polish | COMPLETE | HORIZON rebrand, IR Dashboard v1 |
 | 9 | IR Dashboard & Dark Mode | COMPLETE | Tabbed interface, Data Explorer |
-| 10 | Executive Visual Overhaul | COMPLETE | Day/night atmosphere (Session 9) |
-| 11 | Elite Visual & Data Experience | COMPLETE | Neural Constellation, holographic cards |
+| 10 | Executive Visual Overhaul | COMPLETE | Day/night atmosphere |
+| 11 | Elite Visual & Data Experience | COMPLETE | Neural Constellation (later removed) |
+| 12 | Production Polish & Stability | COMPLETE | Stripped glitchy effects, smooth performance |
 
 ---
 
@@ -236,32 +185,9 @@ https://github.com/WinnCook/future-flc-website
 
 ---
 
-## VISUAL DESIGN SYSTEM (Current)
-
-### Day/Night Atmosphere
-
-| Element | Light Mode (Day) | Dark Mode (Night) |
-|---------|-----------------|-------------------|
-| Default | User must toggle | YES - Default |
-| Snow | Hidden (opacity 0) | Heavy (opacity 1) |
-| Stars | Hidden | Twinkling + shooting |
-| Sections | rgba(255,255,255,0.95) | rgba(13,17,23,0.85) |
-| Neural nodes | Dark blue | Bright cyan |
-| AI pulse node | Gold with glow | Gold with enhanced glow |
-| River particles | Dark blue | Bright cyan |
-
-### Color Palette
-- Primary: #003366 (FLC Blue)
-- Accent: #FFB81C (FLC Gold)
-- Neural nodes: #00bfff (cyan) / #003366 (dark blue)
-- AI node: #FFB81C (gold) with glow
-- Pulse indicators: #00ff88 (green), #FFB81C (gold), #ff4444 (red)
-
----
-
 ## OPEN DECISIONS
 
-**None** - All decisions from Session 10 are FINAL.
+**None** - All decisions from Session 12 are FINAL.
 
 ---
 
@@ -279,43 +205,32 @@ https://github.com/WinnCook/future-flc-website
 | 8 | 2025-12-17 | Phase 9 | Complete |
 | 9 | 2025-12-17 | Phase 10 - Visual Overhaul | Complete |
 | 10 | 2025-12-17 | Phase 11 - Elite Experience | Complete |
+| 11 | 2025-12-17 | Phase 11 Polish | Complete |
+| 12 | 2025-12-17 | Phase 12 - Production Stability | Complete |
 
 ---
 
 ## HANDOFF NOTES
 
-**Session 10 Summary:**
-- Removed sun element from homepage (user hated it)
-- Dark mode is now the default experience
-- Light mode overhauled to be genuinely light (no snow, brighter)
-- Replaced gold matrix rain with Neural Constellation:
-  - Canvas-based multi-layer animation
-  - Neural network nodes + connections
-  - Central AI pulse node (gold)
-  - Flowing data river particles
-  - Floating mathematical symbols
-  - Mountain silhouette layer
-- Implemented holographic metric cards:
-  - Animated gradient borders (cyan → gold → purple)
-  - Holographic shimmer on hover
-  - Parallax tilt effect on mouse movement
-- Added live data pulse indicators:
-  - Green = healthy/on track
-  - Gold = warning/below target
+**Session 12 Summary:**
+User reported the data page was glitchy with elements overlapping and performance issues. This session performed a major cleanup:
 
-**Site is executive-ready:**
-- 19 pages with consistent theming
-- Elite Neural Constellation background on data page
-- Holographic cards with futuristic aesthetics
-- 20-years-ahead design language
-- Mobile-optimized
-- Dark mode default for dramatic presentation
+1. **Removed all fancy animations** - Neural constellation canvas, holographic borders, parallax tilt, pulse indicators all stripped out
+2. **Simplified to clean design** - Simple white cards with subtle hover, clear mountain background
+3. **Fixed layout bugs** - Stats cards no longer overlap banner, content sections seamlessly connect to hero
+4. **Fixed Data Explorer** - All drop zones have white backgrounds, filter popup shows full values, export preview works
+
+**Current State:**
+- Site is SMOOTH and STABLE
+- No glitchy animations
+- Clean, professional appearance
+- Data Explorer fully functional with working export preview
+- Ready for executive presentation
 
 **For Next Session (if needed):**
-- User testing and feedback collection
-- Executive demo presentation
-- Minor polish based on feedback
-- Consider: Predictive insight banners, trend sparklines
+- Gather user feedback from executive demo
+- Address any issues discovered during presentation
+- Consider adding back subtle animations if user wants them (but keep simple)
 
 ---
 
