@@ -7,44 +7,95 @@
   <title>Institutional Research & Data | HORIZON</title>
   <link rel="stylesheet" href="src/css/design-system.css">
   <style>
-    /* Page Header */
-    .page-header {
+    /* Navigation */
+    .nav {
       background: var(--gradient-hero);
-      color: var(--color-text-inverse);
-      padding: var(--space-4) 0;
+      padding: var(--space-3) 0;
       position: sticky;
       top: 0;
       z-index: 100;
     }
 
-    .page-header__inner {
+    .nav__inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .page-header__logo {
-      font-size: 1.25rem;
+    .nav__logo {
+      font-size: 1.5rem;
       font-weight: 200;
       letter-spacing: 0.3em;
       color: var(--color-text-inverse);
       text-decoration: none;
     }
 
-    .page-header__nav {
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
+    .nav__links {
+      display: none;
+      gap: var(--space-4);
+      list-style: none;
     }
 
-    .page-header__link {
+    @media (min-width: 768px) {
+      .nav__links {
+        display: flex;
+      }
+    }
+
+    .nav__link {
       color: rgba(255, 255, 255, 0.8);
       font-size: var(--text-body-sm);
-      transition: color var(--duration-fast);
+      transition: color var(--duration-fast) var(--ease-default);
     }
 
-    .page-header__link:hover {
+    .nav__link:hover,
+    .nav__link--active {
       color: var(--color-accent);
+    }
+
+    .nav__actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .nav__search {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-text-inverse);
+      transition: all var(--duration-fast) var(--ease-default);
+    }
+
+    .nav__search:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--color-accent);
+    }
+
+    .nav__cta {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-caption);
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav__cta {
+        display: block;
+      }
+    }
+
+    .nav__cta:hover {
+      background: var(--color-accent-hover);
     }
 
     /* Disclaimer Banner */
@@ -998,7 +1049,8 @@
       }
 
       .explorer-chart-svg {
-        height: 250px;
+        min-height: 250px;
+        height: auto;
       }
 
       .chart-preview__empty-icon {
@@ -2073,16 +2125,24 @@
     /* Explorer SVG Chart - Large and responsive */
     .explorer-chart-svg {
       width: 100%;
-      height: 100%;
-      min-height: 400px;
+      height: auto;
+      min-height: 320px;
+      display: block;
     }
 
     .chart-preview__content {
       flex: 1;
       width: 100%;
+      min-height: 350px;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: var(--space-2);
+    }
+
+    .chart-preview__content svg {
+      max-width: 100%;
+      height: auto;
     }
   </style>
 </head>
