@@ -2244,20 +2244,27 @@
 
     /* Hide main explorer and other elements in fullscreen */
     .explorer-section--fullscreen .explorer {
-      display: none;
+      display: none !important;
     }
 
     .explorer-section--fullscreen .explorer__controls {
-      display: none;
+      display: none !important;
     }
 
     .explorer-section--fullscreen .executive-insights,
     .explorer-section--fullscreen .preset-quick-views {
-      display: none;
+      display: none !important;
+    }
+
+    .explorer-section--fullscreen .explorer__source-bar {
+      display: none !important;
     }
 
     .explorer-section--fullscreen .explorer-unified {
-      display: none;
+      display: none !important;
+      visibility: hidden !important;
+      height: 0 !important;
+      overflow: hidden !important;
     }
 
     /* Dark mode adjustments for comparison panels */
