@@ -1528,16 +1528,18 @@
     <!-- Mobile Navigation -->
     <div class="mobile-nav__backdrop"></div>
     <nav class="mobile-nav">
+      <div class="mobile-nav__close">
+        <span class="mobile-nav__close-title">Menu</span>
+        <button class="mobile-nav__close-btn" aria-label="Close menu">×</button>
+      </div>
       <ul class="mobile-nav__links">
-        <li><a href="index.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">🏠</span>Home</a></li>
-        <li><a href="programs.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">📚</span>Programs</a></li>
-        <li><a href="admission.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">🎓</span>Admission</a></li>
-        <li><a href="campus.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">🏔️</span>Campus</a></li>
-        <li><a href="about.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">ℹ️</span>About</a></li>
-        <li><a href="data.html" class="mobile-nav__link"><span class="mobile-nav__link-icon">📊</span>Data</a></li>
-        <li><button class="mobile-nav__link mobile-nav__search-btn" id="mobileSearchTrigger"><span class="mobile-nav__link-icon">🔍</span>Search</button></li>
+        <li><a href="index.html" class="mobile-nav__link">Home</a></li>
+        <li><a href="programs.html" class="mobile-nav__link">Programs</a></li>
+        <li><a href="admission.html" class="mobile-nav__link">Admission</a></li>
+        <li><a href="campus.html" class="mobile-nav__link">Campus</a></li>
+        <li><a href="about.html" class="mobile-nav__link">About</a></li>
+        <li><a href="data.html" class="mobile-nav__link">Data</a></li>
       </ul>
-      <div class="mobile-nav__divider"></div>
       <a href="admission.html" class="mobile-nav__cta">Apply Now</a>
     </nav>
 
@@ -2349,6 +2351,7 @@
       const hamburger = document.querySelector('.nav__hamburger');
       const mobileNav = document.querySelector('.mobile-nav');
       const backdrop = document.querySelector('.mobile-nav__backdrop');
+      const closeBtn = document.querySelector('.mobile-nav__close-btn');
 
       if (!hamburger || !mobileNav) return;
 
@@ -2368,6 +2371,7 @@
       }
 
       hamburger.addEventListener('click', toggleMobileNav);
+      if (closeBtn) closeBtn.addEventListener('click', closeMobileNav);
       if (backdrop) backdrop.addEventListener('click', closeMobileNav);
       mobileNav.querySelectorAll('.mobile-nav__link, .mobile-nav__cta').forEach(link => {
         link.addEventListener('click', closeMobileNav);
