@@ -1,6 +1,6 @@
 # HORIZON - Active State
 **Mission Card | Session Continuity Document**
-**Last Updated:** 2025-12-17 | Session 15
+**Last Updated:** 2025-12-17 | Session 16
 
 ---
 
@@ -8,15 +8,76 @@
 
 | Field | Value |
 |-------|-------|
-| **Phase** | 15 - Complete Site Consistency |
-| **Status** | COMPLETE - All UX/UI fixes applied |
+| **Phase** | 16 - Final Polish & Repository Rename |
+| **Status** | COMPLETE - All fixes applied |
 | **Active Task** | None - Ready for review |
 | **Blockers** | None |
 | **Next Milestone** | Executive presentation |
 
 ---
 
-## SESSION 15 COMPLETION (Current)
+## SESSION 16 COMPLETION (Current)
+
+**Major Theme: Final Polish, Mobile UX, & Repository Rename**
+
+User requested 9 fixes for final polish:
+1. Data Explorer chart - full white background
+2. Mobile hamburger menu UX overhaul
+3. Mobile nav 3-column grid layout
+4. Rename repository to concept-demo-flc-website-prototype
+5. Bigger prototype disclaimer on homepage
+6. Homepage title bigger + gold outline tagline
+7. Snow on light mode + more in dark mode
+8. Toolbar consistency across ALL pages
+9. Update documentation
+
+### Completed Work:
+
+**1. DATA EXPLORER CHART BACKGROUND**
+- [x] Added solid white background to .chart-preview__content (0.98 opacity)
+- [x] Dark mode variant (rgba 30,35,44 at 0.98)
+
+**2. MOBILE NAV UX OVERHAUL**
+- [x] Full-width mobile nav overlay (was 280px)
+- [x] 3-column grid with max-width: 500px centered
+- [x] Bigger fonts (0.85rem from 0.7rem), bigger icons (1.75rem)
+- [x] Removed scale(0.9) and opacity:0 animations
+- [x] More padding on links (space-4)
+
+**3. HOMEPAGE TEXT STYLING**
+- [x] Title larger: clamp(2.75rem, 9vw, 5rem)
+- [x] Tagline gold outline: -webkit-text-stroke: 0.5px var(--color-accent)
+- [x] Gold glow text-shadow
+
+**4. BIGGER PROTOTYPE DISCLAIMER**
+- [x] Larger padding, gap, border (2px from 1px)
+- [x] Bigger icon (2rem), label (text-body-sm), text (1rem)
+- [x] Max-width 550px (from 400px)
+
+**5. SNOW EFFECTS**
+- [x] Light mode: opacity 0.4 (was 0)
+- [x] Dark mode: bigger flakes (5px), brighter (0.85 opacity)
+- [x] Added 10 more snowflakes (30 total)
+
+**6. NAV STANDARDIZATION (12 PAGES)**
+- [x] All pages: position: sticky, top: 0, z-index: 100
+- [x] All pages: background: var(--gradient-hero)
+- [x] Removed inconsistent gap properties from nav__inner
+- [x] Pages updated: index, data, about, programs, admission, campus, events, careers, tuition, contact, visit
+
+**7. REPOSITORY RENAME**
+- [x] Renamed from future-flc-website to concept-demo-flc-website-prototype
+- [x] Updated @Project_Manifest.md URLs
+- [x] Updated @Active_State.md URLs
+
+### Git Commits This Session:
+```
+d6f90cd Phase 16: Final Polish & UX Improvements
+```
+
+---
+
+## SESSION 15 COMPLETION (Previous)
 
 **Major Theme: Complete UX/UI Consistency & Background/Snow Implementation**
 
@@ -246,12 +307,12 @@ a7247a2 MAJOR CLEANUP: Strip all glitchy effects for smooth presentation
 ## GIT STATUS
 
 **Branch:** main
-**Remote:** origin (https://github.com/WinnCook/future-flc-website)
-**Last Commit:** 92194b8 - Make filter popup dynamic width
+**Remote:** origin (https://github.com/WinnCook/concept-demo-flc-website-prototype)
+**Last Commit:** d6f90cd - Phase 16: Final Polish & UX Improvements
 **Status:** Clean - all changes committed and pushed
 
-**Live URL:** https://winncook.github.io/future-flc-website/
-**IR Dashboard:** https://winncook.github.io/future-flc-website/data.html
+**Live URL:** https://winncook.github.io/concept-demo-flc-website-prototype/
+**IR Dashboard:** https://winncook.github.io/concept-demo-flc-website-prototype/data.html
 
 ---
 
@@ -313,7 +374,7 @@ continue
 **Full Context Start:**
 1. Read @Project_Manifest.md (constitutional document)
 2. Read @Active_State.md (this file)
-3. View live site at https://winncook.github.io/future-flc-website/
+3. View live site at https://winncook.github.io/concept-demo-flc-website-prototype/
 
 **Current Working Directory:**
 ```
@@ -322,7 +383,7 @@ C:\Users\winnl\Documents\Future FLC Website
 
 **Repository URL:**
 ```
-https://github.com/WinnCook/future-flc-website
+https://github.com/WinnCook/concept-demo-flc-website-prototype
 ```
 
 ---
