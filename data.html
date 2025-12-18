@@ -5193,7 +5193,7 @@
       }
 
       // ===== EXPORT CHARTS FUNCTIONALITY =====
-      const exportModal = document.getElementById('exportPreviewModal');
+      const exportPreviewModal = document.getElementById('exportPreviewModal');
       const exportTabs = document.getElementById('exportTabs');
       const exportBody = document.getElementById('exportBody');
       const exportChartsBtn = document.getElementById('exportChartsBtn');
@@ -5317,11 +5317,11 @@
           });
         });
 
-        exportModal.classList.add('active');
+        exportPreviewModal.classList.add('active');
       }
 
       function closeExportModal() {
-        exportModal.classList.remove('active');
+        exportPreviewModal.classList.remove('active');
       }
 
       if (exportChartsBtn) {
@@ -5346,14 +5346,14 @@
 
       // Close on escape
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && exportModal.classList.contains('active')) {
+        if (e.key === 'Escape' && exportPreviewModal.classList.contains('active')) {
           closeExportModal();
         }
       });
 
       // Close on background click
-      exportModal.addEventListener('click', (e) => {
-        if (e.target === exportModal) {
+      exportPreviewModal.addEventListener('click', (e) => {
+        if (e.target === exportPreviewModal) {
           closeExportModal();
         }
       });
