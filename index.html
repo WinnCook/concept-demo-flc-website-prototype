@@ -7,10 +7,25 @@
   <title>HORIZON | Fort Lewis College Concept</title>
   <link rel="stylesheet" href="src/css/design-system.css">
   <style>
+    /* Global Fixed Mountain Background */
+    .page-background {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat;
+      background-attachment: fixed;
+    }
+
+    /* Semi-transparent page sections */
+    body {
+      background: transparent;
+    }
+
     /* Hero Section */
     .hero {
       min-height: 100vh;
-      background: var(--gradient-hero);
+      background: transparent;
       color: var(--color-text-inverse);
       position: relative;
       display: flex;
@@ -18,27 +33,16 @@
       overflow: hidden;
     }
 
-    /* Parallax Mountain Background - Snowy Colorado Peaks */
+    /* Hero overlay for readability */
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(180deg, rgba(0, 51, 102, 0.6) 0%, rgba(0, 51, 102, 0.4) 40%, rgba(0, 51, 102, 0.7) 100%),
-        url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat;
-      background-attachment: fixed;
+      background: linear-gradient(180deg, rgba(0, 51, 102, 0.75) 0%, rgba(0, 51, 102, 0.6) 40%, rgba(0, 51, 102, 0.8) 100%);
       z-index: 1;
-      will-change: transform;
     }
 
-    /* Disable parallax on mobile for performance */
-    @media (max-width: 768px) {
-      .hero::before {
-        background-attachment: scroll;
-      }
-    }
-
-    /* Mountain Silhouette Overlay - Light Mode */
+    /* Mountain Silhouette Overlay - transition to content */
     .hero::after {
       content: '';
       position: absolute;
@@ -46,27 +50,50 @@
       left: 0;
       right: 0;
       height: 150px;
-      background: linear-gradient(180deg, transparent 0%, transparent 20%, var(--color-bg-light) 100%);
+      background: linear-gradient(180deg, transparent 0%, transparent 20%, rgba(255, 255, 255, 0.92) 100%);
       pointer-events: none;
       z-index: 2;
     }
 
-    /* Dark Mode Hero - Night Sky with Snowy Peaks */
-    [data-theme="dark"] .hero::before {
-      background:
-        linear-gradient(180deg, rgba(10, 10, 26, 0.7) 0%, rgba(13, 21, 37, 0.5) 30%, rgba(26, 26, 58, 0.7) 60%, rgba(13, 17, 23, 0.9) 100%),
-        url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat;
-      background-attachment: fixed;
+    /* Content sections - semi-transparent white */
+    .section,
+    .programs,
+    .campus-preview,
+    .stats-banner,
+    .cta-section,
+    .news-section {
+      background: rgba(255, 255, 255, 0.92) !important;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
-    @media (max-width: 768px) {
-      [data-theme="dark"] .hero::before {
-        background-attachment: scroll;
-      }
+    /* Footer - semi-transparent dark */
+    .footer {
+      background: rgba(0, 51, 102, 0.95) !important;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* Dark Mode adjustments */
+    [data-theme="dark"] .hero::before {
+      background: linear-gradient(180deg, rgba(10, 10, 26, 0.8) 0%, rgba(13, 21, 37, 0.7) 30%, rgba(26, 26, 58, 0.8) 60%, rgba(13, 17, 23, 0.9) 100%);
     }
 
     [data-theme="dark"] .hero::after {
-      background: linear-gradient(180deg, transparent 0%, #0d1117 100%);
+      background: linear-gradient(180deg, transparent 0%, rgba(13, 17, 23, 0.95) 100%);
+    }
+
+    [data-theme="dark"] .section,
+    [data-theme="dark"] .programs,
+    [data-theme="dark"] .campus-preview,
+    [data-theme="dark"] .stats-banner,
+    [data-theme="dark"] .cta-section,
+    [data-theme="dark"] .news-section {
+      background: rgba(13, 17, 23, 0.92) !important;
+    }
+
+    [data-theme="dark"] .footer {
+      background: rgba(3, 7, 12, 0.95) !important;
     }
 
     /* Starfield for Dark Mode */
@@ -1358,6 +1385,9 @@
   </style>
 </head>
 <body>
+  <!-- Fixed Mountain Background (visible through all sections) -->
+  <div class="page-background" aria-hidden="true"></div>
+
   <!-- Hero Section -->
   <section class="hero">
     <!-- Animated Snow Particles (Light Mode) -->

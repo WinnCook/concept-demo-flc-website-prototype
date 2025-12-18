@@ -611,6 +611,30 @@
       background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 50%, #0d1117 100%);
     }
 
+    /* Dark Mode - Export Report */
+    [data-theme="dark"] .report-chart,
+    [data-theme="dark"] .report-table {
+      background: var(--color-surface);
+      border-color: var(--color-border);
+    }
+
+    [data-theme="dark"] .report-table th {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    [data-theme="dark"] .report-demo-banner {
+      background: linear-gradient(135deg, #422006 0%, #713f12 100%);
+      border-color: #92400E;
+    }
+
+    [data-theme="dark"] .report-demo-banner__title {
+      color: #FBBF24;
+    }
+
+    [data-theme="dark"] .report-demo-banner__desc {
+      color: #FCD34D;
+    }
+
     /* Theme Toggle in Header */
     .theme-toggle {
       background: rgba(255, 255, 255, 0.1);
@@ -1445,11 +1469,11 @@
       box-shadow: 0 2px 4px rgba(0, 51, 102, 0.2);
     }
 
-    /* Export Modal */
+    /* Export Report Preview Modal */
     .export-modal {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1457,6 +1481,7 @@
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease;
+      padding: var(--space-4);
     }
 
     .export-modal.active {
@@ -1467,47 +1492,328 @@
     .export-modal__content {
       background: var(--color-surface);
       border-radius: var(--radius-lg);
-      padding: var(--space-6);
-      max-width: 400px;
-      text-align: center;
-      box-shadow: var(--shadow-lg);
-      transform: scale(0.9);
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      transform: scale(0.95) translateY(20px);
       transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
     }
 
     .export-modal.active .export-modal__content {
-      transform: scale(1);
+      transform: scale(1) translateY(0);
     }
 
-    .export-modal__icon {
-      font-size: 3rem;
-      margin-bottom: var(--space-3);
+    /* Report Header */
+    .report-header {
+      background: linear-gradient(135deg, var(--color-primary) 0%, #004080 100%);
+      color: white;
+      padding: var(--space-4) var(--space-5);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
     }
 
-    .export-modal__title {
-      font-size: var(--text-h4);
+    .report-header__left {
+      flex: 1;
+    }
+
+    .report-header__logo {
+      font-size: 12px;
+      font-weight: 200;
+      letter-spacing: 0.2em;
+      opacity: 0.8;
+      margin-bottom: var(--space-1);
+    }
+
+    .report-header__title {
+      font-size: var(--text-h3);
       font-weight: 700;
-      margin-bottom: var(--space-2);
+      margin-bottom: var(--space-1);
     }
 
-    .export-modal__text {
+    .report-header__subtitle {
+      font-size: var(--text-body-sm);
+      opacity: 0.9;
+    }
+
+    .report-header__right {
+      text-align: right;
+    }
+
+    .report-header__date {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .report-header__close {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .report-header__close:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Report Body */
+    .report-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-4) var(--space-5);
+    }
+
+    /* Demo Banner */
+    .report-demo-banner {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      border: 1px solid #F59E0B;
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+      margin-bottom: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .report-demo-banner__icon {
+      font-size: 1.5rem;
+    }
+
+    .report-demo-banner__text {
+      flex: 1;
+    }
+
+    .report-demo-banner__title {
+      font-weight: 700;
+      color: #92400E;
+      font-size: var(--text-body-sm);
+    }
+
+    .report-demo-banner__desc {
+      color: #B45309;
+      font-size: 12px;
+    }
+
+    /* Report Metadata */
+    .report-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+      padding: var(--space-3);
+      background: var(--color-bg-light);
+      border-radius: var(--radius-md);
+    }
+
+    .report-meta__item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .report-meta__label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       color: var(--color-text-secondary);
+    }
+
+    .report-meta__value {
+      font-size: var(--text-body-sm);
+      font-weight: 500;
+      color: var(--color-text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .report-meta__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .report-meta__badge--dimension {
+      background: rgba(59, 130, 246, 0.1);
+      color: #2563EB;
+    }
+
+    .report-meta__badge--measure {
+      background: rgba(16, 185, 129, 0.1);
+      color: #059669;
+    }
+
+    .report-meta__badge--filter {
+      background: rgba(245, 158, 11, 0.1);
+      color: #D97706;
+    }
+
+    /* Report Chart */
+    .report-chart {
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
       margin-bottom: var(--space-4);
     }
 
-    .export-modal__close {
-      background: var(--color-primary);
-      color: white;
-      border: none;
-      padding: var(--space-2) var(--space-4);
-      border-radius: var(--radius-md);
+    .report-chart__title {
+      font-size: var(--text-body-sm);
       font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s ease;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-3);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
-    .export-modal__close:hover {
-      background: var(--color-primary-dark);
+    .report-chart__container {
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Report Data Table */
+    .report-table {
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .report-table__title {
+      font-size: var(--text-body-sm);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-bg-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .report-table__container {
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .report-table table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .report-table th {
+      background: var(--color-bg-light);
+      font-weight: 600;
+      text-align: left;
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+    }
+
+    .report-table td {
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .report-table tr:hover td {
+      background: rgba(0, 51, 102, 0.02);
+    }
+
+    .report-table td:first-child {
+      font-weight: 500;
+    }
+
+    .report-table td:last-child {
+      text-align: right;
+      font-family: 'SF Mono', Monaco, monospace;
+    }
+
+    /* Report Footer */
+    .report-footer {
+      padding: var(--space-3) var(--space-5);
+      background: var(--color-bg-light);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .report-footer__info {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+    }
+
+    .report-footer__actions {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .report-footer__btn {
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .report-footer__btn--secondary {
+      background: white;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .report-footer__btn--secondary:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .report-footer__btn--primary {
+      background: var(--color-primary);
+      border: 1px solid var(--color-primary);
+      color: white;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+      .export-modal__content {
+        max-height: 95vh;
+      }
+      .report-header {
+        flex-direction: column;
+        gap: var(--space-2);
+      }
+      .report-header__right {
+        text-align: left;
+      }
+      .report-meta {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     /* Explorer SVG Chart */
@@ -2695,8 +3001,9 @@
         updateExplorerChart();
       });
 
-      // Export button - demo only
+      // Export button - show professional report preview
       exportButton.addEventListener('click', () => {
+        populateExportReport();
         exportModal.classList.add('active');
       });
 
@@ -2709,6 +3016,119 @@
           exportModal.classList.remove('active');
         }
       });
+
+      // Populate export report with current state
+      function populateExportReport() {
+        const { rows, columns, values, filter, chartType } = explorerState;
+
+        // Set date
+        const now = new Date();
+        document.getElementById('reportDate').textContent = `Generated: ${now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} at ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+
+        // Set title based on current selections
+        const measureLabel = values ? values.label : 'Data';
+        const dimensionLabel = rows ? rows.label : '';
+        document.getElementById('reportTitle').textContent = `${measureLabel}${dimensionLabel ? ' by ' + dimensionLabel : ''} Report`;
+
+        // Set chart type
+        const chartTypeNames = { line: '📈 Line Chart', bar: '📊 Bar Chart', pie: '🥧 Pie Chart' };
+        document.getElementById('reportChartType').textContent = chartTypeNames[chartType] || 'Line Chart';
+
+        // Set dimension
+        const dimensionEl = document.getElementById('reportDimension');
+        if (rows) {
+          dimensionEl.innerHTML = `<span class="report-meta__badge report-meta__badge--dimension">${rows.label}</span>`;
+          if (columns) {
+            dimensionEl.innerHTML += ` <span class="report-meta__badge report-meta__badge--dimension">${columns.label}</span>`;
+          }
+        } else {
+          dimensionEl.innerHTML = '<span class="report-meta__badge report-meta__badge--dimension">None selected</span>';
+        }
+
+        // Set measure
+        const measureEl = document.getElementById('reportMeasure');
+        if (values) {
+          measureEl.innerHTML = `<span class="report-meta__badge report-meta__badge--measure">${values.label}</span>`;
+        } else {
+          measureEl.innerHTML = '<span class="report-meta__badge report-meta__badge--measure">None selected</span>';
+        }
+
+        // Set filters
+        const filtersEl = document.getElementById('reportFilters');
+        if (filter) {
+          let filterDesc = filter.label + ': ';
+          if (filter.yearRange) {
+            filterDesc += `${filter.yearRange.from} - ${filter.yearRange.to}`;
+          } else if (filter.selectedValues && filter.selectedValues.length > 0) {
+            filterDesc += filter.selectedValues.join(', ');
+          }
+          filtersEl.innerHTML = `<span class="report-meta__badge report-meta__badge--filter">${filterDesc}</span>`;
+        } else {
+          filtersEl.innerHTML = '<span class="report-meta__badge report-meta__badge--filter">None applied</span>';
+        }
+
+        // Clone current chart into report
+        const chartContainer = document.getElementById('reportChartContainer');
+        const currentChart = document.getElementById('explorerChartContent');
+        if (currentChart) {
+          chartContainer.innerHTML = currentChart.innerHTML;
+        } else {
+          chartContainer.innerHTML = '<p style="color: var(--color-text-secondary);">No chart generated yet</p>';
+        }
+
+        // Generate granular data table
+        generateReportDataTable();
+      }
+
+      // Generate the granular data table for the report
+      function generateReportDataTable() {
+        const { rows, columns, values, filter } = explorerState;
+        const tableHead = document.getElementById('reportTableHead');
+        const tableBody = document.getElementById('reportTableBody');
+
+        if (!rows || !values) {
+          tableHead.innerHTML = '<th>No Data</th>';
+          tableBody.innerHTML = '<tr><td>Select dimensions and measures to view data</td></tr>';
+          return;
+        }
+
+        // Build headers based on current configuration
+        let headers = [rows.label];
+        if (columns && columns.field === 'genderBreakdown') {
+          headers.push('Male', 'Female');
+        } else if (columns && columns.field === 'statusBreakdown') {
+          headers.push('Full-Time', 'Part-Time');
+        } else {
+          headers.push(values.label);
+        }
+        tableHead.innerHTML = headers.map(h => `<th>${h}</th>`).join('');
+
+        // Build data rows
+        let dataRows = '';
+        const data = buildChartData();
+
+        if (data && data.length > 0) {
+          data.forEach(point => {
+            if (columns) {
+              // Multi-series data
+              dataRows += `<tr><td>${point.label}</td>`;
+              if (point.male !== undefined) {
+                dataRows += `<td>${point.male?.toLocaleString() || '—'}</td><td>${point.female?.toLocaleString() || '—'}</td>`;
+              } else if (point.fullTime !== undefined) {
+                dataRows += `<td>${point.fullTime?.toLocaleString() || '—'}</td><td>${point.partTime?.toLocaleString() || '—'}</td>`;
+              }
+              dataRows += '</tr>';
+            } else {
+              // Single series
+              dataRows += `<tr><td>${point.label}</td><td>${point.value?.toLocaleString() || '—'}</td></tr>`;
+            }
+          });
+        } else {
+          dataRows = '<tr><td colspan="' + headers.length + '">No data available</td></tr>';
+        }
+
+        tableBody.innerHTML = dataRows;
+      }
 
       // Set default state: Year + Enrollment Status breakdown on line chart
       function setDefaultState() {
@@ -3205,13 +3625,93 @@
     document.addEventListener('DOMContentLoaded', init);
   </script>
 
-  <!-- Export Modal -->
+  <!-- Export Report Preview Modal -->
   <div class="export-modal" id="exportModal">
     <div class="export-modal__content">
-      <div class="export-modal__icon">📤</div>
-      <h3 class="export-modal__title">Export Feature</h3>
-      <p class="export-modal__text">This export functionality is for demonstration purposes only. In a production environment, this would export your visualization as PNG, PDF, or CSV.</p>
-      <button class="export-modal__close" id="exportModalClose">Got it</button>
+      <!-- Report Header -->
+      <div class="report-header">
+        <div class="report-header__left">
+          <div class="report-header__logo">HORIZON ANALYTICS</div>
+          <h2 class="report-header__title" id="reportTitle">Enrollment Trends Report</h2>
+          <p class="report-header__subtitle">Fort Lewis College · Institutional Research</p>
+        </div>
+        <div class="report-header__right">
+          <p class="report-header__date" id="reportDate"></p>
+        </div>
+        <button class="report-header__close" id="exportModalClose" aria-label="Close">×</button>
+      </div>
+
+      <!-- Report Body -->
+      <div class="report-body">
+        <!-- Demo Banner -->
+        <div class="report-demo-banner">
+          <span class="report-demo-banner__icon">⚠️</span>
+          <div class="report-demo-banner__text">
+            <div class="report-demo-banner__title">Demonstration Preview Only</div>
+            <div class="report-demo-banner__desc">This is a conceptual demonstration utilizing unvalidated data from public sources. Content serves only to populate the prototype and may be legacy or non-current. Export functionality is disabled.</div>
+          </div>
+        </div>
+
+        <!-- Report Metadata -->
+        <div class="report-meta">
+          <div class="report-meta__item">
+            <span class="report-meta__label">Chart Type</span>
+            <span class="report-meta__value" id="reportChartType">Line Chart</span>
+          </div>
+          <div class="report-meta__item">
+            <span class="report-meta__label">Dimension</span>
+            <span class="report-meta__value" id="reportDimension">
+              <span class="report-meta__badge report-meta__badge--dimension">None selected</span>
+            </span>
+          </div>
+          <div class="report-meta__item">
+            <span class="report-meta__label">Measure</span>
+            <span class="report-meta__value" id="reportMeasure">
+              <span class="report-meta__badge report-meta__badge--measure">None selected</span>
+            </span>
+          </div>
+          <div class="report-meta__item">
+            <span class="report-meta__label">Active Filters</span>
+            <span class="report-meta__value" id="reportFilters">
+              <span class="report-meta__badge report-meta__badge--filter">None</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Chart Preview -->
+        <div class="report-chart">
+          <div class="report-chart__title">📊 Visualization Preview</div>
+          <div class="report-chart__container" id="reportChartContainer">
+            <!-- Chart will be cloned here -->
+          </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="report-table">
+          <div class="report-table__title">📋 Granular Data</div>
+          <div class="report-table__container">
+            <table id="reportDataTable">
+              <thead>
+                <tr id="reportTableHead"></tr>
+              </thead>
+              <tbody id="reportTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Report Footer -->
+      <div class="report-footer">
+        <div class="report-footer__info">
+          Generated by HORIZON Analytics · Powered by Claude AI
+        </div>
+        <div class="report-footer__actions">
+          <button class="report-footer__btn report-footer__btn--secondary" onclick="document.getElementById('exportModal').classList.remove('active')">Close Preview</button>
+          <button class="report-footer__btn report-footer__btn--primary" title="Export disabled in demo">
+            📤 Export PDF (Demo)
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </body>
