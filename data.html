@@ -1680,8 +1680,8 @@
       gap: var(--space-2);
     }
 
-    /* Chart Area - Fills remaining space in workspace */
-    .chart-area {
+    /* Explorer Chart Area - Fills remaining space in workspace */
+    .explorer-chart-area {
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -1691,11 +1691,11 @@
       border: 1px solid var(--color-border);
     }
 
-    [data-theme="dark"] .chart-area {
+    [data-theme="dark"] .explorer-chart-area {
       background: #1E232C;
     }
 
-    .chart-area__toolbar {
+    .explorer-chart-area__toolbar {
       display: flex;
       align-items: center;
       gap: var(--space-3);
@@ -1704,7 +1704,7 @@
       border-bottom: 1px solid var(--color-border);
     }
 
-    [data-theme="dark"] .chart-area__toolbar {
+    [data-theme="dark"] .explorer-chart-area__toolbar {
       background: rgba(255, 255, 255, 0.03);
     }
 
@@ -2490,8 +2490,8 @@
                 <tr>
                   <th>Year</th>
                   <th>Total</th>
-                  <th>Men</th>
-                  <th>Women</th>
+                  <th>Male</th>
+                  <th>Female</th>
                   <th>Full-Time</th>
                   <th>Part-Time</th>
                   <th>YoY Change</th>
@@ -2657,8 +2657,8 @@
             </div>
 
             <!-- Chart Type + Large Chart -->
-            <div class="chart-area">
-              <div class="chart-area__toolbar">
+            <div class="explorer-chart-area">
+              <div class="explorer-chart-area__toolbar">
                 <div class="chart-type-selector">
                   <button class="chart-type-btn active" data-chart-type="line" title="Line Chart">📈</button>
                   <button class="chart-type-btn" data-chart-type="bar" title="Bar Chart">📊</button>
@@ -2720,8 +2720,8 @@
     ];
 
     const genderData = [
-      { label: 'Women', value: 1828, percent: 53.6, color: '#FFB81C' },
-      { label: 'Men', value: 1585, percent: 46.4, color: '#003366' }
+      { label: 'Female', value: 1828, percent: 53.6, color: '#FFB81C' },
+      { label: 'Male', value: 1585, percent: 46.4, color: '#003366' }
     ];
 
     // Extended data from IPEDS, DataUSA, CollegeTuitionCompare
@@ -2862,8 +2862,8 @@
           { data: female, class: 'female', color: '#EC4899' }
         ];
         legend.innerHTML = `
-          <div class="legend-item"><span class="legend-dot" style="background: #3B82F6;"></span><span>Men</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background: #EC4899;"></span><span>Women</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background: #3B82F6;"></span><span>Male</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background: #EC4899;"></span><span>Female</span></div>
         `;
       } else if (currentView === 'status') {
         datasets = [
@@ -3166,7 +3166,7 @@
           fullLabels: enrollmentData.years
         },
         genderBreakdown: {
-          labels: ['Men', 'Women'],
+          labels: ['Male', 'Female'],
           keys: ['male', 'female'],
           colors: [colors.gender.male, colors.gender.female]
         },
@@ -3368,8 +3368,8 @@
         } else if (filterDimension.field === 'genderBreakdown') {
           // Gender: checkboxes
           const options = [
-            { value: 'male', label: 'Men', color: colors.gender.male },
-            { value: 'female', label: 'Women', color: colors.gender.female }
+            { value: 'male', label: 'Male', color: colors.gender.male },
+            { value: 'female', label: 'Female', color: colors.gender.female }
           ];
           const currentFilter = explorerState.filterValues || options.map(o => o.value);
 
@@ -3815,8 +3815,8 @@
             const latestIdx = yearIndices[yearIndices.length - 1]; // Use filtered latest year
             if (columns && columns.field === 'genderBreakdown') {
               const genders = [
-                { key: 'male', label: 'Men', data: enrollmentData.male[latestIdx], color: colors.gender.male },
-                { key: 'female', label: 'Women', data: enrollmentData.female[latestIdx], color: colors.gender.female }
+                { key: 'male', label: 'Male', data: enrollmentData.male[latestIdx], color: colors.gender.male },
+                { key: 'female', label: 'Female', data: enrollmentData.female[latestIdx], color: colors.gender.female }
               ].filter(g => filterGender(g.key));
               return {
                 labels: genders.map(g => g.label),
@@ -3855,8 +3855,8 @@
             } else {
               // No group by - show gender breakdown by default for donut (filtered)
               const genders = [
-                { key: 'male', label: 'Men', data: enrollmentData.male[latestIdx], color: colors.gender.male },
-                { key: 'female', label: 'Women', data: enrollmentData.female[latestIdx], color: colors.gender.female }
+                { key: 'male', label: 'Male', data: enrollmentData.male[latestIdx], color: colors.gender.male },
+                { key: 'female', label: 'Female', data: enrollmentData.female[latestIdx], color: colors.gender.female }
               ].filter(g => filterGender(g.key));
               return {
                 labels: genders.map(g => g.label),
@@ -3880,10 +3880,10 @@
           } else if (columns.field === 'genderBreakdown') {
             // Gender breakdown over time (filtered by year and optionally gender)
             if (filterGender('male')) {
-              series.push({ label: 'Men', data: yearIndices.map(i => enrollmentData.male[i]), color: colors.gender.male });
+              series.push({ label: 'Male', data: yearIndices.map(i => enrollmentData.male[i]), color: colors.gender.male });
             }
             if (filterGender('female')) {
-              series.push({ label: 'Women', data: yearIndices.map(i => enrollmentData.female[i]), color: colors.gender.female });
+              series.push({ label: 'Female', data: yearIndices.map(i => enrollmentData.female[i]), color: colors.gender.female });
             }
           } else if (columns.field === 'statusBreakdown') {
             // Status breakdown over time (filtered by year and optionally status)
@@ -3914,8 +3914,8 @@
         if (rows.field === 'genderBreakdown') {
           const latestIdx = yearIndices[yearIndices.length - 1]; // Use filtered latest year
           const genders = [
-            { key: 'male', label: 'Men', data: enrollmentData.male[latestIdx], color: colors.gender.male },
-            { key: 'female', label: 'Women', data: enrollmentData.female[latestIdx], color: colors.gender.female }
+            { key: 'male', label: 'Male', data: enrollmentData.male[latestIdx], color: colors.gender.male },
+            { key: 'female', label: 'Female', data: enrollmentData.female[latestIdx], color: colors.gender.female }
           ].filter(g => filterGender(g.key));
 
           return {
