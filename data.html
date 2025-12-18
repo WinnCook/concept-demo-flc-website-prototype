@@ -82,7 +82,103 @@
       line-height: 1.5;
     }
 
-    /* Hero Section */
+    /* ===== PERSISTENT MOUNTAIN BACKGROUND ===== */
+    .data-page-background {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: url('https://images.unsplash.com/photo-1491002052546-bf38f186af56?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat;
+      background-attachment: fixed;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Dark mode: fade the mountain, show stars */
+    [data-theme="dark"] .data-page-background {
+      opacity: 0.3;
+    }
+
+    /* ===== STARFIELD (Dark Mode) ===== */
+    .data-stars {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    [data-theme="dark"] .data-stars {
+      opacity: 1;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle var(--duration, 3s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    .star--large {
+      width: 3px;
+      height: 3px;
+      box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .shooting-star {
+      position: absolute;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, white, transparent);
+      opacity: 0;
+      animation: shoot 6s ease-in-out infinite;
+      animation-delay: var(--delay, 2s);
+    }
+
+    @keyframes shoot {
+      0% { opacity: 0; transform: translateX(0) translateY(0); }
+      5% { opacity: 1; }
+      15% { opacity: 0; transform: translateX(300px) translateY(150px); }
+      100% { opacity: 0; }
+    }
+
+    /* ===== SNOW PARTICLES (Light Mode) ===== */
+    .data-snow {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    [data-theme="dark"] .data-snow {
+      opacity: 0.3;
+    }
+
+    .snowflake {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      animation: snowfall linear infinite;
+    }
+
+    @keyframes snowfall {
+      0% { transform: translateY(-10px) translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
+    }
+
+    /* ===== Hero Section with Matrix Rain ===== */
     .ir-hero {
       background: linear-gradient(135deg, #003366 0%, #001a33 50%, #002244 100%);
       color: var(--color-text-inverse);
@@ -91,17 +187,37 @@
       overflow: hidden;
     }
 
-    .ir-hero::before {
-      content: '';
+    /* Matrix Rain Container */
+    .matrix-rain {
       position: absolute;
       inset: 0;
-      background: url('https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1920&q=80') center/cover no-repeat;
-      opacity: 0.1;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .matrix-drop {
+      position: absolute;
+      width: 2px;
+      background: linear-gradient(180deg, transparent 0%, #FFB81C 50%, transparent 100%);
+      border-radius: 2px;
+      animation: matrix-fall linear infinite;
+      box-shadow: 0 0 8px rgba(255, 184, 28, 0.6);
+    }
+
+    /* Enhanced glow in dark mode */
+    [data-theme="dark"] .matrix-drop {
+      box-shadow: 0 0 12px rgba(255, 184, 28, 0.8), 0 0 24px rgba(255, 184, 28, 0.4);
+    }
+
+    @keyframes matrix-fall {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(calc(100vh + 100%)); }
     }
 
     .ir-hero__content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     .ir-hero__badge {
@@ -153,6 +269,16 @@
       box-shadow: var(--shadow-xl);
       text-align: center;
       border: 1px solid var(--color-border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 51, 102, 0.15);
+    }
+
+    [data-theme="dark"] .stat-card:hover {
+      box-shadow: 0 20px 40px rgba(255, 184, 28, 0.1);
     }
 
     .stat-card__value {
@@ -183,6 +309,17 @@
 
     .stat-card__trend--down {
       color: var(--color-error);
+    }
+
+    /* ===== SEMI-TRANSPARENT CONTENT SECTIONS ===== */
+    .ir-content-section {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    [data-theme="dark"] .ir-content-section {
+      background: rgba(13, 17, 23, 0.88);
     }
 
     /* Dashboard Section */
@@ -737,6 +874,11 @@
 
     /* Mobile-friendly Data Explorer */
     @media (max-width: 768px) {
+      /* Fix header blocking hero buttons */
+      .ir-hero {
+        padding-top: calc(var(--space-8) + 20px);
+      }
+
       .explorer {
         min-height: auto;
         gap: var(--space-3);
@@ -1824,6 +1966,19 @@
   </style>
 </head>
 <body>
+  <!-- Persistent Mountain Background -->
+  <div class="data-page-background" aria-hidden="true"></div>
+
+  <!-- Stars for Dark Mode -->
+  <div class="data-stars" aria-hidden="true">
+    <!-- Stars generated by JS -->
+  </div>
+
+  <!-- Snow Particles for Light Mode -->
+  <div class="data-snow" aria-hidden="true">
+    <!-- Snowflakes generated by JS -->
+  </div>
+
   <!-- Page Header -->
   <header class="page-header">
     <div class="container page-header__inner">
@@ -1861,6 +2016,8 @@
 
   <!-- Hero Section -->
   <section class="ir-hero">
+    <!-- Matrix Rain Effect -->
+    <div class="matrix-rain" id="matrixRain" aria-hidden="true"></div>
     <div class="container ir-hero__content">
       <!-- Disclaimer Banner -->
       <div class="disclaimer-banner">
@@ -1883,6 +2040,9 @@
       </p>
     </div>
   </section>
+
+  <!-- Main Content (Semi-transparent overlay) -->
+  <main class="ir-content-section">
 
   <!-- Stats Cards -->
   <section class="container">
@@ -2213,6 +2373,8 @@
 
     </div>
   </section>
+
+  </main><!-- End ir-content-section -->
 
   <!-- Footer -->
   <footer class="page-footer">
@@ -3623,6 +3785,74 @@
 
     // Initialize on load
     document.addEventListener('DOMContentLoaded', init);
+
+    // ===== VISUAL EFFECTS INITIALIZATION =====
+
+    // Generate Matrix Rain
+    function initMatrixRain() {
+      const container = document.getElementById('matrixRain');
+      if (!container) return;
+
+      const dropCount = 40;
+      for (let i = 0; i < dropCount; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'matrix-drop';
+        drop.style.left = `${Math.random() * 100}%`;
+        drop.style.height = `${30 + Math.random() * 60}px`;
+        drop.style.animationDuration = `${2 + Math.random() * 4}s`;
+        drop.style.animationDelay = `${Math.random() * 4}s`;
+        drop.style.opacity = 0.4 + Math.random() * 0.4;
+        container.appendChild(drop);
+      }
+    }
+
+    // Generate Starfield
+    function initStars() {
+      const container = document.querySelector('.data-stars');
+      if (!container) return;
+
+      // Regular stars
+      for (let i = 0; i < 60; i++) {
+        const star = document.createElement('div');
+        star.className = i % 8 === 0 ? 'star star--large' : 'star';
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.setProperty('--duration', `${2 + Math.random() * 3}s`);
+        star.style.setProperty('--delay', `${Math.random() * 3}s`);
+        container.appendChild(star);
+      }
+
+      // Shooting stars
+      for (let i = 0; i < 3; i++) {
+        const shootingStar = document.createElement('div');
+        shootingStar.className = 'shooting-star';
+        shootingStar.style.left = `${10 + Math.random() * 60}%`;
+        shootingStar.style.top = `${5 + Math.random() * 30}%`;
+        shootingStar.style.setProperty('--delay', `${2 + i * 8}s`);
+        container.appendChild(shootingStar);
+      }
+    }
+
+    // Generate Snow
+    function initSnow() {
+      const container = document.querySelector('.data-snow');
+      if (!container) return;
+
+      for (let i = 0; i < 30; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.style.left = `${Math.random() * 100}%`;
+        snowflake.style.animationDuration = `${15 + Math.random() * 10}s`;
+        snowflake.style.animationDelay = `${Math.random() * 15}s`;
+        snowflake.style.opacity = 0.3 + Math.random() * 0.4;
+        container.appendChild(snowflake);
+      }
+    }
+
+    // Initialize visual effects
+    initMatrixRain();
+    initStars();
+    initSnow();
   </script>
 
   <!-- Export Report Preview Modal -->

@@ -33,12 +33,12 @@
       overflow: hidden;
     }
 
-    /* Hero overlay for readability */
+    /* Hero overlay for readability - MORE TRANSPARENT for mountain visibility */
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0, 51, 102, 0.75) 0%, rgba(0, 51, 102, 0.6) 40%, rgba(0, 51, 102, 0.8) 100%);
+      background: linear-gradient(180deg, rgba(0, 51, 102, 0.6) 0%, rgba(0, 51, 102, 0.45) 40%, rgba(0, 51, 102, 0.65) 100%);
       z-index: 1;
     }
 
@@ -50,37 +50,37 @@
       left: 0;
       right: 0;
       height: 150px;
-      background: linear-gradient(180deg, transparent 0%, transparent 20%, rgba(255, 255, 255, 0.92) 100%);
+      background: linear-gradient(180deg, transparent 0%, transparent 20%, rgba(255, 255, 255, 0.82) 100%);
       pointer-events: none;
       z-index: 2;
     }
 
-    /* Content sections - semi-transparent white */
+    /* Content sections - MORE TRANSPARENT for mountain visibility */
     .section,
     .programs,
     .campus-preview,
     .stats-banner,
     .cta-section,
     .news-section {
-      background: rgba(255, 255, 255, 0.92) !important;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.82) !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     /* Footer - semi-transparent dark */
     .footer {
-      background: rgba(0, 51, 102, 0.95) !important;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(0, 51, 102, 0.9) !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
-    /* Dark Mode adjustments */
+    /* Dark Mode adjustments - MORE TRANSPARENT */
     [data-theme="dark"] .hero::before {
-      background: linear-gradient(180deg, rgba(10, 10, 26, 0.8) 0%, rgba(13, 21, 37, 0.7) 30%, rgba(26, 26, 58, 0.8) 60%, rgba(13, 17, 23, 0.9) 100%);
+      background: linear-gradient(180deg, rgba(10, 10, 26, 0.65) 0%, rgba(13, 21, 37, 0.5) 30%, rgba(26, 26, 58, 0.6) 60%, rgba(13, 17, 23, 0.75) 100%);
     }
 
     [data-theme="dark"] .hero::after {
-      background: linear-gradient(180deg, transparent 0%, rgba(13, 17, 23, 0.95) 100%);
+      background: linear-gradient(180deg, transparent 0%, rgba(13, 17, 23, 0.85) 100%);
     }
 
     [data-theme="dark"] .section,
@@ -89,7 +89,7 @@
     [data-theme="dark"] .stats-banner,
     [data-theme="dark"] .cta-section,
     [data-theme="dark"] .news-section {
-      background: rgba(13, 17, 23, 0.92) !important;
+      background: rgba(13, 17, 23, 0.85) !important;
     }
 
     [data-theme="dark"] .footer {
@@ -1259,7 +1259,7 @@
         Find Your <span class="hero__title-accent">Elevation</span>
       </h1>
       <p class="hero__subtitle">
-        Where mountain air meets bold ideas. The Four Corners' only public liberal arts college.
+        Where peaks inspire breakthroughs. Innovation lives at elevation.
       </p>
 
       <!-- Prototype Disclaimer Badge -->
