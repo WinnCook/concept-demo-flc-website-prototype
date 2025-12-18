@@ -2070,6 +2070,28 @@
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
     }
 
+    /* Exit button in toolbar - override fixed positioning */
+    #exitFullscreenBtn {
+      position: static !important;
+      width: auto !important;
+      height: auto !important;
+      border-radius: var(--radius-md) !important;
+      padding: 10px 20px !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      background: rgba(255, 255, 255, 0.15) !important;
+      border: 2px solid rgba(255, 255, 255, 0.4) !important;
+      color: white !important;
+      backdrop-filter: blur(4px);
+      transition: all 0.2s ease;
+    }
+
+    #exitFullscreenBtn:hover {
+      background: rgba(255, 255, 255, 0.25) !important;
+      border-color: rgba(255, 255, 255, 0.6) !important;
+      transform: none !important;
+    }
+
     @keyframes fullscreenIn {
       from {
         opacity: 0;
