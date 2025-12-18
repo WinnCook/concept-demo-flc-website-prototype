@@ -2086,10 +2086,289 @@
       transition: all 0.2s ease;
     }
 
-    #exitFullscreenBtn:hover {
-      background: rgba(255, 255, 255, 0.25) !important;
-      border-color: rgba(255, 255, 255, 0.6) !important;
-      transform: none !important;
+    /* Toolbar actions group */
+    .toolbar-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .toolbar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      color: white;
+      backdrop-filter: blur(4px);
+    }
+
+    .toolbar-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    #exportChartsBtn {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    #exportChartsBtn:hover {
+      background: #ffc94d;
+      border-color: #ffc94d;
+    }
+
+    /* Export Preview Modal */
+    .export-preview-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200000;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      overflow: auto;
+    }
+
+    .export-preview-modal.active {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .export-preview-modal__content {
+      background: white;
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-width: 1100px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    .export-preview-modal__header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 24px;
+      background: linear-gradient(135deg, var(--color-primary), #001a33);
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .export-preview-modal__title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .export-preview-modal__tabs {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+      overflow-x: auto;
+    }
+
+    .export-tab {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-md);
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .export-tab:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .export-tab.active {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    .export-preview-modal__actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .export-action-btn {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: var(--radius-md);
+      color: white;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .export-action-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .export-action-btn--primary {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    .export-action-btn--primary:hover {
+      background: #ffc94d;
+    }
+
+    .export-close-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .export-close-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .export-preview-modal__body {
+      flex: 1;
+      overflow: auto;
+      padding: 24px;
+      background: #f8f9fa;
+    }
+
+    /* Export Panel Content */
+    .export-panel {
+      display: none;
+    }
+
+    .export-panel.active {
+      display: block;
+    }
+
+    .export-chart-section {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .export-chart-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--color-accent);
+    }
+
+    .export-chart-container {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      background: #fafbfc;
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+    }
+
+    .export-chart-container svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .export-data-section {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .export-data-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .export-data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .export-data-table th {
+      background: var(--color-primary);
+      color: white;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .export-data-table th:first-child {
+      border-radius: var(--radius-md) 0 0 0;
+    }
+
+    .export-data-table th:last-child {
+      border-radius: 0 var(--radius-md) 0 0;
+    }
+
+    .export-data-table td {
+      padding: 10px 16px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .export-data-table tr:nth-child(even) {
+      background: #f9fafb;
+    }
+
+    .export-data-table tr:hover {
+      background: #f0f4ff;
+    }
+
+    .export-meta {
+      display: flex;
+      gap: 24px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .export-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     @keyframes fullscreenIn {
@@ -3228,7 +3507,10 @@
             <button class="panel-count-btn" data-panels="2">2 Panels</button>
             <button class="panel-count-btn" data-panels="4">4 Panels</button>
           </div>
-          <button class="explorer__fullscreen" id="exitFullscreenBtn" title="Exit Fullscreen">✕ Exit</button>
+          <div class="toolbar-actions">
+            <button class="toolbar-btn" id="exportChartsBtn" title="Export Charts">📤 Export</button>
+            <button class="toolbar-btn toolbar-btn--exit" id="exitFullscreenBtn" title="Exit Fullscreen">✕ Exit</button>
+          </div>
         </div>
 
         <!-- Comparison Grid (fullscreen only) -->
@@ -3401,6 +3683,26 @@
             </div>
             <div class="mobile-input-modal__footer">
               <button class="mobile-input-apply" id="applyMobileInputs">Apply & View Chart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Export Preview Modal -->
+        <div class="export-preview-modal" id="exportPreviewModal">
+          <div class="export-preview-modal__content">
+            <div class="export-preview-modal__header">
+              <h2 class="export-preview-modal__title">📊 Export Preview</h2>
+              <div class="export-preview-modal__tabs" id="exportTabs">
+                <!-- Tabs generated by JS -->
+              </div>
+              <div class="export-preview-modal__actions">
+                <button class="export-action-btn" id="printExportBtn">🖨️ Print</button>
+                <button class="export-action-btn export-action-btn--primary" id="downloadExportBtn">⬇️ Download PDF</button>
+                <button class="export-close-btn" id="closeExportBtn">✕</button>
+              </div>
+            </div>
+            <div class="export-preview-modal__body" id="exportBody">
+              <!-- Content generated by JS -->
             </div>
           </div>
         </div>
@@ -4889,6 +5191,172 @@
           console.error('Error rendering comparison panels:', err);
         }
       }
+
+      // ===== EXPORT CHARTS FUNCTIONALITY =====
+      const exportModal = document.getElementById('exportPreviewModal');
+      const exportTabs = document.getElementById('exportTabs');
+      const exportBody = document.getElementById('exportBody');
+      const exportChartsBtn = document.getElementById('exportChartsBtn');
+      const closeExportBtn = document.getElementById('closeExportBtn');
+      const printExportBtn = document.getElementById('printExportBtn');
+      const downloadExportBtn = document.getElementById('downloadExportBtn');
+
+      function getSourceLabel(source) {
+        const labels = {
+          enrollment: '📊 Enrollment Trends',
+          admissions: '🎓 Admissions Funnel',
+          expenses: '💰 Tuition & Costs',
+          ethnicity: '🌈 Student Diversity'
+        };
+        return labels[source] || source;
+      }
+
+      function getChartDataForExport(panelNum) {
+        const sourceSelect = document.querySelector(`.panel-source[data-panel="${panelNum}"]`);
+        const rowsSelect = document.querySelector(`.panel-rows[data-panel="${panelNum}"]`);
+        const colsSelect = document.querySelector(`.panel-cols[data-panel="${panelNum}"]`);
+        const chartSelect = document.querySelector(`.panel-chart[data-panel="${panelNum}"]`);
+
+        if (!sourceSelect) return null;
+
+        const source = sourceSelect.value;
+        const rows = rowsSelect.value;
+        const cols = colsSelect.value;
+        const chartType = chartSelect.value;
+
+        return {
+          source,
+          rows,
+          cols,
+          chartType,
+          chartData: buildPanelChartData(source, rows, cols, chartType),
+          title: getSourceLabel(source)
+        };
+      }
+
+      function generateExportTable(chartData, source) {
+        const { labels, series } = chartData;
+
+        let html = '<table class="export-data-table"><thead><tr>';
+        html += '<th>Year</th>';
+        series.forEach(s => {
+          html += `<th>${s.label}</th>`;
+        });
+        html += '</tr></thead><tbody>';
+
+        labels.forEach((label, i) => {
+          html += '<tr>';
+          html += `<td><strong>${label}</strong></td>`;
+          series.forEach(s => {
+            const value = s.data[i];
+            const formatted = typeof value === 'number' ? value.toLocaleString() : value;
+            html += `<td>${formatted}</td>`;
+          });
+          html += '</tr>';
+        });
+
+        html += '</tbody></table>';
+        return html;
+      }
+
+      function openExportModal() {
+        const panelClass = Array.from(explorerSection.classList).find(c => c.startsWith('panels-'));
+        const panelCount = panelClass ? parseInt(panelClass.split('-')[1]) : 1;
+
+        // Generate tabs
+        let tabsHtml = '';
+        let panelsHtml = '';
+
+        for (let i = 1; i <= panelCount; i++) {
+          const data = getChartDataForExport(i);
+          if (!data) continue;
+
+          const isActive = i === 1 ? 'active' : '';
+          tabsHtml += `<button class="export-tab ${isActive}" data-panel="${i}">Panel ${i}: ${data.title}</button>`;
+
+          // Get the chart SVG from the panel
+          const chartArea = document.getElementById(`panelChart${i}`);
+          const svgContent = chartArea ? chartArea.innerHTML : '';
+
+          panelsHtml += `
+            <div class="export-panel ${isActive}" data-panel="${i}">
+              <div class="export-chart-section">
+                <div class="export-chart-title">${data.title}</div>
+                <div class="export-chart-container">
+                  ${svgContent}
+                </div>
+              </div>
+              <div class="export-data-section">
+                <div class="export-data-title">📋 Granular Data</div>
+                ${generateExportTable(data.chartData, data.source)}
+                <div class="export-meta">
+                  <div class="export-meta-item">📅 Generated: ${new Date().toLocaleDateString()}</div>
+                  <div class="export-meta-item">🏫 Source: Fort Lewis College Institutional Research</div>
+                  <div class="export-meta-item">📊 Chart Type: ${data.chartType.charAt(0).toUpperCase() + data.chartType.slice(1)}</div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        exportTabs.innerHTML = tabsHtml;
+        exportBody.innerHTML = panelsHtml;
+
+        // Add tab click handlers
+        exportTabs.querySelectorAll('.export-tab').forEach(tab => {
+          tab.addEventListener('click', () => {
+            const panelNum = tab.dataset.panel;
+
+            // Update active tab
+            exportTabs.querySelectorAll('.export-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Update active panel
+            exportBody.querySelectorAll('.export-panel').forEach(p => p.classList.remove('active'));
+            exportBody.querySelector(`.export-panel[data-panel="${panelNum}"]`).classList.add('active');
+          });
+        });
+
+        exportModal.classList.add('active');
+      }
+
+      function closeExportModal() {
+        exportModal.classList.remove('active');
+      }
+
+      if (exportChartsBtn) {
+        exportChartsBtn.addEventListener('click', openExportModal);
+      }
+
+      if (closeExportBtn) {
+        closeExportBtn.addEventListener('click', closeExportModal);
+      }
+
+      if (printExportBtn) {
+        printExportBtn.addEventListener('click', () => {
+          window.print();
+        });
+      }
+
+      if (downloadExportBtn) {
+        downloadExportBtn.addEventListener('click', () => {
+          alert('PDF download would be implemented with a library like jsPDF or html2pdf in production. For this demo, use Print > Save as PDF.');
+        });
+      }
+
+      // Close on escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && exportModal.classList.contains('active')) {
+          closeExportModal();
+        }
+      });
+
+      // Close on background click
+      exportModal.addEventListener('click', (e) => {
+        if (e.target === exportModal) {
+          closeExportModal();
+        }
+      });
 
       // ===== PRESET QUICK VIEWS =====
       const presetBtns = document.querySelectorAll('.preset-btn');
