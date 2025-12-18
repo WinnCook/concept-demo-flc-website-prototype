@@ -583,6 +583,25 @@
     <div class="snowflake" style="left: 95%; animation-duration: 10s; animation-delay: 3.5s;"></div>
   </div>
 
+  <!-- Full-Page Falling Leaves (Fall season) -->
+  <div class="page-leaves" id="pageLeaves" aria-hidden="true">
+    <div class="page-leaf page-leaf--orange" style="left: 5%; --duration: 10s; animation-delay: 0s;"></div>
+    <div class="page-leaf page-leaf--red" style="left: 15%; --duration: 12s; animation-delay: 1.5s;"></div>
+    <div class="page-leaf page-leaf--yellow" style="left: 25%; --duration: 9s; animation-delay: 0.8s;"></div>
+    <div class="page-leaf page-leaf--brown" style="left: 35%; --duration: 14s; animation-delay: 2.2s;"></div>
+    <div class="page-leaf page-leaf--gold" style="left: 45%; --duration: 11s; animation-delay: 0.3s;"></div>
+    <div class="page-leaf page-leaf--orange" style="left: 55%; --duration: 13s; animation-delay: 3.1s;"></div>
+    <div class="page-leaf page-leaf--red" style="left: 65%; --duration: 10s; animation-delay: 1.2s;"></div>
+    <div class="page-leaf page-leaf--yellow" style="left: 75%; --duration: 15s; animation-delay: 2.8s;"></div>
+    <div class="page-leaf page-leaf--brown" style="left: 85%; --duration: 9s; animation-delay: 0.5s;"></div>
+    <div class="page-leaf page-leaf--gold" style="left: 95%; --duration: 12s; animation-delay: 3.5s;"></div>
+    <div class="page-leaf page-leaf--orange" style="left: 10%; --duration: 11s; animation-delay: 4.2s;"></div>
+    <div class="page-leaf page-leaf--red" style="left: 30%; --duration: 13s; animation-delay: 5.1s;"></div>
+    <div class="page-leaf page-leaf--yellow" style="left: 50%; --duration: 10s; animation-delay: 4.5s;"></div>
+    <div class="page-leaf page-leaf--brown" style="left: 70%; --duration: 12s; animation-delay: 5.8s;"></div>
+    <div class="page-leaf page-leaf--gold" style="left: 90%; --duration: 9s; animation-delay: 4.8s;"></div>
+  </div>
+
   <!-- Hero Section -->
   <section class="hero">
     <nav class="nav">
@@ -601,6 +620,9 @@
               <circle cx="11" cy="11" r="8"/>
               <path d="M21 21l-4.35-4.35"/>
             </svg>
+          </button>
+          <button class="season-toggle" id="seasonToggle" aria-label="Toggle season" title="Toggle Fall/Winter">
+            <span class="season-toggle__icon">❄️</span>
           </button>
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
             <span class="theme-toggle__icon">🌙</span>

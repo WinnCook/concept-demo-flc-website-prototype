@@ -588,6 +588,28 @@
     <div class="snowflake" style="left: 95%; animation-duration: 10s; animation-delay: 3.5s;"></div>
   </div>
 
+  <!-- Full-Page Falling Leaves (Fall season) -->
+  <div class="page-leaves" id="pageLeaves" aria-hidden="true">
+    <div class="page-leaf page-leaf--orange" style="left: 5%; --duration: 10s; animation-delay: 0s;"></div>
+    <div class="page-leaf page-leaf--red" style="left: 12%; --duration: 12s; animation-delay: 1.5s;"></div>
+    <div class="page-leaf page-leaf--yellow" style="left: 20%; --duration: 9s; animation-delay: 0.8s;"></div>
+    <div class="page-leaf page-leaf--brown" style="left: 28%; --duration: 14s; animation-delay: 2.2s;"></div>
+    <div class="page-leaf page-leaf--gold" style="left: 36%; --duration: 11s; animation-delay: 0.3s;"></div>
+    <div class="page-leaf page-leaf--orange" style="left: 44%; --duration: 13s; animation-delay: 3.1s;"></div>
+    <div class="page-leaf page-leaf--red" style="left: 52%; --duration: 10s; animation-delay: 1.2s;"></div>
+    <div class="page-leaf page-leaf--yellow" style="left: 60%; --duration: 15s; animation-delay: 2.8s;"></div>
+    <div class="page-leaf page-leaf--brown" style="left: 68%; --duration: 9s; animation-delay: 0.5s;"></div>
+    <div class="page-leaf page-leaf--gold" style="left: 76%; --duration: 12s; animation-delay: 3.5s;"></div>
+    <div class="page-leaf page-leaf--orange" style="left: 84%; --duration: 11s; animation-delay: 1.8s;"></div>
+    <div class="page-leaf page-leaf--red" style="left: 92%; --duration: 14s; animation-delay: 0.1s;"></div>
+    <div class="page-leaf page-leaf--yellow" style="left: 8%; --duration: 11s; animation-delay: 4.2s;"></div>
+    <div class="page-leaf page-leaf--gold" style="left: 24%; --duration: 13s; animation-delay: 5.1s;"></div>
+    <div class="page-leaf page-leaf--brown" style="left: 40%; --duration: 10s; animation-delay: 4.5s;"></div>
+    <div class="page-leaf page-leaf--orange" style="left: 56%; --duration: 12s; animation-delay: 5.8s;"></div>
+    <div class="page-leaf page-leaf--red" style="left: 72%; --duration: 9s; animation-delay: 4.8s;"></div>
+    <div class="page-leaf page-leaf--yellow" style="left: 88%; --duration: 14s; animation-delay: 5.3s;"></div>
+  </div>
+
   <!-- Page Header -->
   <header class="page-header">
     <nav class="nav">
@@ -606,6 +628,9 @@
               <circle cx="11" cy="11" r="8"/>
               <path d="M21 21l-4.35-4.35"/>
             </svg>
+          </button>
+          <button class="season-toggle" id="seasonToggle" aria-label="Toggle season" title="Toggle Fall/Winter">
+            <span class="season-toggle__icon">❄️</span>
           </button>
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
             <span class="theme-toggle__icon">🌙</span>

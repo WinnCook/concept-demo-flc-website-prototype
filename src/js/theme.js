@@ -1,25 +1,25 @@
 /**
  * HORIZON Theme System
- * Shared dark mode toggle functionality for all pages
+ * Shared dark mode toggle + season toggle functionality for all pages
  */
 
 (function() {
   'use strict';
 
-  const STORAGE_KEY = 'horizon-theme';
+  const THEME_STORAGE_KEY = 'horizon-theme';
+  const SEASON_STORAGE_KEY = 'horizon-season';
   const root = document.documentElement;
 
-  // Get preferred theme - default to dark mode
+  // ===== THEME (DARK/LIGHT) =====
   function getPreferredTheme() {
-    const savedTheme = localStorage.getItem(STORAGE_KEY);
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
     if (savedTheme) return savedTheme;
     return 'dark'; // Dark mode is the default experience
   }
 
-  // Apply theme to document
   function setTheme(theme, showNotification = false) {
     root.setAttribute('data-theme', theme);
-    localStorage.setItem(STORAGE_KEY, theme);
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
 
     // Update all toggle icons on the page
     document.querySelectorAll('.theme-toggle__icon').forEach(icon => {
@@ -107,13 +107,57 @@
 
     // Listen for system theme changes
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      if (!localStorage.getItem(STORAGE_KEY)) {
+      if (!localStorage.getItem(THEME_STORAGE_KEY)) {
         setTheme(e.matches ? 'dark' : 'light', false);
       }
     });
 
+    // Initialize season toggle
+    initSeasonToggle();
+
     // Initialize mobile nav
     initMobileNav();
+  }
+
+  // ===== SEASON (FALL/WINTER) =====
+  function getPreferredSeason() {
+    const savedSeason = localStorage.getItem(SEASON_STORAGE_KEY);
+    if (savedSeason) return savedSeason;
+    return 'winter'; // Winter is the default
+  }
+
+  function setSeason(season, showNotification = false) {
+    root.setAttribute('data-season', season);
+    localStorage.setItem(SEASON_STORAGE_KEY, season);
+
+    // Update all season toggle icons on the page
+    document.querySelectorAll('.season-toggle__icon').forEach(icon => {
+      icon.textContent = season === 'winter' ? '🍂' : '❄️';
+    });
+
+    // Show toast if available and requested
+    if (showNotification && typeof window.showToast === 'function') {
+      window.showToast(
+        season === 'fall' ? 'Fall Season' : 'Winter Season',
+        season === 'fall' ? 'Leaves are falling...' : 'Let it snow!',
+        'success'
+      );
+    }
+  }
+
+  function toggleSeason() {
+    const currentSeason = root.getAttribute('data-season') || getPreferredSeason();
+    setSeason(currentSeason === 'winter' ? 'fall' : 'winter', true);
+  }
+
+  function initSeasonToggle() {
+    // Initialize season immediately
+    setSeason(getPreferredSeason(), false);
+
+    // Attach click handlers to all season toggles
+    document.querySelectorAll('.season-toggle, #seasonToggle').forEach(toggle => {
+      toggle.addEventListener('click', toggleSeason);
+    });
   }
 
   // Run init on DOM ready
@@ -128,5 +172,11 @@
     get: getPreferredTheme,
     set: setTheme,
     toggle: toggleTheme
+  };
+
+  window.HorizonSeason = {
+    get: getPreferredSeason,
+    set: setSeason,
+    toggle: toggleSeason
   };
 })();
