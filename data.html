@@ -241,9 +241,8 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space-3);
-      margin-top: calc(-1 * var(--space-6));
+      margin-top: var(--space-4);
       position: relative;
-      z-index: 2;
     }
 
     @media (min-width: 768px) {
@@ -570,15 +569,18 @@
       display: grid;
       gap: var(--space-2);
       margin-top: var(--space-3);
+      width: 100%;
+      max-width: 280px;
     }
 
     .demo-legend-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: var(--space-1) var(--space-2);
+      padding: var(--space-2);
       border-radius: var(--radius-sm);
       cursor: pointer;
+      gap: var(--space-2);
       transition: background 0.2s;
     }
 
@@ -590,28 +592,36 @@
       display: flex;
       align-items: center;
       gap: var(--space-2);
+      flex: 1;
+      min-width: 0;
     }
 
     .demo-legend-color {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       border-radius: var(--radius-sm);
+      flex-shrink: 0;
     }
 
     .demo-legend-label {
-      font-size: var(--text-body-sm);
+      font-size: 13px;
       color: var(--color-text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .demo-legend-value {
       font-weight: 600;
+      font-size: 13px;
       color: var(--color-text-primary);
+      white-space: nowrap;
     }
 
     .demo-legend-percent {
-      font-size: var(--text-caption);
+      font-size: 11px;
       color: var(--color-text-secondary);
-      margin-left: var(--space-1);
+      margin-left: 2px;
     }
 
     /* Data Table */
