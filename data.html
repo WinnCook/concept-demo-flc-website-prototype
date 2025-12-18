@@ -86,15 +86,12 @@
     .data-page-background {
       position: fixed;
       inset: 0;
-      z-index: -2;
+      z-index: -1;
       background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat;
       background-attachment: fixed;
     }
 
-    /* Dark mode: slightly fade for star visibility */
-    [data-theme="dark"] .data-page-background {
-      opacity: 0.5;
-    }
+    /* NO dark mode dimming - keep mountain crisp like homepage */
 
     /* ===== STARFIELD (Dark Mode) ===== */
     .data-stars {
@@ -2304,11 +2301,14 @@
       <!-- TAB 3: Data Explorer -->
       <div class="ir-tab-content" id="tab-explorer" role="tabpanel">
         <div class="explorer">
-          <!-- Data Source Toggle -->
-          <div class="data-source-toggle" style="margin-bottom: var(--space-3); display: flex; gap: var(--space-2); background: var(--color-bg-light); padding: var(--space-2); border-radius: var(--radius-md);">
-            <button class="source-btn active" data-source="enrollment" style="flex: 1; padding: var(--space-2); border-radius: var(--radius-sm); border: 1px solid var(--color-border); background: var(--color-primary); color: white; cursor: pointer; font-weight: 600; font-size: 0.875rem;">📊 Enrollment</button>
-            <button class="source-btn" data-source="admissions" style="flex: 1; padding: var(--space-2); border-radius: var(--radius-sm); border: 1px solid var(--color-border); background: transparent; cursor: pointer; font-size: 0.875rem;">🎓 Admissions</button>
-            <button class="source-btn" data-source="expenses" style="flex: 1; padding: var(--space-2); border-radius: var(--radius-sm); border: 1px solid var(--color-border); background: transparent; cursor: pointer; font-size: 0.875rem;">💰 Expenses</button>
+          <!-- Data Source Dropdown -->
+          <div class="explorer__source-selector" style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);">
+            <label class="source-selector__label" for="dataSourceSelect" style="font-weight: 600; color: var(--color-text); font-size: 0.875rem; white-space: nowrap;">Data Source:</label>
+            <select class="source-selector__dropdown" id="dataSourceSelect" style="padding: 10px 40px 10px 16px; font-size: 0.9rem; font-weight: 500; border: 2px solid var(--color-primary); border-radius: var(--radius-lg); background: var(--color-surface); color: var(--color-text); cursor: pointer; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 12 12%22><path fill=%22%23003366%22 d=%22M2 4l4 4 4-4z%22/></svg>'); background-repeat: no-repeat; background-position: right 12px center; min-width: 200px;">
+              <option value="enrollment">📊 Enrollment Trends</option>
+              <option value="admissions">🎓 Admissions Funnel</option>
+              <option value="expenses">💰 Tuition & Costs</option>
+            </select>
           </div>
 
           <!-- Field Panel -->
@@ -3261,45 +3261,31 @@
         });
       });
 
-      // Data Source Toggle
-      const sourceButtons = document.querySelectorAll('.source-btn');
-      sourceButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const newSource = btn.dataset.source;
-          explorerState.dataSource = newSource;
+      // Data Source Dropdown
+      const dataSourceSelect = document.getElementById('dataSourceSelect');
+      dataSourceSelect.addEventListener('change', () => {
+        const newSource = dataSourceSelect.value;
+        explorerState.dataSource = newSource;
 
-          // Update button styles
-          sourceButtons.forEach(b => {
-            b.classList.remove('active');
-            b.style.background = 'transparent';
-            b.style.color = '';
-            b.style.fontWeight = '';
-          });
-          btn.classList.add('active');
-          btn.style.background = 'var(--color-primary)';
-          btn.style.color = 'white';
-          btn.style.fontWeight = '600';
+        // Show/hide relevant measures
+        document.querySelectorAll('.measure-enrollment').forEach(el => el.style.display = newSource === 'enrollment' ? '' : 'none');
+        document.querySelectorAll('.measure-admissions').forEach(el => el.style.display = newSource === 'admissions' ? '' : 'none');
+        document.querySelectorAll('.measure-expenses').forEach(el => el.style.display = newSource === 'expenses' ? '' : 'none');
 
-          // Show/hide relevant measures
-          document.querySelectorAll('.measure-enrollment').forEach(el => el.style.display = newSource === 'enrollment' ? '' : 'none');
-          document.querySelectorAll('.measure-admissions').forEach(el => el.style.display = newSource === 'admissions' ? '' : 'none');
-          document.querySelectorAll('.measure-expenses').forEach(el => el.style.display = newSource === 'expenses' ? '' : 'none');
+        // Reset explorer state when switching sources
+        explorerState.rows = { field: 'year', type: 'dimension', label: 'Year' };
+        explorerState.columns = null;
+        explorerState.values = null;
+        explorerState.filter = null;
+        explorerState.filterValues = null;
 
-          // Reset explorer state when switching sources
-          explorerState.rows = { field: 'year', type: 'dimension', label: 'Year' };
-          explorerState.columns = null;
-          explorerState.values = null;
-          explorerState.filter = null;
-          explorerState.filterValues = null;
-
-          // Update drop zones
-          updateDropZoneDisplay(dropRowsContent, explorerState.rows, 'rows', 'Drop a dimension here');
-          updateDropZoneDisplay(dropColsContent, explorerState.columns, 'columns', 'Optional: group/color by');
-          updateDropZoneDisplay(dropValuesContent, explorerState.values, 'values', 'Drop a measure here');
-          updateDropZoneDisplay(dropFilterContent, explorerState.filter, 'filter', 'Optional: filter by');
-          filterPopup.classList.remove('active');
-          updateExplorerChart();
-        });
+        // Update drop zones
+        updateDropZoneDisplay(dropRowsContent, explorerState.rows, 'rows', 'Drop a dimension here');
+        updateDropZoneDisplay(dropColsContent, explorerState.columns, 'columns', 'Optional: group/color by');
+        updateDropZoneDisplay(dropValuesContent, explorerState.values, 'values', 'Drop a measure here');
+        updateDropZoneDisplay(dropFilterContent, explorerState.filter, 'filter', 'Optional: filter by');
+        filterPopup.classList.remove('active');
+        updateExplorerChart();
       });
 
       // Reset button
