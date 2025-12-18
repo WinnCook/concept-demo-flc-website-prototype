@@ -2092,11 +2092,43 @@
         </div>
       </div>
       <div class="stat-card fade-in" style="animation-delay: 0.3s;">
-        <div class="stat-card__value">15:1</div>
+        <div class="stat-card__value">13:1</div>
         <div class="stat-card__label">Student-Faculty Ratio</div>
         <div class="stat-card__trend">
           <span>—</span>
-          <span>At target</span>
+          <span>Small class sizes</span>
+        </div>
+      </div>
+      <div class="stat-card fade-in" style="animation-delay: 0.4s;">
+        <div class="stat-card__value">43%</div>
+        <div class="stat-card__label">First-Generation Students</div>
+        <div class="stat-card__trend stat-card__trend--up">
+          <span>↑</span>
+          <span>Above national avg</span>
+        </div>
+      </div>
+      <div class="stat-card fade-in" style="animation-delay: 0.5s;">
+        <div class="stat-card__value">52%</div>
+        <div class="stat-card__label">Students of Color</div>
+        <div class="stat-card__trend stat-card__trend--up">
+          <span>↑</span>
+          <span>Diverse campus</span>
+        </div>
+      </div>
+      <div class="stat-card fade-in" style="animation-delay: 0.6s;">
+        <div class="stat-card__value">47%</div>
+        <div class="stat-card__label">In-State (Colorado)</div>
+        <div class="stat-card__trend">
+          <span>—</span>
+          <span>53% out-of-state</span>
+        </div>
+      </div>
+      <div class="stat-card fade-in" style="animation-delay: 0.7s;">
+        <div class="stat-card__value">93%</div>
+        <div class="stat-card__label">Acceptance Rate (2023-24)</div>
+        <div class="stat-card__trend stat-card__trend--up">
+          <span>↑</span>
+          <span>Accessible admission</span>
         </div>
       </div>
     </div>
@@ -2272,9 +2304,16 @@
       <!-- TAB 3: Data Explorer -->
       <div class="ir-tab-content" id="tab-explorer" role="tabpanel">
         <div class="explorer">
+          <!-- Data Source Toggle -->
+          <div class="data-source-toggle" style="margin-bottom: var(--space-3); display: flex; gap: var(--space-2); background: var(--color-bg-light); padding: var(--space-2); border-radius: var(--radius-md);">
+            <button class="source-btn active" data-source="enrollment" style="flex: 1; padding: var(--space-2); border-radius: var(--radius-sm); border: 1px solid var(--color-border); background: var(--color-primary); color: white; cursor: pointer; font-weight: 600; font-size: 0.875rem;">📊 Enrollment</button>
+            <button class="source-btn" data-source="admissions" style="flex: 1; padding: var(--space-2); border-radius: var(--radius-sm); border: 1px solid var(--color-border); background: transparent; cursor: pointer; font-size: 0.875rem;">🎓 Admissions</button>
+            <button class="source-btn" data-source="expenses" style="flex: 1; padding: var(--space-2); border-radius: var(--radius-sm); border: 1px solid var(--color-border); background: transparent; cursor: pointer; font-size: 0.875rem;">💰 Expenses</button>
+          </div>
+
           <!-- Field Panel -->
           <div class="field-panel">
-            <div class="field-panel__section">
+            <div class="field-panel__section" id="dimensionsSection">
               <div class="field-panel__title">Dimensions</div>
               <div class="field field--dimension" draggable="true" data-field="year" data-type="dimension">
                 <span class="field__icon">📅</span>
@@ -2294,15 +2333,50 @@
               </div>
             </div>
 
-            <div class="field-panel__section">
+            <div class="field-panel__section" id="measuresSection">
               <div class="field-panel__title">Measures</div>
-              <div class="field field--measure" draggable="true" data-field="total" data-type="measure">
+              <!-- Enrollment measures (default) -->
+              <div class="field field--measure measure-enrollment" draggable="true" data-field="total" data-type="measure">
                 <span class="field__icon">📊</span>
                 <span>Total Enrollment</span>
               </div>
-              <div class="field field--measure" draggable="true" data-field="count" data-type="measure">
+              <div class="field field--measure measure-enrollment" draggable="true" data-field="count" data-type="measure">
                 <span class="field__icon">#</span>
                 <span>Count</span>
+              </div>
+              <!-- Admissions measures (hidden by default) -->
+              <div class="field field--measure measure-admissions" draggable="true" data-field="totalApplied" data-type="measure" style="display: none;">
+                <span class="field__icon">📝</span>
+                <span>Applications</span>
+              </div>
+              <div class="field field--measure measure-admissions" draggable="true" data-field="totalAdmitted" data-type="measure" style="display: none;">
+                <span class="field__icon">✅</span>
+                <span>Admitted</span>
+              </div>
+              <div class="field field--measure measure-admissions" draggable="true" data-field="totalEnrolled" data-type="measure" style="display: none;">
+                <span class="field__icon">🎓</span>
+                <span>Enrolled Freshmen</span>
+              </div>
+              <div class="field field--measure measure-admissions" draggable="true" data-field="acceptanceRate" data-type="measure" style="display: none;">
+                <span class="field__icon">%</span>
+                <span>Acceptance Rate</span>
+              </div>
+              <div class="field field--measure measure-admissions" draggable="true" data-field="yieldRate" data-type="measure" style="display: none;">
+                <span class="field__icon">📈</span>
+                <span>Yield Rate</span>
+              </div>
+              <!-- Expenses measures (hidden by default) -->
+              <div class="field field--measure measure-expenses" draggable="true" data-field="inStateTuition" data-type="measure" style="display: none;">
+                <span class="field__icon">🏠</span>
+                <span>In-State Tuition</span>
+              </div>
+              <div class="field field--measure measure-expenses" draggable="true" data-field="outOfStateTuition" data-type="measure" style="display: none;">
+                <span class="field__icon">✈️</span>
+                <span>Out-of-State Tuition</span>
+              </div>
+              <div class="field field--measure measure-expenses" draggable="true" data-field="roomBoard" data-type="measure" style="display: none;">
+                <span class="field__icon">🏨</span>
+                <span>Room & Board</span>
               </div>
             </div>
           </div>
@@ -2829,6 +2903,23 @@
       });
     }
 
+    // CDS Data - Comprehensive Common Data Set parsed from Excel files
+    const cdsData = {
+      years: ['2014-15', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24'],
+      admissions: {
+        totalApplied: [2439, 4473, 4198, 3757, 3497, 3795, 4926, 4241],
+        totalAdmitted: [2215, 3722, 3817, 3433, 3200, 3520, 4481, 3954],
+        totalEnrolled: [779, 706, 756, 761, 813, 960, 848, 778],
+        acceptanceRate: [90.8, 83.2, 90.9, 91.4, 91.5, 92.8, 91.0, 93.2],
+        yieldRate: [35.2, 19.0, 19.8, 22.2, 25.4, 27.3, 18.9, 19.7]
+      },
+      expenses: {
+        inStateTuition: [5856, 6720, 7056, 7056, 7056, 7056, 7200, 7560],
+        outOfStateTuition: [16072, 16872, 17712, 17712, 17712, 17712, 17712, 18688],
+        roomBoard: [10680, 11268, 11520, 11704, 11858, 12012, 12554, 13390]
+      }
+    };
+
     // Data Explorer - Enhanced with multi-dimension support
     function setupDataExplorer() {
       // Explorer state with 4 zones: rows, columns (group by), values, filter
@@ -2838,7 +2929,8 @@
         values: null,    // Measure
         filter: null,    // Filter dimension
         filterValues: null, // Selected filter values (array of selected items or {min, max} for year)
-        chartType: 'line'
+        chartType: 'line',
+        dataSource: 'enrollment' // NEW: 'enrollment', 'admissions', or 'expenses'
       };
 
       // Color palettes
@@ -3168,6 +3260,48 @@
           updateExplorerChart();
         });
       });
+
+      // Data Source Toggle
+      const sourceButtons = document.querySelectorAll('.source-btn');
+      sourceButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const newSource = btn.dataset.source;
+          explorerState.dataSource = newSource;
+
+          // Update button styles
+          sourceButtons.forEach(b => {
+            b.classList.remove('active');
+            b.style.background = 'transparent';
+            b.style.color = '';
+            b.style.fontWeight = '';
+          });
+          btn.classList.add('active');
+          btn.style.background = 'var(--color-primary)';
+          btn.style.color = 'white';
+          btn.style.fontWeight = '600';
+
+          // Show/hide relevant measures
+          document.querySelectorAll('.measure-enrollment').forEach(el => el.style.display = newSource === 'enrollment' ? '' : 'none');
+          document.querySelectorAll('.measure-admissions').forEach(el => el.style.display = newSource === 'admissions' ? '' : 'none');
+          document.querySelectorAll('.measure-expenses').forEach(el => el.style.display = newSource === 'expenses' ? '' : 'none');
+
+          // Reset explorer state when switching sources
+          explorerState.rows = { field: 'year', type: 'dimension', label: 'Year' };
+          explorerState.columns = null;
+          explorerState.values = null;
+          explorerState.filter = null;
+          explorerState.filterValues = null;
+
+          // Update drop zones
+          updateDropZoneDisplay(dropRowsContent, explorerState.rows, 'rows', 'Drop a dimension here');
+          updateDropZoneDisplay(dropColsContent, explorerState.columns, 'columns', 'Optional: group/color by');
+          updateDropZoneDisplay(dropValuesContent, explorerState.values, 'values', 'Drop a measure here');
+          updateDropZoneDisplay(dropFilterContent, explorerState.filter, 'filter', 'Optional: filter by');
+          filterPopup.classList.remove('active');
+          updateExplorerChart();
+        });
+      });
+
       // Reset button
       resetButton.addEventListener('click', () => {
         explorerState.rows = null;
@@ -3383,6 +3517,49 @@
 
       // Build data structure for charts
       function buildChartData(rows, columns, values, chartType, filter, filterValues) {
+        // Handle CDS Admissions data
+        if (explorerState.dataSource === 'admissions' && rows.field === 'year') {
+          const cdsYears = cdsData.years.map(y => y.split('-')[0]);
+          const metric = values.field;
+          const data = cdsData.admissions[metric];
+
+          if (data) {
+            // Format values (percentages stay as-is, counts get formatted)
+            const isPercentage = metric.includes('Rate');
+            return {
+              labels: cdsYears,
+              series: [{
+                label: values.label,
+                data: data,
+                color: isPercentage ? '#10B981' : '#2563EB'
+              }],
+              type: 'timeseries',
+              isPercentage: isPercentage
+            };
+          }
+        }
+
+        // Handle CDS Expenses data
+        if (explorerState.dataSource === 'expenses' && rows.field === 'year') {
+          const cdsYears = cdsData.years.map(y => y.split('-')[0]);
+          const metric = values.field;
+          const data = cdsData.expenses[metric];
+
+          if (data) {
+            return {
+              labels: cdsYears,
+              series: [{
+                label: values.label,
+                data: data,
+                color: metric === 'inStateTuition' ? '#2563EB' : metric === 'outOfStateTuition' ? '#DC2626' : '#FFB81C'
+              }],
+              type: 'timeseries',
+              isCurrency: true
+            };
+          }
+        }
+
+        // Original enrollment data handling
         const rowDim = dimensionData[rows.field];
         const colDim = columns ? dimensionData[columns.field] : null;
 
