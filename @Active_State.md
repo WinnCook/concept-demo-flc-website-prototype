@@ -165,7 +165,7 @@ ad4bdbf Fix search button styling and update fall background
 ### Background System
 - **Fixed mountain background** - `position: fixed`, stays still while content scrolls
 - **Winter mode:** Snowy mountain peaks (Unsplash photo-1519681393784-d120267933ba)
-- **Fall mode:** La Plata Canyon fall foliage (src/assets/images/fall-background.jpg)
+- **Fall mode:** Colorado Mountain fall colors by Remo Daut (src/assets/images/fall-background.jpg) - 4K 3840x2160
 - **Season persists** across page navigation via localStorage
 
 ### Section Styling (Light Mode)
@@ -215,7 +215,8 @@ z-index: 100;
 
 **Branch:** main
 **Remote:** origin (https://github.com/WinnCook/concept-demo-flc-website-prototype)
-**Last Commit:** 624ce5a - Make pages aesthetically match homepage with fixed mountain background
+**Last Commit:** ef8424e - Update @Active_State.md with Session 20 notes
+**Previous:** 2d53548 - Fix data explorer filter popup overflow, add HD Colorado fall background
 **Status:** Clean - all changes committed and pushed
 
 **Live URL:** https://winncook.github.io/concept-demo-flc-website-prototype/
@@ -242,44 +243,51 @@ z-index: 100;
 | 17 | 2025-12-17 | Phase 17 - Critical Bug Fix & Labels | Complete |
 | 18 | 2025-12-17 | Phase 18 - UX Polish & Data Explorer Defaults | Complete |
 | 19 | 2025-12-17 | Phase 19 - Season Toggle & Aesthetic Consistency | Complete |
+| 20 | 2025-12-18 | Phase 20 - Data Explorer UX & Fall Background | Complete |
 
 ---
 
 ## HANDOFF NOTES
 
-**Session 19 Summary:**
-Made all main pages (Programs, Admission, Campus, About, Data) aesthetically match the homepage with fixed mountain backgrounds visible throughout scrolling, semi-transparent cream/gold sections, and consistent season toggle functionality.
+**Session 20 Summary:**
+Fixed two issues: (1) Data Explorer filter popup was being cut off by table edge, (2) Replaced fall background with stunning 4K Colorado Mountain fall colors image.
 
-**What Was Changed:**
-1. Removed non-working shooting stars from homepage
-2. Added season toggle button to ALL main pages (not just homepage)
-3. Snow/leaves effects remain ONLY on homepage (less distracting)
-4. Fixed search icon styling across all pages (was showing white circle)
-5. Changed fall background to local La Plata Canyon image
-6. Made Programs, Admission, Campus pages have:
-   - Semi-transparent nav with blur effect
-   - Semi-transparent hero sections showing mountain behind
-   - Cream/gold tinted translucent cards and sections
-   - Dark mode support with darker translucent backgrounds
-7. Fixed Data page to use shared page-background class
+**What Was Changed This Session:**
+1. **Data Explorer Filter Popup Fix** (`data.html`):
+   - Changed popup position from `left: 0` to `right: 0` (anchors to right side)
+   - Added `overflow: visible` to `.drop-zone--filter`, `.drop-zones`, `.explorer__workspace`
+   - Reduced max-width from 400px to 340px for better fit
+   - Filter dropdowns now fully visible when opened
+
+2. **HD Fall Background Image**:
+   - Downloaded 4K (3840x2160) Colorado Mountain fall colors image
+   - Features: Golden aspen forest, mountain landscape, dramatic clouds
+   - Photographer: Remo Daut (from 4kwallpapers.com)
+   - Replaced at: `src/assets/images/fall-background.jpg` (3.4MB)
 
 **Current State:**
 - ALL main pages have fixed mountain background visible while scrolling
 - Season toggle (snowflake/leaf icon) on ALL main pages
 - Season preference persists across pages via localStorage
 - Falling effects (snow/leaves) ONLY on homepage
-- Consistent cream/gold semi-transparent aesthetic across site
-- Clean, professional, cohesive appearance
-- Ready for executive presentation
+- Data Explorer filter popup works correctly (no longer cut off)
+- New HD fall background with stunning Colorado mountain fall colors
+- Site is presentation-ready
+
+**Key Decisions (Session 20 - FINAL):**
+| Decision | Status | Rationale |
+|----------|--------|-----------|
+| Filter popup anchored to right | FINAL | Prevents cutoff since filter is rightmost zone |
+| Colorado Mountain 4K fall image | FINAL | User selected from options presented |
 
 **Git Status:** Clean - all changes committed and pushed
 **Branch:** main
-**Latest Commit:** 624ce5a
+**Latest Commit:** ef8424e
 
 **For Next Session (if needed):**
 - Gather user feedback from testing
-- About page may need similar aesthetic treatment (was partially done)
 - Site is presentation-ready
+- No outstanding issues
 
 **Quick Start:**
 ```
