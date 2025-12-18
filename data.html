@@ -1099,13 +1099,17 @@
     }
 
     .drop-zone {
-      background: var(--color-surface);
+      background: rgba(255, 255, 255, 0.95);
       border: 2px dashed var(--color-border);
       border-radius: var(--radius-lg);
       padding: var(--space-3);
       min-height: 90px;
       transition: all 0.2s ease;
       position: relative;
+    }
+
+    [data-theme="dark"] .drop-zone {
+      background: rgba(30, 35, 44, 0.95);
     }
 
     .drop-zone::before {
@@ -1121,7 +1125,6 @@
 
     .drop-zone--measures {
       border-color: rgba(16, 185, 129, 0.4);
-      background: rgba(16, 185, 129, 0.02);
     }
 
     .drop-zone--measures::before {
@@ -1130,7 +1133,6 @@
 
     .drop-zone--group {
       border-color: rgba(139, 92, 246, 0.4);
-      background: rgba(139, 92, 246, 0.02);
     }
 
     .drop-zone--group::before {
@@ -1139,7 +1141,6 @@
 
     .drop-zone--filter {
       border-color: rgba(245, 158, 11, 0.4);
-      background: rgba(245, 158, 11, 0.02);
     }
 
     .drop-zone--filter::before {
@@ -1183,7 +1184,7 @@
       top: 100%;
       left: 0;
       right: 0;
-      min-width: 280px;
+      min-width: 320px;
       margin-top: var(--space-2);
       background: var(--color-surface);
       border: 1px solid var(--color-border);
@@ -1243,39 +1244,42 @@
       display: flex;
       flex-direction: column;
       gap: var(--space-2);
-      max-height: 200px;
+      max-height: 280px;
       overflow-y: auto;
     }
 
     .filter-option {
       display: flex;
       align-items: center;
-      gap: var(--space-2);
+      gap: var(--space-3);
       cursor: pointer;
-      padding: var(--space-1) var(--space-2);
-      border-radius: var(--radius-sm);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
       transition: background var(--duration-fast);
-    }
-
-    .filter-option:hover {
       background: var(--color-bg-light);
     }
 
+    .filter-option:hover {
+      background: var(--color-border);
+    }
+
     .filter-option input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       accent-color: var(--color-primary);
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .filter-option__label {
-      font-size: var(--text-body-sm);
+      font-size: 14px;
       color: var(--color-text);
+      font-weight: 500;
     }
 
     .filter-option__color {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       flex-shrink: 0;
     }
@@ -3258,7 +3262,7 @@
 
       // Generate the granular data table for the report
       function generateReportDataTable() {
-        const { rows, columns, values, filter } = explorerState;
+        const { rows, columns, values, filter, chartType, filterValues } = explorerState;
         const tableHead = document.getElementById('reportTableHead');
         const tableBody = document.getElementById('reportTableBody');
 
@@ -3268,36 +3272,41 @@
           return;
         }
 
-        // Build headers based on current configuration
+        // Build headers - we'll update these after getting chart data
         let headers = [rows.label];
-        if (columns && columns.field === 'genderBreakdown') {
-          headers.push('Male', 'Female');
-        } else if (columns && columns.field === 'statusBreakdown') {
-          headers.push('Full-Time', 'Part-Time');
+
+        // Get chart data first to determine proper headers
+        const chartData = buildChartData(rows, columns, values, chartType, filter, filterValues);
+
+        if (chartData && chartData.series && chartData.series.length > 1) {
+          // Multiple series - use series labels as headers
+          chartData.series.forEach(s => headers.push(s.label));
+        } else if (chartData && chartData.series && chartData.series.length === 1) {
+          headers.push(chartData.series[0].label || values.label);
         } else {
           headers.push(values.label);
         }
         tableHead.innerHTML = headers.map(h => `<th>${h}</th>`).join('');
 
-        // Build data rows
+        // Build data rows from chartData object (reusing chartData from above)
         let dataRows = '';
-        const data = buildChartData();
 
-        if (data && data.length > 0) {
-          data.forEach(point => {
-            if (columns) {
-              // Multi-series data
-              dataRows += `<tr><td>${point.label}</td>`;
-              if (point.male !== undefined) {
-                dataRows += `<td>${point.male?.toLocaleString() || '—'}</td><td>${point.female?.toLocaleString() || '—'}</td>`;
-              } else if (point.fullTime !== undefined) {
-                dataRows += `<td>${point.fullTime?.toLocaleString() || '—'}</td><td>${point.partTime?.toLocaleString() || '—'}</td>`;
-              }
-              dataRows += '</tr>';
-            } else {
+        if (chartData && chartData.labels && chartData.labels.length > 0) {
+          const { labels, series } = chartData;
+
+          // Generate rows based on chart data structure
+          labels.forEach((label, i) => {
+            dataRows += `<tr><td>${label}</td>`;
+            if (series.length > 1) {
+              // Multiple series (e.g., Male/Female or Full-Time/Part-Time)
+              series.forEach(s => {
+                dataRows += `<td>${s.data[i]?.toLocaleString() || '—'}</td>`;
+              });
+            } else if (series.length === 1) {
               // Single series
-              dataRows += `<tr><td>${point.label}</td><td>${point.value?.toLocaleString() || '—'}</td></tr>`;
+              dataRows += `<td>${series[0].data[i]?.toLocaleString() || '—'}</td>`;
             }
+            dataRows += '</tr>';
           });
         } else {
           dataRows = '<tr><td colspan="' + headers.length + '">No data available</td></tr>';
