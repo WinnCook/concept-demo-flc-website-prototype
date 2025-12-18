@@ -1,6 +1,6 @@
 # HORIZON - Active State
 **Mission Card | Session Continuity Document**
-**Last Updated:** 2025-12-18 | Session 20
+**Last Updated:** 2025-12-18 | Session 21
 
 ---
 
@@ -8,15 +8,78 @@
 
 | Field | Value |
 |-------|-------|
-| **Phase** | 20 - Data Explorer UX & Fall Background Update |
+| **Phase** | 21 - Data Explorer Executive Features |
 | **Status** | COMPLETE |
-| **Active Task** | None - Ready for review |
+| **Active Task** | None - Ready for presentation |
 | **Blockers** | None |
 | **Next Milestone** | Executive presentation |
 
 ---
 
-## SESSION 20 COMPLETION (Current)
+## SESSION 21 COMPLETION (Current)
+
+**Major Theme: Executive-Ready Data Explorer Enhancements**
+
+### Bug Fixes:
+
+1. **Race/Ethnicity Line Chart** - Now shows proper time-series with 7 ethnicity groups over 10 years
+2. **Female Color Fix** - Changed from pink (#EC4899) to Fort Lewis Gold (#FFB81C)
+
+### New Features Added:
+
+**1. FULL 10-YEAR ETHNICITY DATA (CDS B2)**
+- [x] Parsed all CDS Excel files (2014-15 through 2023-24)
+- [x] Created `ethnicityByYear` data structure with 7 groups
+- [x] White, Native American, Hispanic, Two or More, Black, Asian, Other
+- [x] All data sourced from CDS Section B2 (Total Undergraduates)
+
+**2. FULLSCREEN TOGGLE**
+- [x] Added ⛶ button to expand Data Explorer to fullscreen
+- [x] ESC key to exit fullscreen
+- [x] Smooth scale-in animation
+
+**3. MULTI-CHART COMPARISON (FULLSCREEN)**
+- [x] 1, 2, or 4 panel layouts available
+- [x] Each panel has independent selectors:
+  - Data Source (Enrollment, Admissions, Costs, Ethnicity)
+  - Rows dimension
+  - Columns breakdown
+  - Chart type (Line, Bar, Area)
+- [x] Real-time rendering when selectors change
+
+**4. EXECUTIVE INSIGHTS PANEL**
+- [x] Auto-generated bullet points below charts
+- [x] Detects trends >3%, peaks, significant YoY changes >10%
+- [x] Icons: 📈 (up), 📉 (down), 🎯 (peak)
+- [x] Shows top 4 most relevant insights
+
+**5. PRESET QUICK VIEWS**
+- [x] One-click buttons for common dashboards:
+  - 📊 Enrollment Trends (by status breakdown)
+  - 🌈 Diversity (by ethnicity breakdown)
+  - 💰 Costs (tuition over time)
+  - 📥 Admissions (applications trend)
+
+### Files Modified:
+- `data.html` - All changes (inline CSS/JS)
+
+### Key Data Structures Added:
+```javascript
+const ethnicityByYear = {
+  years: ['2014-15', '2015-16', ..., '2023-24'],  // 10 years
+  white: [2040, 1902, 1779, 1603, 1508, 1430, 1353, 1344, 1330, 1467],
+  nativeAmerican: [883, 897, 906, 828, 868, 931, 1103, 1162, 1012, 887],
+  hispanic: [385, 395, 391, 367, 363, 383, 433, 448, 450, 484],
+  twoOrMore: [228, 243, 268, 283, 345, 337, 339, 376, 365, 376],
+  black: [31, 45, 36, 37, 33, 31, 24, 31, 34, 39],
+  asian: [24, 24, 21, 21, 20, 19, 11, 13, 22, 16],
+  other: [107, 173, 155, 160, 133, 98, 86, 65, 55, 51]
+};
+```
+
+---
+
+## SESSION 20 COMPLETION
 
 **Major Theme: Data Explorer Filter Fix, HD Fall Background**
 
@@ -244,45 +307,70 @@ z-index: 100;
 | 18 | 2025-12-17 | Phase 18 - UX Polish & Data Explorer Defaults | Complete |
 | 19 | 2025-12-17 | Phase 19 - Season Toggle & Aesthetic Consistency | Complete |
 | 20 | 2025-12-18 | Phase 20 - Data Explorer UX & Fall Background | Complete |
+| 21 | 2025-12-18 | Phase 21 - Data Explorer Executive Features | Complete |
 
 ---
 
 ## HANDOFF NOTES
 
-**Session 20 Summary:**
-Fixed two issues: (1) Data Explorer filter popup was being cut off by table edge, (2) Replaced fall background with stunning 4K Colorado Mountain fall colors image.
+**Session 21 Summary:**
+Added executive-ready features to Data Explorer: fixed ethnicity line chart bug, changed female color to FLC Gold, added fullscreen mode with multi-chart comparison (up to 4 panels), executive insights auto-generation, and preset quick views.
 
 **What Was Changed This Session:**
-1. **Data Explorer Filter Popup Fix** (`data.html`):
-   - Changed popup position from `left: 0` to `right: 0` (anchors to right side)
-   - Added `overflow: visible` to `.drop-zone--filter`, `.drop-zones`, `.explorer__workspace`
-   - Reduced max-width from 400px to 340px for better fit
-   - Filter dropdowns now fully visible when opened
+1. **Ethnicity Line Chart Fix** (`data.html`):
+   - Parsed all 10 CDS files for Section B2 ethnicity data
+   - Created `ethnicityByYear` data structure with 7 ethnic groups over 10 years
+   - Updated buildChartData() to render multiple line series when ethnicity is in columns
+   - Ethnicity dropdown now shows all 7 groups with proper filtering
 
-2. **HD Fall Background Image**:
-   - Downloaded 4K (3840x2160) Colorado Mountain fall colors image
-   - Features: Golden aspen forest, mountain landscape, dramatic clouds
-   - Photographer: Remo Daut (from 4kwallpapers.com)
-   - Replaced at: `src/assets/images/fall-background.jpg` (3.4MB)
+2. **Female Color Fix** (`data.html`):
+   - Changed all 5 instances of #EC4899 (pink) to #FFB81C (FLC Gold)
+   - Affects: colors.gender.female, CSS classes, static chart config, legend
+
+3. **Fullscreen Toggle**:
+   - Added ⛶ button to explorer controls
+   - ESC key or button click to exit
+   - Smooth scale-in animation
+   - Body scroll locked when active
+
+4. **Multi-Chart Comparison System** (fullscreen only):
+   - Panel count selector: 1, 2, or 4 panels
+   - Each panel has independent selectors (data source, rows, columns, chart type)
+   - Grid layout adapts to panel count
+   - Real-time chart rendering on selector change
+
+5. **Executive Insights Panel**:
+   - Auto-generates bullet points from chart data
+   - Detects: overall trend (>3%), peaks, significant YoY changes (>10%)
+   - Shows top 4 insights with icons
+
+6. **Preset Quick Views**:
+   - 📊 Enrollment Trends (by status breakdown)
+   - 🌈 Diversity (by ethnicity breakdown)
+   - 💰 Costs (tuition over time)
+   - 📥 Admissions (applications trend)
 
 **Current State:**
 - ALL main pages have fixed mountain background visible while scrolling
-- Season toggle (snowflake/leaf icon) on ALL main pages
-- Season preference persists across pages via localStorage
-- Falling effects (snow/leaves) ONLY on homepage
-- Data Explorer filter popup works correctly (no longer cut off)
-- New HD fall background with stunning Colorado mountain fall colors
+- Season toggle on ALL main pages, falling effects ONLY on homepage
+- Data Explorer now has executive-ready features:
+  - Fullscreen mode with multi-chart comparison
+  - Executive insights auto-generation
+  - Preset quick view buttons
+  - Fixed ethnicity line chart (10 years of data)
+  - Female color uses FLC Gold
 - Site is presentation-ready
 
-**Key Decisions (Session 20 - FINAL):**
+**Key Decisions (Session 21 - FINAL):**
 | Decision | Status | Rationale |
 |----------|--------|-----------|
-| Filter popup anchored to right | FINAL | Prevents cutoff since filter is rightmost zone |
-| Colorado Mountain 4K fall image | FINAL | User selected from options presented |
+| Use actual CDS B2 data for ethnicity | FINAL | User specified real data from downloaded files |
+| Female color #FFB81C (FLC Gold) | FINAL | Consistent with FLC branding |
+| Simplified dropdown selectors in comparison | FINAL | User preference over drag-drop |
+| 4 preset quick views | FINAL | User approved all 4 presets |
 
-**Git Status:** Clean - all changes committed and pushed
+**Git Status:** Pending commit
 **Branch:** main
-**Latest Commit:** ef8424e
 
 **For Next Session (if needed):**
 - Gather user feedback from testing

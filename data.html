@@ -476,7 +476,7 @@
     }
 
     .chart-line--female {
-      stroke: #EC4899;
+      stroke: #FFB81C;
     }
 
     .chart-area {
@@ -507,7 +507,7 @@
     }
 
     .chart-point--female {
-      stroke: #EC4899;
+      stroke: #FFB81C;
     }
 
     /* Full-Time / Part-Time chart styles */
@@ -1830,6 +1830,330 @@
       box-shadow: 0 2px 4px rgba(0, 51, 102, 0.2);
     }
 
+    .explorer__fullscreen {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 51, 102, 0.1);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .explorer__fullscreen:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    /* Fullscreen Mode */
+    .explorer-section--fullscreen {
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 1000 !important;
+      background: var(--color-surface) !important;
+      padding: var(--space-4) !important;
+      overflow: auto !important;
+      animation: fullscreenIn 0.3s ease;
+    }
+
+    .explorer-section--fullscreen .explorer-card {
+      max-width: none;
+      margin: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .explorer-section--fullscreen .explorer {
+      flex: 1;
+      height: calc(100vh - 180px);
+    }
+
+    .explorer-section--fullscreen .explorer__workspace {
+      height: 100%;
+    }
+
+    .explorer-section--fullscreen .chart-preview {
+      min-height: 500px;
+      flex: 1;
+    }
+
+    .explorer-section--fullscreen .chart-preview__content {
+      min-height: 450px;
+    }
+
+    .explorer-section--fullscreen .explorer__fullscreen {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    @keyframes fullscreenIn {
+      from {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    body.fullscreen-active {
+      overflow: hidden;
+    }
+
+    /* Multi-Chart Comparison Mode (Fullscreen Only) */
+    .comparison-toolbar {
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-3);
+      background: var(--color-primary);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      margin-bottom: 0;
+    }
+
+    .explorer-section--fullscreen .comparison-toolbar {
+      display: flex;
+    }
+
+    .panel-count-selector {
+      display: flex;
+      gap: 8px;
+    }
+
+    .panel-count-btn {
+      padding: 8px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+
+    .panel-count-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .panel-count-btn.active {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    .comparison-title {
+      color: white;
+      font-size: var(--text-body);
+      font-weight: 600;
+    }
+
+    /* Multi-Panel Grid */
+    .comparison-grid {
+      display: none;
+      gap: var(--space-3);
+      flex: 1;
+      padding: var(--space-3);
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .explorer-section--fullscreen .comparison-grid {
+      display: grid;
+    }
+
+    .explorer-section--fullscreen.panels-1 .comparison-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .explorer-section--fullscreen.panels-2 .comparison-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .explorer-section--fullscreen.panels-4 .comparison-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+
+    .comparison-panel {
+      display: none;
+      flex-direction: column;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+    }
+
+    .explorer-section--fullscreen.panels-1 .comparison-panel:nth-child(1),
+    .explorer-section--fullscreen.panels-2 .comparison-panel:nth-child(-n+2),
+    .explorer-section--fullscreen.panels-4 .comparison-panel {
+      display: flex;
+    }
+
+    .panel-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: var(--space-2) var(--space-3);
+      background: rgba(0, 51, 102, 0.05);
+      border-bottom: 1px solid var(--color-border);
+      align-items: center;
+    }
+
+    .panel-header select {
+      padding: 6px 10px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      background: white;
+      cursor: pointer;
+    }
+
+    .panel-header select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    .panel-chart-area {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-3);
+      min-height: 250px;
+    }
+
+    .panel-chart-area svg {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+    }
+
+    /* Hide main explorer in fullscreen when comparison mode is active */
+    .explorer-section--fullscreen .explorer {
+      display: none;
+    }
+
+    .explorer-section--fullscreen .explorer__controls {
+      display: none;
+    }
+
+    /* Dark mode adjustments for comparison panels */
+    [data-theme="dark"] .panel-header {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    [data-theme="dark"] .panel-header select {
+      background: var(--color-surface);
+      color: var(--color-text);
+      border-color: var(--color-border);
+    }
+
+    [data-theme="dark"] .comparison-grid {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    /* Executive Insights Panel */
+    .executive-insights {
+      margin-top: var(--space-3);
+      padding: var(--space-3);
+      background: linear-gradient(135deg, rgba(0, 51, 102, 0.05) 0%, rgba(255, 184, 28, 0.05) 100%);
+      border: 1px solid rgba(0, 51, 102, 0.1);
+      border-radius: var(--radius-md);
+    }
+
+    .executive-insights__title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .executive-insights__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .executive-insights__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.4;
+    }
+
+    .insight-icon {
+      flex-shrink: 0;
+      font-size: 14px;
+    }
+
+    .insight-highlight {
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .insight-positive {
+      color: #10B981;
+    }
+
+    .insight-negative {
+      color: #EF4444;
+    }
+
+    .insight-neutral {
+      color: var(--color-accent);
+    }
+
+    [data-theme="dark"] .executive-insights {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 184, 28, 0.03) 100%);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Preset Quick Views */
+    .preset-views {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-3);
+    }
+
+    .preset-btn {
+      padding: 8px 14px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .preset-btn:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    .preset-btn.active {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-primary);
+    }
+
     /* Export Report Preview Modal */
     .export-modal {
       position: fixed;
@@ -2517,8 +2841,142 @@
       </div><!-- End TAB 2: Data Tables -->
 
       <!-- TAB 3: Data Explorer -->
-      <div class="ir-tab-content" id="tab-explorer" role="tabpanel">
-        <!-- Unified Explorer Container -->
+      <div class="ir-tab-content explorer-section panels-1" id="tab-explorer" role="tabpanel">
+        <!-- Comparison Toolbar (visible in fullscreen only) -->
+        <div class="comparison-toolbar">
+          <div class="comparison-title">📊 Multi-Chart Comparison</div>
+          <div class="panel-count-selector">
+            <button class="panel-count-btn active" data-panels="1">1 Panel</button>
+            <button class="panel-count-btn" data-panels="2">2 Panels</button>
+            <button class="panel-count-btn" data-panels="4">4 Panels</button>
+          </div>
+          <button class="explorer__fullscreen" id="exitFullscreenBtn" title="Exit Fullscreen">✕ Exit</button>
+        </div>
+
+        <!-- Comparison Grid (fullscreen only) -->
+        <div class="comparison-grid">
+          <!-- Panel 1 -->
+          <div class="comparison-panel" id="compPanel1">
+            <div class="panel-header">
+              <select class="panel-source" data-panel="1">
+                <option value="enrollment">📊 Enrollment</option>
+                <option value="admissions">🎓 Admissions</option>
+                <option value="expenses">💰 Costs</option>
+                <option value="ethnicity">🌈 Ethnicity</option>
+              </select>
+              <select class="panel-rows" data-panel="1">
+                <option value="year">Year</option>
+                <option value="genderBreakdown">Gender</option>
+                <option value="statusBreakdown">Status</option>
+                <option value="ethnicityBreakdown">Ethnicity</option>
+              </select>
+              <select class="panel-cols" data-panel="1">
+                <option value="">No Breakdown</option>
+                <option value="genderBreakdown">By Gender</option>
+                <option value="statusBreakdown" selected>By Status</option>
+                <option value="ethnicityBreakdown">By Ethnicity</option>
+              </select>
+              <select class="panel-chart" data-panel="1">
+                <option value="line">📈 Line</option>
+                <option value="bar">📊 Bar</option>
+                <option value="area">📉 Area</option>
+              </select>
+            </div>
+            <div class="panel-chart-area" id="panelChart1"></div>
+          </div>
+
+          <!-- Panel 2 -->
+          <div class="comparison-panel" id="compPanel2">
+            <div class="panel-header">
+              <select class="panel-source" data-panel="2">
+                <option value="enrollment">📊 Enrollment</option>
+                <option value="admissions" selected>🎓 Admissions</option>
+                <option value="expenses">💰 Costs</option>
+                <option value="ethnicity">🌈 Ethnicity</option>
+              </select>
+              <select class="panel-rows" data-panel="2">
+                <option value="year">Year</option>
+                <option value="genderBreakdown">Gender</option>
+                <option value="statusBreakdown">Status</option>
+                <option value="ethnicityBreakdown">Ethnicity</option>
+              </select>
+              <select class="panel-cols" data-panel="2">
+                <option value="" selected>No Breakdown</option>
+                <option value="genderBreakdown">By Gender</option>
+                <option value="statusBreakdown">By Status</option>
+                <option value="ethnicityBreakdown">By Ethnicity</option>
+              </select>
+              <select class="panel-chart" data-panel="2">
+                <option value="line">📈 Line</option>
+                <option value="bar">📊 Bar</option>
+                <option value="area">📉 Area</option>
+              </select>
+            </div>
+            <div class="panel-chart-area" id="panelChart2"></div>
+          </div>
+
+          <!-- Panel 3 -->
+          <div class="comparison-panel" id="compPanel3">
+            <div class="panel-header">
+              <select class="panel-source" data-panel="3">
+                <option value="enrollment">📊 Enrollment</option>
+                <option value="admissions">🎓 Admissions</option>
+                <option value="expenses" selected>💰 Costs</option>
+                <option value="ethnicity">🌈 Ethnicity</option>
+              </select>
+              <select class="panel-rows" data-panel="3">
+                <option value="year">Year</option>
+                <option value="genderBreakdown">Gender</option>
+                <option value="statusBreakdown">Status</option>
+                <option value="ethnicityBreakdown">Ethnicity</option>
+              </select>
+              <select class="panel-cols" data-panel="3">
+                <option value="" selected>No Breakdown</option>
+                <option value="genderBreakdown">By Gender</option>
+                <option value="statusBreakdown">By Status</option>
+                <option value="ethnicityBreakdown">By Ethnicity</option>
+              </select>
+              <select class="panel-chart" data-panel="3">
+                <option value="line">📈 Line</option>
+                <option value="bar">📊 Bar</option>
+                <option value="area">📉 Area</option>
+              </select>
+            </div>
+            <div class="panel-chart-area" id="panelChart3"></div>
+          </div>
+
+          <!-- Panel 4 -->
+          <div class="comparison-panel" id="compPanel4">
+            <div class="panel-header">
+              <select class="panel-source" data-panel="4">
+                <option value="enrollment">📊 Enrollment</option>
+                <option value="admissions">🎓 Admissions</option>
+                <option value="expenses">💰 Costs</option>
+                <option value="ethnicity" selected>🌈 Ethnicity</option>
+              </select>
+              <select class="panel-rows" data-panel="4">
+                <option value="year">Year</option>
+                <option value="genderBreakdown">Gender</option>
+                <option value="statusBreakdown">Status</option>
+                <option value="ethnicityBreakdown">Ethnicity</option>
+              </select>
+              <select class="panel-cols" data-panel="4">
+                <option value="" selected>No Breakdown</option>
+                <option value="genderBreakdown">By Gender</option>
+                <option value="statusBreakdown">By Status</option>
+                <option value="ethnicityBreakdown">By Ethnicity</option>
+              </select>
+              <select class="panel-chart" data-panel="4">
+                <option value="line">📈 Line</option>
+                <option value="bar">📊 Bar</option>
+                <option value="area">📉 Area</option>
+              </select>
+            </div>
+            <div class="panel-chart-area" id="panelChart4"></div>
+          </div>
+        </div>
+
+        <!-- Unified Explorer Container (normal mode) -->
         <div class="explorer-unified">
           <!-- Header Bar with Data Source + Actions -->
           <div class="explorer__source-bar">
@@ -2529,6 +2987,7 @@
               <option value="expenses">💰 Tuition & Costs</option>
             </select>
             <div class="explorer__actions">
+              <button class="explorer__fullscreen" id="explorerFullscreen" title="Toggle Fullscreen">⛶</button>
               <button class="explorer__export" id="explorerExport">📤 Export</button>
               <button class="explorer__reset" id="explorerReset">🔄 Reset</button>
             </div>
@@ -2604,6 +3063,13 @@
 
           <!-- RIGHT: Workspace (Drop Zones + Chart) -->
           <div class="explorer__workspace">
+            <!-- Preset Quick Views -->
+            <div class="preset-views">
+              <button class="preset-btn" data-preset="enrollment">📊 Enrollment Trends</button>
+              <button class="preset-btn" data-preset="diversity">🌈 Diversity</button>
+              <button class="preset-btn" data-preset="costs">💰 Costs</button>
+              <button class="preset-btn" data-preset="admissions">📥 Admissions</button>
+            </div>
             <!-- Drop Zones Row at TOP -->
             <div class="drop-zones">
               <div class="drop-zone" id="dropRows" data-zone="rows">
@@ -2665,6 +3131,14 @@
                     </div>
                   </div>
                 </div>
+                <!-- Executive Insights Panel -->
+                <div class="executive-insights" id="executiveInsights" style="display: none;">
+                  <div class="executive-insights__title">
+                    <span>💡</span> Key Insights
+                  </div>
+                  <ul class="executive-insights__list" id="insightsList">
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -2700,12 +3174,35 @@
     };
 
     const ethnicityData = [
-      { label: 'White', value: 1504, percent: 44.1, color: '#3B82F6' },
-      { label: 'Native American', value: 922, percent: 27.0, color: '#FFB81C' },
-      { label: 'Hispanic/Latino', value: 492, percent: 14.4, color: '#10B981' },
-      { label: 'Two or More', value: 387, percent: 11.3, color: '#8B5CF6' },
-      { label: 'Other', value: 108, percent: 3.2, color: '#6B7280' }
+      { label: 'White', value: 1467, percent: 44.2, color: '#3B82F6' },
+      { label: 'Native American', value: 887, percent: 26.7, color: '#FFB81C' },
+      { label: 'Hispanic/Latino', value: 484, percent: 14.6, color: '#10B981' },
+      { label: 'Two or More', value: 376, percent: 11.3, color: '#8B5CF6' },
+      { label: 'Other', value: 106, percent: 3.2, color: '#6B7280' }
     ];
+
+    // Historical ethnicity data from CDS B2 (Total Undergraduates)
+    const ethnicityByYear = {
+      years: ['2014-15', '2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24'],
+      white: [2040, 1902, 1779, 1603, 1508, 1430, 1353, 1344, 1330, 1467],
+      nativeAmerican: [883, 897, 906, 828, 868, 931, 1103, 1162, 1012, 887],
+      hispanic: [385, 395, 391, 367, 363, 383, 433, 448, 450, 484],
+      twoOrMore: [228, 243, 268, 283, 345, 337, 339, 376, 365, 376],
+      black: [31, 45, 36, 37, 33, 31, 24, 31, 34, 39],
+      asian: [24, 24, 21, 21, 20, 19, 11, 13, 22, 16],
+      other: [107, 173, 155, 160, 133, 98, 86, 65, 55, 51]  // pacificIslander + unknown + nonresident combined
+    };
+
+    // Ethnicity colors for charts (matches ethnicityData order)
+    const ethnicityColors = {
+      white: '#3B82F6',
+      nativeAmerican: '#FFB81C',
+      hispanic: '#10B981',
+      twoOrMore: '#8B5CF6',
+      black: '#EF4444',
+      asian: '#06B6D4',
+      other: '#6B7280'
+    };
 
     const genderData = [
       { label: 'Female', value: 1828, percent: 53.6, color: '#FFB81C' },
@@ -2848,11 +3345,11 @@
       } else if (currentView === 'gender') {
         datasets = [
           { data: male, class: 'male', color: '#3B82F6' },
-          { data: female, class: 'female', color: '#EC4899' }
+          { data: female, class: 'female', color: '#FFB81C' }
         ];
         legend.innerHTML = `
           <div class="legend-item"><span class="legend-dot" style="background: #3B82F6;"></span><span>Male</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background: #EC4899;"></span><span>Female</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background: #FFB81C;"></span><span>Female</span></div>
         `;
       } else if (currentView === 'status') {
         datasets = [
@@ -3143,7 +3640,7 @@
       // Color palettes
       const colors = {
         primary: ['#2563EB', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE'],
-        gender: { male: '#3B82F6', female: '#EC4899' },
+        gender: { male: '#3B82F6', female: '#FFB81C' },
         status: { fullTime: '#2563EB', partTime: '#10B981' },
         ethnicity: ['#3B82F6', '#FFB81C', '#10B981', '#8B5CF6', '#6B7280']
       };
@@ -3165,9 +3662,9 @@
           colors: [colors.status.fullTime, colors.status.partTime]
         },
         ethnicityBreakdown: {
-          labels: ethnicityData.map(e => e.label),
-          values: ethnicityData.map(e => e.value),
-          colors: ethnicityData.map(e => e.color)
+          labels: ['White', 'Native American', 'Hispanic/Latino', 'Two or More', 'Black', 'Asian', 'Other'],
+          keys: ['white', 'nativeAmerican', 'hispanic', 'twoOrMore', 'black', 'asian', 'other'],
+          colors: [ethnicityColors.white, ethnicityColors.nativeAmerican, ethnicityColors.hispanic, ethnicityColors.twoOrMore, ethnicityColors.black, ethnicityColors.asian, ethnicityColors.other]
         }
       };
 
@@ -3184,6 +3681,8 @@
       const chartTypeButtons = document.querySelectorAll('.chart-type-btn');
       const resetButton = document.getElementById('explorerReset');
       const exportButton = document.getElementById('explorerExport');
+      const fullscreenButton = document.getElementById('explorerFullscreen');
+      const explorerSection = document.querySelector('.explorer-section');
       const exportModal = document.getElementById('exportModal');
       const exportModalClose = document.getElementById('exportModalClose');
       const chartContent = document.getElementById('explorerChartContent');
@@ -3393,12 +3892,21 @@
             </div>
           `;
         } else if (filterDimension.field === 'ethnicityBreakdown') {
-          // Ethnicity: checkboxes
-          const currentFilter = explorerState.filterValues || ethnicityData.map((_, i) => i);
+          // Ethnicity: checkboxes (7 groups to match ethnicityByYear)
+          const ethFilterGroups = [
+            { label: 'White', color: ethnicityColors.white },
+            { label: 'Native American', color: ethnicityColors.nativeAmerican },
+            { label: 'Hispanic/Latino', color: ethnicityColors.hispanic },
+            { label: 'Two or More', color: ethnicityColors.twoOrMore },
+            { label: 'Black', color: ethnicityColors.black },
+            { label: 'Asian', color: ethnicityColors.asian },
+            { label: 'Other', color: ethnicityColors.other }
+          ];
+          const currentFilter = explorerState.filterValues || ethFilterGroups.map((_, i) => i);
 
           filterPopupBody.innerHTML = `
             <div class="filter-options">
-              ${ethnicityData.map((eth, i) => `
+              ${ethFilterGroups.map((eth, i) => `
                 <label class="filter-option">
                   <input type="checkbox" value="${i}" ${currentFilter.includes(i) ? 'checked' : ''}>
                   <span class="filter-option__color" style="background: ${eth.color}"></span>
@@ -3519,6 +4027,393 @@
         document.querySelector('[data-chart-type="line"]').classList.add('active');
         updateExplorerChart();
       });
+
+      // Fullscreen toggle
+      let isFullscreen = false;
+      function toggleFullscreen() {
+        isFullscreen = !isFullscreen;
+        if (isFullscreen) {
+          explorerSection.classList.add('explorer-section--fullscreen');
+          document.body.classList.add('fullscreen-active');
+          fullscreenButton.textContent = '✕';
+          fullscreenButton.title = 'Exit Fullscreen';
+          // Render comparison panels
+          setTimeout(() => renderAllComparisonPanels(), 100);
+        } else {
+          explorerSection.classList.remove('explorer-section--fullscreen');
+          document.body.classList.remove('fullscreen-active');
+          fullscreenButton.textContent = '⛶';
+          fullscreenButton.title = 'Toggle Fullscreen';
+        }
+        // Re-render chart with new dimensions
+        setTimeout(() => updateExplorerChart(), 100);
+      }
+
+      fullscreenButton.addEventListener('click', toggleFullscreen);
+
+      // Exit fullscreen button in comparison toolbar
+      const exitFullscreenBtn = document.getElementById('exitFullscreenBtn');
+      if (exitFullscreenBtn) {
+        exitFullscreenBtn.addEventListener('click', () => {
+          if (isFullscreen) toggleFullscreen();
+        });
+      }
+
+      // ESC key to exit fullscreen
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isFullscreen) {
+          toggleFullscreen();
+        }
+      });
+
+      // ===== MULTI-CHART COMPARISON SYSTEM =====
+
+      // Panel count buttons
+      const panelCountBtns = document.querySelectorAll('.panel-count-btn');
+      panelCountBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const count = btn.dataset.panels;
+          panelCountBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          explorerSection.classList.remove('panels-1', 'panels-2', 'panels-4');
+          explorerSection.classList.add(`panels-${count}`);
+          setTimeout(() => renderAllComparisonPanels(), 50);
+        });
+      });
+
+      // Panel selector change handlers
+      document.querySelectorAll('.panel-source, .panel-rows, .panel-cols, .panel-chart').forEach(select => {
+        select.addEventListener('change', () => {
+          const panelNum = select.dataset.panel;
+          renderComparisonPanel(panelNum);
+        });
+      });
+
+      // Build chart data for a specific panel configuration
+      function buildPanelChartData(source, rows, cols, chartType) {
+        const years = enrollmentData.years.map((_, i) => i);
+        const labels = enrollmentData.years.map(y => y.split('-')[0]);
+        let series = [];
+
+        // Enrollment data
+        if (source === 'enrollment') {
+          if (rows === 'year') {
+            if (!cols || cols === '') {
+              series.push({ label: 'Total', data: years.map(i => enrollmentData.total[i]), color: colors.primary[0] });
+            } else if (cols === 'genderBreakdown') {
+              series.push({ label: 'Male', data: years.map(i => enrollmentData.male[i]), color: colors.gender.male });
+              series.push({ label: 'Female', data: years.map(i => enrollmentData.female[i]), color: colors.gender.female });
+            } else if (cols === 'statusBreakdown') {
+              series.push({ label: 'Full-Time', data: years.map(i => enrollmentData.fullTime[i]), color: colors.status.fullTime });
+              series.push({ label: 'Part-Time', data: years.map(i => enrollmentData.partTime[i]), color: colors.status.partTime });
+            } else if (cols === 'ethnicityBreakdown') {
+              const ethKeys = ['white', 'nativeAmerican', 'hispanic', 'twoOrMore', 'black', 'asian', 'other'];
+              const ethLabels = ['White', 'Native American', 'Hispanic', 'Two+', 'Black', 'Asian', 'Other'];
+              const ethColors = [ethnicityColors.white, ethnicityColors.nativeAmerican, ethnicityColors.hispanic, ethnicityColors.twoOrMore, ethnicityColors.black, ethnicityColors.asian, ethnicityColors.other];
+              ethKeys.forEach((key, idx) => {
+                series.push({ label: ethLabels[idx], data: years.map(i => ethnicityByYear[key][i + 1]), color: ethColors[idx] });
+              });
+            }
+          }
+        }
+
+        // Admissions data (from CDS)
+        if (source === 'admissions') {
+          const cdsYears = cdsData.years.map(y => y.split('-')[0]);
+          if (!cols || cols === '') {
+            series.push({ label: 'Applied', data: cdsData.admissions.totalApplied, color: colors.primary[0] });
+            series.push({ label: 'Admitted', data: cdsData.admissions.totalAdmitted, color: colors.primary[1] });
+            series.push({ label: 'Enrolled', data: cdsData.admissions.totalEnrolled, color: colors.primary[2] });
+          }
+          return { labels: cdsYears, series, type: 'timeseries' };
+        }
+
+        // Expenses data (from CDS)
+        if (source === 'expenses') {
+          const cdsYears = cdsData.years.map(y => y.split('-')[0]);
+          series.push({ label: 'In-State Tuition', data: cdsData.expenses.inStateTuition, color: colors.primary[0] });
+          series.push({ label: 'Out-of-State', data: cdsData.expenses.outOfStateTuition, color: colors.primary[1] });
+          series.push({ label: 'Room & Board', data: cdsData.expenses.roomBoard, color: colors.primary[2] });
+          return { labels: cdsYears, series, type: 'timeseries' };
+        }
+
+        // Ethnicity data
+        if (source === 'ethnicity') {
+          const ethYears = ethnicityByYear.years.map(y => y.split('-')[0]);
+          const ethKeys = ['white', 'nativeAmerican', 'hispanic', 'twoOrMore', 'black', 'asian', 'other'];
+          const ethLabels = ['White', 'Native American', 'Hispanic', 'Two+', 'Black', 'Asian', 'Other'];
+          const ethColors = [ethnicityColors.white, ethnicityColors.nativeAmerican, ethnicityColors.hispanic, ethnicityColors.twoOrMore, ethnicityColors.black, ethnicityColors.asian, ethnicityColors.other];
+          ethKeys.forEach((key, idx) => {
+            series.push({ label: ethLabels[idx], data: ethnicityByYear[key], color: ethColors[idx] });
+          });
+          return { labels: ethYears, series, type: 'timeseries' };
+        }
+
+        return { labels, series, type: 'timeseries' };
+      }
+
+      // Render a simplified chart for comparison panels
+      function renderPanelChart(containerId, chartData, chartType) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        const { labels, series } = chartData;
+        if (!series.length) {
+          container.innerHTML = '<div style="color: #999; font-size: 14px;">Select options above</div>';
+          return;
+        }
+
+        const width = 400, height = 220;
+        const padding = { top: 20, right: 30, bottom: 40, left: 55 };
+        const chartWidth = width - padding.left - padding.right;
+        const chartHeight = height - padding.top - padding.bottom;
+
+        const allValues = series.flatMap(s => s.data);
+        const maxVal = Math.ceil(Math.max(...allValues) * 1.1);
+        const minVal = 0;
+        const tickStep = Math.ceil((maxVal - minVal) / 4 / 100) * 100 || 100;
+        const niceMax = Math.ceil(maxVal / tickStep) * tickStep;
+
+        const xStep = chartWidth / (labels.length - 1 || 1);
+        const scaleY = (val) => padding.top + chartHeight - ((val - minVal) / (niceMax - minVal)) * chartHeight;
+
+        let svg = `<svg viewBox="0 0 ${width} ${height}" style="width:100%;height:auto;">`;
+
+        // Grid
+        svg += '<g class="chart-grid">';
+        for (let i = 0; i <= 4; i++) {
+          const y = padding.top + (chartHeight / 4) * i;
+          svg += `<line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="#e5e7eb" stroke-dasharray="3,3"/>`;
+        }
+        svg += '</g>';
+
+        // Y-axis
+        svg += '<g class="chart-y-axis">';
+        for (let i = 0; i <= 4; i++) {
+          const value = niceMax - ((niceMax - minVal) / 4) * i;
+          const y = padding.top + (chartHeight / 4) * i;
+          svg += `<text x="${padding.left - 8}" y="${y + 4}" text-anchor="end" font-size="10" fill="#6b7280">${Math.round(value).toLocaleString()}</text>`;
+        }
+        svg += '</g>';
+
+        // X-axis
+        svg += '<g class="chart-x-axis">';
+        labels.forEach((label, i) => {
+          if (i % 2 === 0 || labels.length <= 5) {
+            const x = padding.left + i * xStep;
+            svg += `<text x="${x}" y="${height - 15}" text-anchor="middle" font-size="9" fill="#6b7280">${label}</text>`;
+          }
+        });
+        svg += '</g>';
+
+        // Draw series
+        if (chartType === 'bar') {
+          const barWidth = (xStep * 0.7) / series.length;
+          series.forEach((s, seriesIdx) => {
+            const barOffset = seriesIdx * barWidth - (series.length * barWidth / 2) + barWidth / 2;
+            s.data.forEach((val, i) => {
+              const x = padding.left + i * xStep + barOffset - barWidth / 2;
+              const yTop = scaleY(val);
+              const barHeight = padding.top + chartHeight - yTop;
+              svg += `<rect x="${x}" y="${yTop}" width="${barWidth}" height="${barHeight}" fill="${s.color}" rx="2"/>`;
+            });
+          });
+        } else {
+          // Line/Area chart
+          series.forEach(s => {
+            const points = s.data.map((val, i) => `${padding.left + i * xStep},${scaleY(val)}`);
+            if (chartType === 'area') {
+              const areaPath = `M${points.join(' L')} L${padding.left + (labels.length - 1) * xStep},${padding.top + chartHeight} L${padding.left},${padding.top + chartHeight} Z`;
+              svg += `<path d="${areaPath}" fill="${s.color}" opacity="0.2"/>`;
+            }
+            svg += `<path d="M${points.join(' L')}" fill="none" stroke="${s.color}" stroke-width="2"/>`;
+            s.data.forEach((val, i) => {
+              svg += `<circle cx="${padding.left + i * xStep}" cy="${scaleY(val)}" r="3" fill="${s.color}"/>`;
+            });
+          });
+        }
+
+        // Legend
+        svg += `<g transform="translate(${padding.left}, ${height - 5})">`;
+        let legendX = 0;
+        series.slice(0, 4).forEach(s => {
+          svg += `<circle cx="${legendX}" cy="0" r="4" fill="${s.color}"/>`;
+          svg += `<text x="${legendX + 8}" y="4" font-size="9" fill="#374151">${s.label}</text>`;
+          legendX += s.label.length * 6 + 20;
+        });
+        svg += '</g>';
+
+        svg += '</svg>';
+        container.innerHTML = svg;
+      }
+
+      // Render single comparison panel
+      function renderComparisonPanel(panelNum) {
+        const sourceSelect = document.querySelector(`.panel-source[data-panel="${panelNum}"]`);
+        const rowsSelect = document.querySelector(`.panel-rows[data-panel="${panelNum}"]`);
+        const colsSelect = document.querySelector(`.panel-cols[data-panel="${panelNum}"]`);
+        const chartSelect = document.querySelector(`.panel-chart[data-panel="${panelNum}"]`);
+
+        if (!sourceSelect) return;
+
+        const source = sourceSelect.value;
+        const rows = rowsSelect.value;
+        const cols = colsSelect.value;
+        const chartType = chartSelect.value;
+
+        const chartData = buildPanelChartData(source, rows, cols, chartType);
+        renderPanelChart(`panelChart${panelNum}`, chartData, chartType);
+      }
+
+      // Render all visible comparison panels
+      function renderAllComparisonPanels() {
+        const panelClass = Array.from(explorerSection.classList).find(c => c.startsWith('panels-'));
+        const count = panelClass ? parseInt(panelClass.split('-')[1]) : 1;
+
+        for (let i = 1; i <= count; i++) {
+          renderComparisonPanel(i);
+        }
+      }
+
+      // ===== PRESET QUICK VIEWS =====
+      const presetBtns = document.querySelectorAll('.preset-btn');
+      const presets = {
+        enrollment: {
+          dataSource: 'enrollment',
+          rows: { field: 'year', type: 'dimension', label: 'Year' },
+          columns: { field: 'statusBreakdown', type: 'dimension', label: 'Enrollment Status' },
+          values: { field: 'total', type: 'measure', label: 'Total Enrollment' },
+          chartType: 'line'
+        },
+        diversity: {
+          dataSource: 'enrollment',
+          rows: { field: 'year', type: 'dimension', label: 'Year' },
+          columns: { field: 'ethnicityBreakdown', type: 'dimension', label: 'Race/Ethnicity' },
+          values: { field: 'total', type: 'measure', label: 'Total Enrollment' },
+          chartType: 'line'
+        },
+        costs: {
+          dataSource: 'expenses',
+          rows: { field: 'year', type: 'dimension', label: 'Year' },
+          columns: null,
+          values: { field: 'inStateTuition', type: 'measure', label: 'In-State Tuition' },
+          chartType: 'line'
+        },
+        admissions: {
+          dataSource: 'admissions',
+          rows: { field: 'year', type: 'dimension', label: 'Year' },
+          columns: null,
+          values: { field: 'totalApplied', type: 'measure', label: 'Applications' },
+          chartType: 'line'
+        }
+      };
+
+      presetBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const preset = presets[btn.dataset.preset];
+          if (!preset) return;
+
+          // Update state
+          explorerState.dataSource = preset.dataSource;
+          explorerState.rows = preset.rows;
+          explorerState.columns = preset.columns;
+          explorerState.values = preset.values;
+          explorerState.chartType = preset.chartType;
+          explorerState.filter = null;
+          explorerState.filterValues = null;
+
+          // Update UI
+          document.getElementById('dataSourceSelect').value = preset.dataSource;
+          zones.forEach(z => {
+            const data = explorerState[z.key];
+            updateDropZoneDisplay(z.content, data, z.key, z.placeholder);
+          });
+          chartTypeButtons.forEach(b => b.classList.remove('active'));
+          document.querySelector(`[data-chart-type="${preset.chartType}"]`).classList.add('active');
+
+          // Highlight active preset
+          presetBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          // Update chart
+          updateExplorerChart();
+        });
+      });
+
+      // ===== EXECUTIVE INSIGHTS GENERATION =====
+      const insightsPanel = document.getElementById('executiveInsights');
+      const insightsList = document.getElementById('insightsList');
+
+      function generateInsights(chartData) {
+        if (!chartData || !chartData.series || chartData.series.length === 0) {
+          insightsPanel.style.display = 'none';
+          return;
+        }
+
+        const insights = [];
+        const { labels, series, type } = chartData;
+
+        series.forEach(s => {
+          if (!s.data || s.data.length < 2) return;
+
+          const data = s.data;
+          const firstVal = data[0];
+          const lastVal = data[data.length - 1];
+          const maxVal = Math.max(...data);
+          const minVal = Math.min(...data);
+          const maxIdx = data.indexOf(maxVal);
+          const minIdx = data.indexOf(minVal);
+
+          // Calculate total change
+          const totalChange = ((lastVal - firstVal) / firstVal * 100).toFixed(1);
+          const changeClass = totalChange > 0 ? 'insight-positive' : totalChange < 0 ? 'insight-negative' : 'insight-neutral';
+          const changeIcon = totalChange > 0 ? '📈' : totalChange < 0 ? '📉' : '➡️';
+
+          // Only generate insights for significant changes (>3%)
+          if (Math.abs(totalChange) > 3) {
+            insights.push({
+              icon: changeIcon,
+              text: `<span class="insight-highlight">${s.label}</span>: <span class="${changeClass}">${totalChange > 0 ? '+' : ''}${totalChange}%</span> change from ${labels[0]} to ${labels[labels.length - 1]}`
+            });
+          }
+
+          // Peak detection
+          if (maxIdx > 0 && maxIdx < data.length - 1) {
+            insights.push({
+              icon: '🎯',
+              text: `<span class="insight-highlight">${s.label}</span> peaked at <span class="insight-neutral">${maxVal.toLocaleString()}</span> in ${labels[maxIdx]}`
+            });
+          }
+
+          // Significant YoY change (>10%)
+          for (let i = 1; i < data.length; i++) {
+            const yoyChange = ((data[i] - data[i-1]) / data[i-1] * 100);
+            if (Math.abs(yoyChange) > 10) {
+              const yoyClass = yoyChange > 0 ? 'insight-positive' : 'insight-negative';
+              insights.push({
+                icon: yoyChange > 0 ? '⬆️' : '⬇️',
+                text: `<span class="insight-highlight">${s.label}</span>: <span class="${yoyClass}">${yoyChange > 0 ? '+' : ''}${yoyChange.toFixed(1)}%</span> YoY change in ${labels[i]}`
+              });
+              break; // Only show first significant YoY change
+            }
+          }
+        });
+
+        // Limit to top 4 insights
+        const topInsights = insights.slice(0, 4);
+
+        if (topInsights.length > 0) {
+          insightsPanel.style.display = 'block';
+          insightsList.innerHTML = topInsights.map(i => `
+            <li class="executive-insights__item">
+              <span class="insight-icon">${i.icon}</span>
+              <span>${i.text}</span>
+            </li>
+          `).join('');
+        } else {
+          insightsPanel.style.display = 'none';
+        }
+      }
 
       // Export button - show professional report preview
       exportButton.addEventListener('click', () => {
@@ -3716,6 +4611,9 @@
         } else {
           renderChart(chartData);
         }
+
+        // Generate executive insights
+        generateInsights(chartData);
       }
 
       // Build data structure for charts
@@ -3841,13 +4739,24 @@
                 type: 'categorical'
               };
             } else if (columns && columns.field === 'ethnicityBreakdown') {
-              const filteredEthnicity = ethnicityData.filter((_, i) => filterEthnicity(i));
+              // Ethnicity for donut (7 groups, latest year from ethnicityByYear)
+              const ethGroups = [
+                { key: 'white', label: 'White', color: ethnicityColors.white },
+                { key: 'nativeAmerican', label: 'Native American', color: ethnicityColors.nativeAmerican },
+                { key: 'hispanic', label: 'Hispanic/Latino', color: ethnicityColors.hispanic },
+                { key: 'twoOrMore', label: 'Two or More', color: ethnicityColors.twoOrMore },
+                { key: 'black', label: 'Black', color: ethnicityColors.black },
+                { key: 'asian', label: 'Asian', color: ethnicityColors.asian },
+                { key: 'other', label: 'Other', color: ethnicityColors.other }
+              ];
+              const latestEthIdx = ethnicityByYear.years.length - 1; // Latest year in ethnicityByYear
+              const filteredEth = ethGroups.filter((_, i) => filterEthnicity(i));
               return {
-                labels: filteredEthnicity.map(e => e.label),
+                labels: filteredEth.map(e => e.label),
                 series: [{
-                  label: 'Ethnicity',
-                  data: filteredEthnicity.map(e => e.value),
-                  color: filteredEthnicity.map(e => e.color)
+                  label: 'Ethnicity (Latest Year)',
+                  data: filteredEth.map(e => ethnicityByYear[e.key][latestEthIdx]),
+                  color: filteredEth.map(e => e.color)
                 }],
                 type: 'categorical'
               };
@@ -3893,18 +4802,26 @@
               series.push({ label: 'Part-Time', data: yearIndices.map(i => enrollmentData.partTime[i]), color: colors.status.partTime });
             }
           } else if (columns.field === 'ethnicityBreakdown') {
-            // For ethnicity over time, we only have latest year data
-            // Show filtered ethnicity data
-            const filteredEthnicity = ethnicityData.filter((_, i) => filterEthnicity(i));
-            return {
-              labels: filteredEthnicity.map(e => e.label),
-              series: [{
-                label: 'Ethnicity (2023-24)',
-                data: filteredEthnicity.map(e => e.value),
-                color: filteredEthnicity.map(e => e.color)
-              }],
-              type: 'categorical'
-            };
+            // Ethnicity breakdown over time using ethnicityByYear data
+            // Map enrollmentData year indices to ethnicityByYear indices (+1 offset since ethnicityByYear starts at 2014-15)
+            const ethGroups = [
+              { key: 'white', label: 'White', color: ethnicityColors.white },
+              { key: 'nativeAmerican', label: 'Native American', color: ethnicityColors.nativeAmerican },
+              { key: 'hispanic', label: 'Hispanic/Latino', color: ethnicityColors.hispanic },
+              { key: 'twoOrMore', label: 'Two or More', color: ethnicityColors.twoOrMore },
+              { key: 'black', label: 'Black', color: ethnicityColors.black },
+              { key: 'asian', label: 'Asian', color: ethnicityColors.asian },
+              { key: 'other', label: 'Other', color: ethnicityColors.other }
+            ];
+            ethGroups.forEach((eth, idx) => {
+              if (filterEthnicity(idx)) {
+                series.push({
+                  label: eth.label,
+                  data: yearIndices.map(i => ethnicityByYear[eth.key][i + 1]), // +1 offset for ethnicityByYear
+                  color: eth.color
+                });
+              }
+            });
           }
           return { labels, series, type: 'timeseries' };
         }
@@ -3947,15 +4864,25 @@
           };
         }
 
-        // Case 4: Ethnicity on rows (filtered)
+        // Case 4: Ethnicity on rows (filtered) - show latest year
         if (rows.field === 'ethnicityBreakdown') {
-          const filteredEthnicity = ethnicityData.filter((_, i) => filterEthnicity(i));
+          const ethGroups = [
+            { key: 'white', label: 'White', color: ethnicityColors.white },
+            { key: 'nativeAmerican', label: 'Native American', color: ethnicityColors.nativeAmerican },
+            { key: 'hispanic', label: 'Hispanic/Latino', color: ethnicityColors.hispanic },
+            { key: 'twoOrMore', label: 'Two or More', color: ethnicityColors.twoOrMore },
+            { key: 'black', label: 'Black', color: ethnicityColors.black },
+            { key: 'asian', label: 'Asian', color: ethnicityColors.asian },
+            { key: 'other', label: 'Other', color: ethnicityColors.other }
+          ];
+          const latestEthIdx = ethnicityByYear.years.length - 1;
+          const filteredEth = ethGroups.filter((_, i) => filterEthnicity(i));
           return {
-            labels: filteredEthnicity.map(e => e.label),
+            labels: filteredEth.map(e => e.label),
             series: [{
               label: 'Count',
-              data: filteredEthnicity.map(e => e.value),
-              color: filteredEthnicity.map(e => e.color)
+              data: filteredEth.map(e => ethnicityByYear[e.key][latestEthIdx]),
+              color: filteredEth.map(e => e.color)
             }],
             type: 'categorical'
           };
