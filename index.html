@@ -33,81 +33,6 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* ===== SUN FOR DAYTIME (Light Mode) ===== */
-    .hero__sun {
-      position: absolute;
-      top: 15%;
-      right: 12%;
-      width: 80px;
-      height: 80px;
-      background: radial-gradient(circle, #fff9c4 0%, #ffeb3b 30%, #ffc107 60%, transparent 70%);
-      border-radius: 50%;
-      z-index: 2;
-      pointer-events: none;
-      box-shadow:
-        0 0 60px 30px rgba(255, 235, 59, 0.4),
-        0 0 100px 60px rgba(255, 193, 7, 0.2),
-        0 0 140px 90px rgba(255, 152, 0, 0.1);
-      animation: sunGlow 4s ease-in-out infinite;
-      opacity: 1;
-      transition: opacity 0.5s ease;
-    }
-
-    @keyframes sunGlow {
-      0%, 100% {
-        box-shadow:
-          0 0 60px 30px rgba(255, 235, 59, 0.4),
-          0 0 100px 60px rgba(255, 193, 7, 0.2),
-          0 0 140px 90px rgba(255, 152, 0, 0.1);
-      }
-      50% {
-        box-shadow:
-          0 0 80px 40px rgba(255, 235, 59, 0.5),
-          0 0 120px 70px rgba(255, 193, 7, 0.25),
-          0 0 160px 100px rgba(255, 152, 0, 0.15);
-      }
-    }
-
-    /* Hide sun in dark mode */
-    [data-theme="dark"] .hero__sun {
-      opacity: 0;
-    }
-
-    /* Sun rays */
-    .hero__sun::before {
-      content: '';
-      position: absolute;
-      inset: -20px;
-      background: conic-gradient(
-        from 0deg,
-        transparent 0deg, rgba(255, 235, 59, 0.1) 10deg, transparent 20deg,
-        transparent 45deg, rgba(255, 235, 59, 0.1) 55deg, transparent 65deg,
-        transparent 90deg, rgba(255, 235, 59, 0.1) 100deg, transparent 110deg,
-        transparent 135deg, rgba(255, 235, 59, 0.1) 145deg, transparent 155deg,
-        transparent 180deg, rgba(255, 235, 59, 0.1) 190deg, transparent 200deg,
-        transparent 225deg, rgba(255, 235, 59, 0.1) 235deg, transparent 245deg,
-        transparent 270deg, rgba(255, 235, 59, 0.1) 280deg, transparent 290deg,
-        transparent 315deg, rgba(255, 235, 59, 0.1) 325deg, transparent 335deg,
-        transparent 360deg
-      );
-      animation: sunRays 20s linear infinite;
-      border-radius: 50%;
-    }
-
-    @keyframes sunRays {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    @media (max-width: 768px) {
-      .hero__sun {
-        width: 50px;
-        height: 50px;
-        top: 12%;
-        right: 8%;
-      }
-    }
-
     /* Hero Section */
     .hero {
       min-height: 100vh;
@@ -119,12 +44,12 @@
       overflow: hidden;
     }
 
-    /* Hero overlay for readability - MORE TRANSPARENT for mountain visibility */
+    /* Hero overlay for readability - LIGHT MODE: brighter, cleaner feel */
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0, 51, 102, 0.6) 0%, rgba(0, 51, 102, 0.45) 40%, rgba(0, 51, 102, 0.65) 100%);
+      background: linear-gradient(180deg, rgba(0, 51, 102, 0.5) 0%, rgba(0, 51, 102, 0.35) 40%, rgba(0, 51, 102, 0.55) 100%);
       z-index: 1;
     }
 
@@ -133,16 +58,16 @@
       display: none;
     }
 
-    /* Content sections - MORE TRANSPARENT for mountain visibility */
+    /* Content sections - LIGHT MODE: genuinely light, near-white backgrounds */
     .section,
     .programs,
     .campus-preview,
     .stats-banner,
     .cta-section,
     .news-section {
-      background: rgba(255, 255, 255, 0.82) !important;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     /* Footer - semi-transparent dark */
@@ -239,7 +164,7 @@
       overflow: hidden;
       z-index: 2;
       pointer-events: none;
-      opacity: 0.5; /* Lighter snow during daytime */
+      opacity: 0; /* Snow hidden in light mode */
     }
 
     .hero__particle {
@@ -1252,10 +1177,7 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <!-- Sun (visible in Light Mode) -->
-    <div class="hero__sun" aria-hidden="true"></div>
-
-    <!-- Animated Snow Particles (Light: gentle, Dark: heavy) -->
+    <!-- Animated Snow Particles (Dark mode only) -->
     <div class="hero__particles" aria-hidden="true">
       <div class="hero__particle" style="left: 10%; animation-duration: 8s; animation-delay: 0s;"></div>
       <div class="hero__particle" style="left: 20%; animation-duration: 12s; animation-delay: 1s;"></div>
@@ -2059,11 +1981,11 @@
     const themeIcon = themeToggle.querySelector('.theme-toggle__icon');
     const root = document.documentElement;
 
-    // Check for saved theme preference or system preference
+    // Check for saved theme preference - default to dark mode
     function getPreferredTheme() {
       const savedTheme = localStorage.getItem('horizon-theme');
       if (savedTheme) return savedTheme;
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      return 'dark'; // Dark mode is the default experience
     }
 
     // Apply theme

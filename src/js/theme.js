@@ -9,11 +9,11 @@
   const STORAGE_KEY = 'horizon-theme';
   const root = document.documentElement;
 
-  // Get preferred theme (saved or system preference)
+  // Get preferred theme - default to dark mode
   function getPreferredTheme() {
     const savedTheme = localStorage.getItem(STORAGE_KEY);
     if (savedTheme) return savedTheme;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return 'dark'; // Dark mode is the default experience
   }
 
   // Apply theme to document
